@@ -1,0 +1,40 @@
+/* header component */
+
+header {
+    /* size */ 
+    width: 100vw; 
+    height: 50px;
+    
+    /* color */ 
+    background-color: var(--color-primary); 
+    color: var(--color-font-bright);
+    
+    /* layout */ 
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+        /* font */
+        font-family: 'Station';
+
+        /* layout */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        span {
+            &:nth-child(1) { font-size: var(--size-font-large); }
+            &:nth-child(2) { font-size: var(--size-font-small); }
+        }
+    }
+
+    button {
+        padding: 0 10px;
+    }
+
+    .fas {
+        font-size: 32px;
+    }
+}

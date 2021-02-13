@@ -1,0 +1,43 @@
+/* color definitions */
+
+:root {
+    
+    // #region base colors
+    --color-bg: white;
+    --color-day-primary: #43BD9E;
+    --color-night-primary: #006890;
+    --color-day-secondary: #FBEE7B;
+    --color-night-secondary: #F8A480;
+    // #endregion
+
+    // #region moods
+    --color-mood-good: #2DC937;
+    --color-mood-ok: #99C140;
+    --color-mood-meh: #E7B416;
+    --color-mood-bad: #DB7B2B;
+    --color-mood-worst: #CC3232;
+    // #endregion
+
+    // #region times-of-day
+    --color-tod-0: #F37E84;
+    --color-tod-1: #F6966E;
+    --color-tod-2: #FED555;
+    --color-tod-3: #F8F16F;
+    --color-tod-4: #FFE3A4;
+    --color-tod-5: #F5A67E;
+    --color-tod-6: #8A92A6;
+    --color-tod-6: #006692;
+    --color-tod-7: #1A3A50;
+    // #endregion
+
+    // #region fonts
+    --color-font-bright: white;
+    --color-font-dark: white;
+    // #endregion
+
+    // #region use cases
+    --color-primary: var(--color-day-primary);
+    --color-secondary: var(--color-day-secondary);
+    // #endregion
+
+}
