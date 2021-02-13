@@ -387,6 +387,8 @@ Button {
 
     /* Corrects inability to style clickable `input` types in iOS */
     -webkit-appearance: none;
+
+    -webkit-tap-highlight-color: transparent;
 }
 
 /* Remove excess padding and border in Firefox 4+ */
