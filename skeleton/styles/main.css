@@ -30,7 +30,7 @@
 }
 
 @font-face {
-  font-family: 'Varela';
+  font-family: 'Varela Round';
   src: url("../../assets/fonts/VarelaRound-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
@@ -189,5 +189,118 @@ footer .bottom-filler {
   bottom: -25%;
   /* color */
   background-color: var(--color-primary);
+}
+
+/* activity component */
+.activity {
+  /* layout */
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 15% 1fr 1fr 15%;
+      grid-template-rows: 15% 1fr 1fr 15%;
+  -ms-grid-columns: 24px 5% 1fr 24px 12px;
+      grid-template-columns: 24px 5% 1fr 24px 12px;
+      grid-template-areas: 'time _ __       __     selected' 'time _ title    edit   selected' 'time _ subtitle delete selected' 'time _ ___      ___    selected';
+  /* size */
+  width: 100vw;
+  height: 70px;
+  border-bottom: 1px solid gray;
+}
+
+.activity .time-container {
+  /* layout */
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 4;
+  -ms-grid-column: 1;
+  grid-area: time;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: var(--color-tod-2);
+}
+
+.activity .time-container time {
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+  /* font */
+  font-family: 'Varela Round';
+  font-size: var(--size-font-large);
+  color: var(--color-font-dark);
+}
+
+.activity .title {
+  -ms-grid-row: 2;
+  -ms-grid-column: 3;
+  grid-area: title;
+  /* font */
+  font-family: 'Varela Round';
+  font-size: var(--size-font-large);
+  color: var(--color-font-dark);
+}
+
+.activity .subtitle {
+  /* layout */
+  -ms-grid-row: 3;
+  -ms-grid-column: 3;
+  grid-area: subtitle;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.activity .subtitle .feeling-label {
+  font-family: 'Mukta';
+  font-weight: lighter;
+  font-size: var(--size-font-medium);
+  color: var(--color-font-dark);
+  margin-right: 5rem;
+}
+
+.activity .subtitle .feeling-mood {
+  /* size */
+  width: 53rem;
+  height: 20rem;
+  border-radius: 5rem;
+  /* font */
+  font-family: 'Mukta';
+  font-weight: bold;
+  font-size: var(--size-font-small);
+  text-align: center;
+  /* color */
+  color: var(--color-font-bright);
+  background-color: var(--color-mood-good);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 /*# sourceMappingURL=main.css.map */

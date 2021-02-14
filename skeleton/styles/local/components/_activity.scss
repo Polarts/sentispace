@@ -1,0 +1,84 @@
+/* activity component */
+
+.activity {
+    
+    /* layout */
+    display: grid;
+    grid-template-rows: 15% 1fr 1fr 15%;
+    grid-template-columns: 24px 5% 1fr 24px 12px;
+    grid-template-areas: 
+        'time _ __       __     selected'
+        'time _ title    edit   selected'
+        'time _ subtitle delete selected'
+        'time _ ___      ___    selected';
+    
+    /* size */ width: 100vw; height: 70px;
+    
+    border-bottom: 1px solid gray;
+
+    .time-container {
+
+        /* layout */ grid-area: time; @include flex;
+
+        background-color: var(--color-tod-2);
+
+        time {
+        
+            transform: rotate(90deg);
+            
+            /* font */ 
+            font-family: 'Varela Round'; 
+            font-size: var(--size-font-large);
+            color: var(--color-font-dark);
+        }
+    }
+
+   
+
+    .title {
+
+        grid-area: title;
+
+        /* font */
+        font-family: 'Varela Round';
+        font-size: var(--size-font-large);
+        
+        color: var(--color-font-dark);
+    }
+
+    .subtitle {
+        
+        /* layout */
+        grid-area: subtitle;
+        @include flex(row, flex-start);
+
+        .feeling-label {
+
+            font-family: 'Mukta';
+            font-weight: lighter;
+            font-size: var(--size-font-medium);
+            
+            color: var(--color-font-dark);
+
+            margin-right: 5rem;
+        }
+
+        .feeling-mood {
+
+            /* size */ width: 53rem; height: 20rem;
+            border-radius: 5rem;
+
+            /* font */
+            font-family: 'Mukta';
+            font-weight: bold;
+            font-size: var(--size-font-small);
+            text-align: center;
+
+            /* color */
+            color: var(--color-font-bright);
+            background-color: var(--color-mood-good);
+            
+            @include flex;
+        }
+    }
+}

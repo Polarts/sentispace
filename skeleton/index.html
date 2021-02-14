@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="./styles/imports/reset.css">
     <link rel="stylesheet" href="./styles/imports/fontawesome.css">
     <link rel="stylesheet" href="./styles/main.css">
-    <title>Activity Tracker</title>
+    <title>Feel Tracker</title>
 </head>
-<body>
+<body
+>
     <!-- #region header -->
     <header>
         <button>
@@ -24,6 +25,24 @@
         </button>
     </header>
     <!-- #endregion -->
+
+    <main>
+        <section class="activity">
+            <div class="time-container">
+                <time>12:30</time>
+            </div>
+            <span class="title">A thing was done!</span>
+            <div class="subtitle">
+                <span class="feeling-label">Feeling:</span>
+                <div class="feeling-mood">
+                    <span>GOOD</span>
+                </div>
+            </div>
+            <button class="edit-button"><i class="fas fa-pen-square"></i></button>
+            <button class="delete-button"><i class="fas fa-minus-square"></i></button>
+        </section>        
+    </main>
+
     <!-- #region footer -->
     <footer>
         <button>
@@ -32,5 +51,6 @@
         <div class="bottom-filler"></div>
     </footer>
     <!-- #endregion -->
+    
 </body>
 </html>

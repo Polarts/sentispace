@@ -11,7 +11,7 @@ header {
 
     h1 {
 
-        /* layout */@include flex($justify: flex-start);
+        /* layout */ @include flex($justify: flex-start);
         
         /* font */
         font-family: 'Station';
