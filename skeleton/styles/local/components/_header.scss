@@ -11,7 +11,7 @@ header {
 
     h1 {
 
-        /* layout */ @include flex($justify: flex-start);
+        @include flex($justify: flex-start);
         
         /* font */
         font-family: 'Station';
@@ -21,9 +21,5 @@ header {
         }
     }
 
-    button {
-
-        padding: 0 10px;
-        font-size: 32px;
-    }
+    button { padding: 0 10px; font-size: 32px; }
 }

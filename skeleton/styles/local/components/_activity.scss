@@ -13,7 +13,7 @@
         'time _ ___      ___    selected';
     
     /* size */ width: 100vw; height: 70px;
-    
+
     border-bottom: 1px solid gray;
 
     .time-container {
@@ -80,5 +80,22 @@
             
             @include flex;
         }
+    }
+
+    .action-button { font-size: var(--size-action);}
+
+    .edit {
+        grid-area: edit;
+        color: var(--color-mood-meh);
+    }
+
+    .delete {
+        grid-area: delete;
+        color: var(--color-mood-worst);
+    }
+
+    .selected {
+        grid-area: selected;
+        background-color: var(--color-primary);
     }
 }
