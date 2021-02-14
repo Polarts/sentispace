@@ -1,24 +1,20 @@
 /* header component */
 
 header {
-    /* size */ 
-    width: 100vw; 
-    height: 50px;
+
+    /* size */ width: 100vw; height: 50px;
+    /* layout */ @include flex(row);
     
     /* color */ 
     background-color: var(--color-primary); 
     color: var(--color-font-bright);
-    
-    /* layout */ 
-    @include flex(row);
 
     h1 {
+
+        /* layout */@include flex($justify: flex-start);
+        
         /* font */
         font-family: 'Station';
-
-        /* layout */
-        @include flex($justify: flex-start);
-
         span {
             &:nth-child(1) { font-size: var(--size-font-large); }
             &:nth-child(2) { font-size: var(--size-font-small); }
@@ -26,6 +22,7 @@ header {
     }
 
     button {
+
         padding: 0 10px;
         font-size: 32px;
     }

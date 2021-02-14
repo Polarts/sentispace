@@ -90,9 +90,6 @@ header {
   /* size */
   width: 100vw;
   height: 50px;
-  /* color */
-  background-color: var(--color-primary);
-  color: var(--color-font-bright);
   /* layout */
   display: -webkit-box;
   display: -ms-flexbox;
@@ -107,11 +104,12 @@ header {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  /* color */
+  background-color: var(--color-primary);
+  color: var(--color-font-bright);
 }
 
 header h1 {
-  /* font */
-  font-family: 'Station';
   /* layout */
   display: -webkit-box;
   display: -ms-flexbox;
@@ -126,6 +124,8 @@ header h1 {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  /* font */
+  font-family: 'Station';
 }
 
 header h1 span:nth-child(1) {
