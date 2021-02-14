@@ -10,19 +10,14 @@ header {
     color: var(--color-font-bright);
     
     /* layout */ 
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    @include flex(row);
 
     h1 {
         /* font */
         font-family: 'Station';
 
         /* layout */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        @include flex($justify: flex-start);
 
         span {
             &:nth-child(1) { font-size: var(--size-font-large); }
