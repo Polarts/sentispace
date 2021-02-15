@@ -2,7 +2,7 @@
 
 .nav-footer {
 
-    /* size */ width: 100vw; height: 100px;
+    /* size */ width: 100vw; height: 150px;
     /* position */ position: fixed; bottom: 0; 
     /* layout */ @include flex($justify: flex-start);
     overflow: hidden;
@@ -14,7 +14,7 @@
     .bottom-filler {
 
         /* size */ width: 150vw; height: 100%; border-radius: 50%;
-        /* position */ position: absolute; z-index: -1; bottom: -25%;
+        /* position */ position: absolute; z-index: -1; bottom: -50%;
         
         /* color */ 
         background-color: var(--color-primary);

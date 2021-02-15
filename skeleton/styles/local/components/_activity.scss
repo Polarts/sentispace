@@ -4,16 +4,13 @@
     
     /* layout */
     display: grid;
-    grid-template-rows: 10px 1fr 1fr 5px;
+    grid-template-rows: 1fr 1fr;
     grid-template-columns: 24px 5% 1fr fit-content(50px) 10px 12px;
     grid-template-areas: 
-        'time -lp- -tp-     -tp-   -rp- selected'
         'time -lp- title    edit   -rp- selected'
         'time -lp- subtitle delete -rp- selected'
-        'time -lp- -bp-    -bp-    -rp- selected';
-    
-    /* size */ width: 100vw; height: 70px;
-
+    ;    
+    /* size */ width: 100vw; min-height: 75px;
     border-bottom: 1px solid gray;
 
     .time-container {
@@ -22,7 +19,9 @@
         grid-area: time; 
         @include flex;
 
+        /* color */
         background-color: var(--color-tod-2);
+        color: var(--color-font-dark);
 
         time {
         
@@ -31,7 +30,6 @@
             /* font */ 
             font-family: 'Varela Round'; 
             font-size: var(--size-font-large);
-            color: var(--color-font-dark);
         }
     }
 
@@ -40,6 +38,7 @@
     .title {
 
         grid-area: title;
+        margin-top: 12px;
 
         /* font */
         font-family: 'Varela Round';
@@ -50,8 +49,8 @@
 
     .subtitle {
         
-        /* layout */
         grid-area: subtitle;
+        margin-bottom: 5px;
         @include flex(row, flex-start);
 
         .feeling-label {
@@ -88,11 +87,13 @@
 
     .edit {
         grid-area: edit;
-        color: var(--color-mood-meh);
+        margin-top: 5px;
+        color: var(--color-mood-ok);
     }
 
     .delete {
         grid-area: delete;
+        margin-bottom: 5px;
         color: var(--color-mood-worst);
     }
 

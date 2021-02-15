@@ -52,29 +52,29 @@
 
 /* color definitions */
 :root {
-  --color-bg: white;
-  --color-day-primary: #43BD9E;
-  --color-night-primary: #006890;
-  --color-day-secondary: #FBEE7B;
-  --color-night-secondary: #F8A480;
-  --color-day-secondary-brightened: #faf1a0;
-  --color-night-secondary-brightened: #f7c4ae;
-  --color-mood-good: #2DC937;
-  --color-mood-ok: #99C140;
-  --color-mood-meh: #E7B416;
-  --color-mood-bad: #DB7B2B;
-  --color-mood-worst: #CC3232;
-  --color-tod-0: #F37E84;
-  --color-tod-1: #F6966E;
-  --color-tod-2: #FED555;
-  --color-tod-3: #F8F16F;
-  --color-tod-4: #FFE3A4;
-  --color-tod-5: #F5A67E;
-  --color-tod-6: #8A92A6;
-  --color-tod-6: #006692;
-  --color-tod-7: #1A3A50;
+  --color-mood-great: hsl(124, 63%, 48%);
+  --color-mood-good: hsl(79, 51%, 50%);
+  --color-mood-ok: hsl(45, 83%, 50%);
+  --color-mood-bad: hsl(27, 71%, 51%);
+  --color-mood-worst: hsl(0, 61%, 50%);
+  --color-tod-0: hsl(357, 83%, 72%);
+  --color-tod-1: hsl(18, 88%, 70%);
+  --color-tod-2: hsl(45, 99%, 66%);
+  --color-tod-3: hsl(57, 91%, 70%);
+  --color-tod-4: hsl(42, 100%, 82%);
+  --color-tod-5: hsl(20, 86%, 73%);
+  --color-tod-6: hsl(223, 14%, 60%);
+  --color-tod-6: hsl(198, 100%, 29%);
+  --color-tod-7: hsl(204, 51%, 21%);
   --color-font-bright: white;
   --color-font-dark: black;
+  --color-bg: white;
+  --color-day-primary: hsl(162, 47%, 52%);
+  --color-night-primary: hsl(198, 100%, 29%);
+  --color-day-secondary: hsl(57, 91%, 70%);
+  --color-night-secondary: hsl(20, 86%, 73%);
+  --color-day-secondary-brightened: hsl(57, 91%, 85%);
+  --color-night-secondary-brightened: hsl(20, 86%, 85%);
   --color-primary: var(--color-day-primary);
   --color-secondary: var(--color-day-secondary);
   --color-secondary-brightened: var(--color-day-secondary-brightened);
@@ -93,21 +93,21 @@ html {
   /* layout */
   display: -ms-grid;
   display: grid;
-  -ms-grid-rows: 10px 1fr 1fr 5px;
-      grid-template-rows: 10px 1fr 1fr 5px;
+  -ms-grid-rows: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
   -ms-grid-columns: 24px 5% 1fr fit-content(50px) 10px 12px;
       grid-template-columns: 24px 5% 1fr fit-content(50px) 10px 12px;
-      grid-template-areas: 'time -lp- -tp-     -tp-   -rp- selected' 'time -lp- title    edit   -rp- selected' 'time -lp- subtitle delete -rp- selected' 'time -lp- -bp-    -bp-    -rp- selected';
+      grid-template-areas: 'time -lp- title    edit   -rp- selected' 'time -lp- subtitle delete -rp- selected';
   /* size */
   width: 100vw;
-  height: 70px;
+  min-height: 75px;
   border-bottom: 1px solid gray;
 }
 
 .activity .time-container {
   /* layout */
   -ms-grid-row: 1;
-  -ms-grid-row-span: 4;
+  -ms-grid-row-span: 2;
   -ms-grid-column: 1;
   grid-area: time;
   display: -webkit-box;
@@ -123,7 +123,9 @@ html {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  /* color */
   background-color: var(--color-tod-2);
+  color: var(--color-font-dark);
 }
 
 .activity .time-container time {
@@ -132,13 +134,13 @@ html {
   /* font */
   font-family: 'Varela Round';
   font-size: var(--size-font-large);
-  color: var(--color-font-dark);
 }
 
 .activity .title {
-  -ms-grid-row: 2;
+  -ms-grid-row: 1;
   -ms-grid-column: 3;
   grid-area: title;
+  margin-top: 12px;
   /* font */
   font-family: 'Varela Round';
   font-size: var(--size-font-large);
@@ -146,10 +148,10 @@ html {
 }
 
 .activity .subtitle {
-  /* layout */
-  -ms-grid-row: 3;
+  -ms-grid-row: 2;
   -ms-grid-column: 3;
   grid-area: subtitle;
+  margin-bottom: 5px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -206,22 +208,24 @@ html {
 }
 
 .activity .edit {
-  -ms-grid-row: 2;
+  -ms-grid-row: 1;
   -ms-grid-column: 4;
   grid-area: edit;
-  color: var(--color-mood-meh);
+  margin-top: 5px;
+  color: var(--color-mood-ok);
 }
 
 .activity .delete {
-  -ms-grid-row: 3;
+  -ms-grid-row: 2;
   -ms-grid-column: 4;
   grid-area: delete;
+  margin-bottom: 5px;
   color: var(--color-mood-worst);
 }
 
 .activity .selected {
   -ms-grid-row: 1;
-  -ms-grid-row-span: 4;
+  -ms-grid-row-span: 2;
   -ms-grid-column: 6;
   grid-area: selected;
   background-color: var(--color-primary);
@@ -239,9 +243,7 @@ html {
 }
 
 .fab-wing {
-  /* position */
   position: absolute;
-  top: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -260,40 +262,57 @@ html {
   height: var(--size-fab);
   /* visual */
   border-radius: calc(var(--size-fab) * 0.5);
-  opacity: 0;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
   font-size: calc(var(--size-fab-icon) * 0.7);
+  --size: var(--size-fab);
   --padding: 0;
 }
 
 .fab-wing:nth-child(1) {
   right: var(--size-fab);
   padding-right: var(--padding);
+  width: var(--size);
+  top: calc(50% - var(--size-fab) / 2);
 }
 
 .fab-wing:nth-child(2) {
   left: var(--size-fab);
   padding-left: var(--padding);
+  width: var(--size);
+  top: calc(50% - var(--size-fab) / 2);
+}
+
+.fab-wing:nth-child(3) {
+  top: var(--size-fab);
+  padding-top: var(--padding);
+  height: var(--size);
+  left: calc(50% - var(--size-fab) / 2);
+}
+
+.fab-wing:nth-child(4) {
+  bottom: var(--size-fab);
+  padding-bottom: var(--padding);
+  height: var(--size);
+  left: calc(50% - var(--size-fab) / 2);
 }
 
 .fab-container {
   /* size */
   width: calc(var(--size-fab) * 3);
-  height: var(--size-fab);
+  height: calc(var(--size-fab) * 3);
   position: relative;
 }
 
 .fab-container .fab {
   position: absolute;
-  top: 0;
+  top: calc(50% - var(--size-fab) / 2);
   left: calc(50% - var(--size-fab) / 2);
 }
 
 .fab-container.active .fab-wing {
-  width: calc(var(--size-fab) * 2);
-  opacity: 1;
   --padding: var(--size-fab);
+  --size: calc(var(--size-fab) * 2);
 }
 
 /* nav header component */
@@ -360,7 +379,7 @@ html {
 .nav-footer {
   /* size */
   width: 100vw;
-  height: 100px;
+  height: 150px;
   /* position */
   position: fixed;
   bottom: 0;
@@ -401,7 +420,7 @@ html {
   /* position */
   position: absolute;
   z-index: -1;
-  bottom: -25%;
+  bottom: -50%;
   /* color */
   background-color: var(--color-primary);
   -webkit-box-shadow: 0px -2px 10px 0px rgba(0, 0, 0, 0.2);

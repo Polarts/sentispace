@@ -1,5 +1,7 @@
 /* fab component */
 
+$pos: calc(50% - var(--size-fab) / 2);
+
 .fab {
 
     /* size */
@@ -10,9 +12,10 @@
     border-radius: 50%;
     box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.3);
 
+
     &-wing {
 
-        /* position */ position: absolute; top: 0;
+        position: absolute; 
         @include flex;
         
         /* size */
@@ -21,41 +24,53 @@
 
         /* visual */
         border-radius: calc(var(--size-fab) * 0.5);
-        opacity: 0;
         transition: all 0.5s;
         font-size: calc(var(--size-fab-icon) * 0.7);
 
-
+        --size: var(--size-fab);
         --padding: 0;
 
         &:nth-child(1) { 
             right: var(--size-fab); 
             padding-right: var(--padding);
+            width: var(--size);
+            top: $pos;
         }
         &:nth-child(2) { 
             left: var(--size-fab); 
             padding-left: var(--padding);
+            width: var(--size);
+            top: $pos;
+        }
+        &:nth-child(3) { 
+            top: var(--size-fab);
+            padding-top: var(--padding);
+            height: var(--size);
+            left: $pos;
+        }
+        &:nth-child(4) { 
+            bottom: var(--size-fab);
+            padding-bottom: var(--padding);
+            height: var(--size);
+            left: $pos;
         }
     }
 
     &-container {
         
         /* size */
-        width: calc(var(--size-fab) * 3);
-        height: var(--size-fab);
+        $size: calc(var(--size-fab) * 3);
+        width: $size;
+        height: $size;
 
         position: relative;
 
-        .fab {
-            position: absolute; top: 0;
-            left: calc(50% - var(--size-fab) / 2);
-        }
+        .fab { position: absolute; top: $pos; left: $pos; }
 
         &.active {
             .fab-wing {
-                width: calc(var(--size-fab) * 2);
-                opacity: 1;
                 --padding: var(--size-fab);
+                --size: calc(var(--size-fab) * 2);
             }
         }
 
