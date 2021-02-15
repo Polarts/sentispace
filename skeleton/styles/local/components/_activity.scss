@@ -4,13 +4,13 @@
     
     /* layout */
     display: grid;
-    grid-template-rows: 15% 1fr 1fr 15%;
-    grid-template-columns: 24px 5% 1fr 24px 12px;
+    grid-template-rows: 10px 1fr 1fr 5px;
+    grid-template-columns: 24px 5% 1fr fit-content(50px) 10px 12px;
     grid-template-areas: 
-        'time _ __       __     selected'
-        'time _ title    edit   selected'
-        'time _ subtitle delete selected'
-        'time _ ___      ___    selected';
+        'time -lp- -tp-     -tp-   -rp- selected'
+        'time -lp- title    edit   -rp- selected'
+        'time -lp- subtitle delete -rp- selected'
+        'time -lp- -bp-    -bp-    -rp- selected';
     
     /* size */ width: 100vw; height: 70px;
 
@@ -18,7 +18,9 @@
 
     .time-container {
 
-        /* layout */ grid-area: time; @include flex;
+        /* layout */ 
+        grid-area: time; 
+        @include flex;
 
         background-color: var(--color-tod-2);
 

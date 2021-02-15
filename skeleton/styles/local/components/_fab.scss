@@ -1,0 +1,64 @@
+/* fab component */
+
+.fab {
+
+    /* size */
+    width: var(--size-fab);
+    height: var(--size-fab);
+    
+    font-size: var(--size-fab-icon);
+    border-radius: 50%;
+    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.3);
+
+    &-wing {
+
+        /* position */ position: absolute; top: 0;
+        @include flex;
+        
+        /* size */
+        width: var(--size-fab);
+        height: var(--size-fab);
+
+        /* visual */
+        border-radius: calc(var(--size-fab) * 0.5);
+        opacity: 0;
+        transition: all 0.5s;
+        font-size: calc(var(--size-fab-icon) * 0.7);
+
+
+        --padding: 0;
+
+        &:nth-child(1) { 
+            right: var(--size-fab); 
+            padding-right: var(--padding);
+        }
+        &:nth-child(2) { 
+            left: var(--size-fab); 
+            padding-left: var(--padding);
+        }
+    }
+
+    &-container {
+        
+        /* size */
+        width: calc(var(--size-fab) * 3);
+        height: var(--size-fab);
+
+        position: relative;
+
+        .fab {
+            position: absolute; top: 0;
+            left: calc(50% - var(--size-fab) / 2);
+        }
+
+        &.active {
+            .fab-wing {
+                width: calc(var(--size-fab) * 2);
+                opacity: 1;
+                --padding: var(--size-fab);
+            }
+        }
+
+    }
+
+}

@@ -8,6 +8,8 @@
     --color-night-primary: #006890;
     --color-day-secondary: #FBEE7B;
     --color-night-secondary: #F8A480;
+    --color-day-secondary-brightened: #faf1a0;
+    --color-night-secondary-brightened: #f7c4ae;
     // #endregion
 
     // #region moods
@@ -38,6 +40,7 @@
     // #region use cases
     --color-primary: var(--color-day-primary);
     --color-secondary: var(--color-day-secondary);
+    --color-secondary-brightened: var(--color-day-secondary-brightened);
     // #endregion
 
 }
