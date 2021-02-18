@@ -1,0 +1,11 @@
+/* header element */
+
+header { 
+    /* size */ width: 100vw; height: 50px;
+    /* position */ position: relative; z-index: 2;
+    
+    /* color */ 
+    background-color: var(--color-primary); 
+    color: var(--color-font-bright);
+    box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.2);
+}
