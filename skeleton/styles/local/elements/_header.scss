@@ -2,7 +2,9 @@
 
 header { 
     /* size */ width: 100vw; height: 50px;
-    /* position */ position: relative; z-index: 2;
+    
+    /* position */ 
+    position: sticky; top: 0px; z-index: 2; 
     
     /* color */ 
     background-color: var(--color-primary); 

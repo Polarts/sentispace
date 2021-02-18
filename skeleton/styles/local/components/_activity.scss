@@ -9,7 +9,10 @@
     grid-template-areas: 
         'time -lp- title    edit   -rp- selected'
         'time -lp- subtitle delete -rp- selected'
-    ;    
+    ;
+    
+    &:last-of-type { margin-bottom: 150px; }
+
     /* size */ width: 100vw; min-height: 75px;
     border-bottom: 1px solid gray;
 

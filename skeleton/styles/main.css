@@ -94,7 +94,9 @@ header {
   width: 100vw;
   height: 50px;
   /* position */
-  position: relative;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
   z-index: 2;
   /* color */
   background-color: var(--color-primary);
@@ -118,6 +120,10 @@ header {
   width: 100vw;
   min-height: 75px;
   border-bottom: 1px solid gray;
+}
+
+.activity:last-of-type {
+  margin-bottom: 150px;
 }
 
 .activity .time-container {
