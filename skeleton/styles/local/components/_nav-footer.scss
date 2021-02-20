@@ -2,19 +2,29 @@
 
 .nav-footer {
 
-    /* size */ width: 100vw; height: 150px;
+    /* size */ width: 100vw; height: 90px;
     /* position */ position: fixed; bottom: 0; 
     /* layout */ @include flex($justify: flex-start);
     overflow: hidden;
 
-    button { color: var(--color-font-dark); }
-    .fab { background-color: var(--color-secondary); }
-    .fab-wing { background-color: var(--color-secondary-brightened); }
+    nav {
+
+        @include flex(row, space-evenly, flex-start);
+        width: 100%;
+
+        .fab { color: var(--color-font-dark); }
+        .button-primary { background-color: var(--color-secondary); }
+        .button-secondary {
+            background-color: var(--color-thirdary);
+            margin-top: 5px;
+        }
+    }
+
 
     .bottom-filler {
 
         /* size */ width: 150vw; height: 100%; border-radius: 50%;
-        /* position */ position: absolute; z-index: -1; bottom: -50%;
+        /* position */ position: absolute; z-index: -1; bottom: -25%;
         
         /* color */ 
         background-color: var(--color-primary);

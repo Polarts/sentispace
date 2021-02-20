@@ -33,15 +33,15 @@
     --color-night-primary: hsl(198, 100%, 29%);
     --color-day-secondary: hsl(57, 91%, 70%);
     --color-night-secondary: hsl(20, 86%, 73%);
-    --color-day-secondary-brightened: hsl(57, 91%, 85%);
-    --color-night-secondary-brightened: hsl(20, 86%, 85%);
+    --color-day-thirdary: hsl(45, 99%, 66%);
+    --color-night-thirdary: hsl(223, 14%, 60%);
     // #endregion
 
 
     // #region use cases
     --color-primary: var(--color-day-primary);
     --color-secondary: var(--color-day-secondary);
-    --color-secondary-brightened: var(--color-day-secondary-brightened);
+    --color-thirdary: var(--color-day-thirdary);
     // #endregion
 
 }
