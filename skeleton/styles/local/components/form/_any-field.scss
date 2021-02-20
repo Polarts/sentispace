@@ -1,0 +1,33 @@
+/* any field component */
+
+div[class*='-field'] {
+    
+    /* layout */
+    display: grid;
+    grid-template-columns: 24px 5% 1fr;
+    grid-template-areas: 'label -lp- content';
+
+    /* font */
+    font-family: 'Varela Round';
+    color: var(--color-font-dark);
+
+    min-height: 75px;
+
+    border-bottom: gray 1px solid;
+
+    
+    .field-label { 
+        
+        grid-area: label;
+        @include flex;
+
+        font-size: var(--size-font-medium); 
+        
+        background-color: lightgray;
+
+        span {
+            transform: rotate(90deg);
+        }
+    }
+
+}

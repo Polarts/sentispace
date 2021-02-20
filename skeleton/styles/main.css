@@ -106,11 +106,27 @@ header {
   position: sticky;
   top: 0px;
   z-index: 2;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   /* color */
   background-color: var(--color-primary);
-  color: var(--color-font-bright);
   -webkit-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.2);
           box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.2);
+  color: var(--color-font-bright);
+  /* font */
+  font-size: var(--size-font-large);
+  font-family: 'Station';
 }
 
 /* components */
@@ -294,34 +310,6 @@ header {
   margin-right: 5rem;
 }
 
-.activity .subtitle .feeling-mood {
-  /* size */
-  width: 53rem;
-  height: 20rem;
-  border-radius: 5rem;
-  /* font */
-  font-family: 'Mukta';
-  font-weight: bold;
-  font-size: var(--size-font-small);
-  text-align: center;
-  /* color */
-  color: var(--color-font-bright);
-  background-color: var(--color-mood-good);
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
 .activity .action-button {
   -webkit-filter: drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.3));
           filter: drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.3));
@@ -356,12 +344,161 @@ header {
   background-color: var(--color-primary);
 }
 
+/* feeling mood component */
+.feeling-mood {
+  /* size */
+  width: 53rem;
+  height: 20rem;
+  border-radius: 5rem;
+  /* font */
+  font-family: 'Mukta';
+  font-weight: bold;
+  font-size: var(--size-font-small);
+  text-align: center;
+  color: var(--color-font-bright);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.feeling-mood[data-mood='great'] {
+  background-color: var(--color-mood-great);
+}
+
+.feeling-mood[data-mood='good'] {
+  background-color: var(--color-mood-good);
+}
+
+.feeling-mood[data-mood='ok'] {
+  background-color: var(--color-mood-ok);
+}
+
+.feeling-mood[data-mood='bad'] {
+  background-color: var(--color-mood-bad);
+}
+
+.feeling-mood[data-mood='worst'] {
+  background-color: var(--color-mood-worst);
+}
+
+/* form components imports */
+/* any field component */
+div[class*='-field'] {
+  /* layout */
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 24px 5% 1fr;
+      grid-template-columns: 24px 5% 1fr;
+      grid-template-areas: 'label -lp- content';
+  /* font */
+  font-family: 'Varela Round';
+  color: var(--color-font-dark);
+  min-height: 75px;
+  border-bottom: gray 1px solid;
+}
+
+div[class*='-field'] .field-label {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: label;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: var(--size-font-medium);
+  background-color: lightgray;
+}
+
+div[class*='-field'] .field-label span {
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+}
+
+/* text field component */
+.text-field input, .text-field textarea {
+  -ms-grid-row: 1;
+  -ms-grid-column: 3;
+  grid-area: content;
+  /* size */
+  width: 100%;
+  height: 100%;
+  max-height: 125px;
+  /* font */
+  font-size: var(--size-font-large);
+  font-family: 'Varela Round';
+  /* border */
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border: none;
+  border-right: transparent 12px solid;
+  resize: none;
+}
+
+.text-field input:focus, .text-field textarea:focus {
+  border-color: var(--color-primary);
+}
+
+/* feelings field component */
+.feelings-field .radio-group {
+  -ms-grid-row: 1;
+  -ms-grid-column: 3;
+  grid-area: content;
+  /* layout */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.feelings-field .radio-group input {
+  display: none;
+}
+
+.feelings-field .radio-group input:checked + label {
+  -webkit-box-shadow: 0px 0px 10px 3px var(--color-primary);
+          box-shadow: 0px 0px 10px 3px var(--color-primary);
+}
+
+.feelings-field .radio-group label:focus {
+  -webkit-transform: scale(0.95);
+          transform: scale(0.95);
+}
+
 /* nav header component */
 .nav-header {
   /* size */
   width: 100%;
   height: 100%;
-  /* layout */
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -391,8 +528,6 @@ header {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  /* font */
-  font-family: 'Station';
 }
 
 .nav-header h1 span:nth-child(1) {

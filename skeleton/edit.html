@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/imports/reset.css">
+    <link rel="stylesheet" href="./styles/imports/fontawesome.css">
+    <link rel="stylesheet" href="./styles/main.css">
+    <title>Feel Tracker - Edit</title>
+</head>
+<body class="edit-page">
+    <header>
+        <h1>EDITING</h1>
+    </header>
+
+    <main>
+        <form>
+            <div class="text-field">
+                <label class="field-label" for="title">
+                    <span>Title</span>
+                </label>
+                <textarea name="title" id="title">Lorem ipsum dolor sit amet.
+                </textarea>
+            </div>
+            <div class="text-field">
+                <label class="field-label" for="description">
+                    <span>Description</span>
+                </label>
+                <textarea name="description" id="description" rows="10">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facilis tempore reiciendis accusantium possimus hic ipsum quibusdam eaque laboriosam laudantium quasi excepturi dicta odit quia sed, quaerat cum! Voluptate, accusamus temporibus.
+                </textarea>
+            </div>
+            <div class="feelings-field">
+                <label class="field-label" for="feelings">
+                    <span>Feeling</span>
+                </label>
+                <div class="radio-group">
+                    <input type="radio" name="feelings" id="feeling-great" value="great">
+                    <label for="feeling-great" class="feeling-mood" data-mood="great">
+                        <span>GREAT</span>
+                    </label>
+                    <input type="radio" name="feelings" id="feeling-good" value="good">
+                    <label for="feeling-good" class="feeling-mood" data-mood="good">
+                        <span>GOOD</span>
+                    </label>
+                    <input type="radio" name="feelings" id="feeling-ok" value="ok">
+                    <label for="feeling-ok" class="feeling-mood" data-mood="ok">
+                        <span>OK</span>
+                    </label>
+                    <input type="radio" name="feelings" id="feeling-bad" value="bad">
+                    <label for="feeling-bad" class="feeling-mood" data-mood="bad">
+                        <span>BAD</span>
+                    </label>
+                    <input type="radio" name="feelings" id="feeling-worst" value="worst">
+                    <label for="feeling-worst" class="feeling-mood" data-mood="worst">
+                        <span>WORST</span>
+                    </label>
+                </div>
+            </div>
+        </form>
+    </main>
+    <!-- #region footer -->
+    <footer class="nav-footer">
+        <nav>
+            <button class="fab button-secondary"
+                    style="background-color: tomato;">
+                <i class="fas fa-times"></i>
+            </button>
+            <button class="fab button-secondary" 
+                    style="background-color: greenyellow;">
+                <i class="fas fa-check"></i>
+            </button>
+        </nav>
+        <div class="bottom-filler"></div>
+    </footer>
+    <!-- #endregion -->
+</body>
+</html>

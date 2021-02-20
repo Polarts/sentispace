@@ -66,24 +66,6 @@
 
             margin-right: 5rem;
         }
-
-        .feeling-mood {
-
-            /* size */ width: 53rem; height: 20rem;
-            border-radius: 5rem;
-
-            /* font */
-            font-family: 'Mukta';
-            font-weight: bold;
-            font-size: var(--size-font-small);
-            text-align: center;
-
-            /* color */
-            color: var(--color-font-bright);
-            background-color: var(--color-mood-good);
-            
-            @include flex;
-        }
     }
 
     .action-button { 
