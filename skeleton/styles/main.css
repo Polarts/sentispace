@@ -494,6 +494,52 @@ div[class*='-field'] .field-label span {
           transform: scale(0.95);
 }
 
+/* time field component */
+.time-field .time-button {
+  -ms-grid-row: 1;
+  -ms-grid-column: 3;
+  grid-area: content;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  /* font */
+  font-family: 'Varela Round';
+  font-size: var(--size-font-large);
+}
+
+.time-field .time-button .time-icon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  /* size */
+  width: 30rem;
+  height: 30rem;
+  margin: 5px;
+  border-radius: 5px;
+  font-size: 22rem;
+  background-color: lightgray;
+}
+
 /* nav header component */
 .nav-header {
   /* size */
