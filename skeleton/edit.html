@@ -15,87 +15,85 @@
     </header>
 
     <main style="margin: 15px;">
-        <form>
-            <div class="text-field">
-                <label class="field-label" for="title">
-                    <span>Title</span>
+        <div class="text-field">
+            <label class="field-label" for="title">
+                <span>Title</span>
+            </label>
+            <input type="text" name="title" id="title" class="field-content" value="Lorem ipsum dolor sit amet.">
+        </div>
+        <div class="text-field">
+            <label class="field-label" for="description">
+                <span>Description</span>
+            </label>
+            <textarea name="description" id="description" rows="10" class="field-content">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facilis tempore reiciendis accusantium possimus hic ipsum quibusdam eaque laboriosam laudantium quasi excepturi dicta odit quia sed, quaerat cum! Voluptate, accusamus temporibus.
+            </textarea>
+        </div>
+        <div class="feelings-field">
+            <label class="field-label" for="feelings">
+                <span>Feeling</span>
+            </label>
+            <div class="field-content">
+                <input type="radio" name="feelings" id="feeling-great" value="great">
+                <label for="feeling-great" class="feeling-mood" data-mood="great">
+                    <span>GREAT</span>
                 </label>
-                <input type="text" name="title" id="title" class="field-content" value="Lorem ipsum dolor sit amet.">
-            </div>
-            <div class="text-field">
-                <label class="field-label" for="description">
-                    <span>Description</span>
+                <input type="radio" name="feelings" id="feeling-good" value="good">
+                <label for="feeling-good" class="feeling-mood" data-mood="good">
+                    <span>GOOD</span>
                 </label>
-                <textarea name="description" id="description" rows="10" class="field-content">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facilis tempore reiciendis accusantium possimus hic ipsum quibusdam eaque laboriosam laudantium quasi excepturi dicta odit quia sed, quaerat cum! Voluptate, accusamus temporibus.
-                </textarea>
-            </div>
-            <div class="feelings-field">
-                <label class="field-label" for="feelings">
-                    <span>Feeling</span>
+                <input type="radio" name="feelings" id="feeling-ok" value="ok">
+                <label for="feeling-ok" class="feeling-mood" data-mood="ok">
+                    <span>OK</span>
                 </label>
-                <div class="field-content">
-                    <input type="radio" name="feelings" id="feeling-great" value="great">
-                    <label for="feeling-great" class="feeling-mood" data-mood="great">
-                        <span>GREAT</span>
-                    </label>
-                    <input type="radio" name="feelings" id="feeling-good" value="good">
-                    <label for="feeling-good" class="feeling-mood" data-mood="good">
-                        <span>GOOD</span>
-                    </label>
-                    <input type="radio" name="feelings" id="feeling-ok" value="ok">
-                    <label for="feeling-ok" class="feeling-mood" data-mood="ok">
-                        <span>OK</span>
-                    </label>
-                    <input type="radio" name="feelings" id="feeling-bad" value="bad">
-                    <label for="feeling-bad" class="feeling-mood" data-mood="bad">
-                        <span>BAD</span>
-                    </label>
-                    <input type="radio" name="feelings" id="feeling-worst" value="worst">
-                    <label for="feeling-worst" class="feeling-mood" data-mood="worst">
-                        <span>WORST</span>
-                    </label>
-                </div>
-            </div>
-            <div class="time-field">
-                <div class="field-label">
-                    <span>Time</span>
-                </div>
-                <div class="field-content">
-                    <button>
-                        <span>18:35</span>
-                        <div class="time-icon">
-                            <i class="far fa-clock"></i>
-                        </div>
-                    </button>
-                </div>
-            </div>
-            <div class="tags-field">
-                <label class="field-label" for="tag-input">
-                    <span>Tags</span>
+                <input type="radio" name="feelings" id="feeling-bad" value="bad">
+                <label for="feeling-bad" class="feeling-mood" data-mood="bad">
+                    <span>BAD</span>
                 </label>
-                <div class="field-content">
-                    <div class="tag">
-                        <span>Health</span>
-                    </div>
-                    <div class="tag">
-                        <span>Mental</span>
-                    </div>
-                    <div class="tag">
-                        <span>Health</span>
-                    </div>
-                    <div class="tag">
-                        <span>Mental</span>
-                    </div>
-                    <div class="tag">
-                        <span>Health</span>
-                    </div>
-                    <div class="tag">
-                        <span>Mental</span>
-                    </div>
-                    <input type="text" name="tag-input" id="tag-input">
-                </div>
+                <input type="radio" name="feelings" id="feeling-worst" value="worst">
+                <label for="feeling-worst" class="feeling-mood" data-mood="worst">
+                    <span>WORST</span>
+                </label>
             </div>
-        </form>
+        </div>
+        <div class="time-field">
+            <div class="field-label">
+                <span>Time</span>
+            </div>
+            <div class="field-content">
+                <button>
+                    <span>18:35</span>
+                    <div class="time-icon">
+                        <i class="far fa-clock"></i>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <div class="tags-field">
+            <label class="field-label" for="tag-input">
+                <span>Tags</span>
+            </label>
+            <div class="field-content">
+                <div class="tag">
+                    <span>Health</span>
+                </div>
+                <div class="tag">
+                    <span>Mental</span>
+                </div>
+                <div class="tag">
+                    <span>Health</span>
+                </div>
+                <div class="tag">
+                    <span>Mental</span>
+                </div>
+                <div class="tag">
+                    <span>Health</span>
+                </div>
+                <div class="tag">
+                    <span>Mental</span>
+                </div>
+                <input type="text" name="tag-input" id="tag-input">
+            </div>
+        </div>
     </main>
     <!-- #region footer -->
     <footer class="nav-footer">

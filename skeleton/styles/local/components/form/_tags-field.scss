@@ -31,7 +31,9 @@
         input {
             
             border: none;
-            
+            max-width: 100px;
+            margin: 4rem;
+
             /* font */
             font-family: 'Varela Round';
             font-size: var(--size-font-medium);
