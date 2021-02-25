@@ -14,27 +14,26 @@
         <h1>EDITING</h1>
     </header>
 
-    <main>
+    <main style="margin: 15px;">
         <form>
             <div class="text-field">
                 <label class="field-label" for="title">
                     <span>Title</span>
                 </label>
-                <textarea name="title" id="title">Lorem ipsum dolor sit amet.
-                </textarea>
+                <input type="text" name="title" id="title" class="field-content" value="Lorem ipsum dolor sit amet.">
             </div>
             <div class="text-field">
                 <label class="field-label" for="description">
                     <span>Description</span>
                 </label>
-                <textarea name="description" id="description" rows="10">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facilis tempore reiciendis accusantium possimus hic ipsum quibusdam eaque laboriosam laudantium quasi excepturi dicta odit quia sed, quaerat cum! Voluptate, accusamus temporibus.
+                <textarea name="description" id="description" rows="10" class="field-content">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facilis tempore reiciendis accusantium possimus hic ipsum quibusdam eaque laboriosam laudantium quasi excepturi dicta odit quia sed, quaerat cum! Voluptate, accusamus temporibus.
                 </textarea>
             </div>
             <div class="feelings-field">
                 <label class="field-label" for="feelings">
                     <span>Feeling</span>
                 </label>
-                <div class="radio-group">
+                <div class="field-content">
                     <input type="radio" name="feelings" id="feeling-great" value="great">
                     <label for="feeling-great" class="feeling-mood" data-mood="great">
                         <span>GREAT</span>
@@ -61,12 +60,40 @@
                 <div class="field-label">
                     <span>Time</span>
                 </div>
-                <button class="time-button">
-                    <span>18:35</span>
-                    <div class="time-icon">
-                        <i class="far fa-clock"></i>
+                <div class="field-content">
+                    <button>
+                        <span>18:35</span>
+                        <div class="time-icon">
+                            <i class="far fa-clock"></i>
+                        </div>
+                    </button>
+                </div>
+            </div>
+            <div class="tags-field">
+                <label class="field-label" for="tag-input">
+                    <span>Tags</span>
+                </label>
+                <div class="field-content">
+                    <div class="tag">
+                        <span>Health</span>
                     </div>
-                </button>
+                    <div class="tag">
+                        <span>Mental</span>
+                    </div>
+                    <div class="tag">
+                        <span>Health</span>
+                    </div>
+                    <div class="tag">
+                        <span>Mental</span>
+                    </div>
+                    <div class="tag">
+                        <span>Health</span>
+                    </div>
+                    <div class="tag">
+                        <span>Mental</span>
+                    </div>
+                    <input type="text" name="tag-input" id="tag-input">
+                </div>
             </div>
         </form>
     </main>
