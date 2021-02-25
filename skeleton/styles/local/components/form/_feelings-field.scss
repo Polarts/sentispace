@@ -2,13 +2,13 @@
 
 .feelings-field {
 
-    .radio-group {
+    .field-content {
 
-        grid-area: content;
-        
         /* layout */
         @include flex(row, space-evenly);
         flex-wrap: wrap;
+
+        height: 60px;
 
         input { 
             display: none;

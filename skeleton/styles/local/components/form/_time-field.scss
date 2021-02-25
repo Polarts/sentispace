@@ -2,25 +2,28 @@
 
 .time-field {
     
-    .time-button {
-        
-        grid-area: content;
-        @include flex(row);
-        
-        /* font */
-        font-family: 'Varela Round';
-        font-size: var(--size-font-large);
+    .field-content {
 
-        .time-icon {
+        @include flex;
 
-            @include flex;
+        button {
+            @include flex(row);
+            
+            /* font */
+            font-family: 'Varela Round';
+            font-size: var(--size-font-large);
 
-            /* size */ width: 30rem; height: 30rem;
-            margin: 5px;
-            border-radius: 5px;
-            font-size: 22rem;
+            .time-icon {
 
-            background-color: lightgray;
+                @include flex;
+
+                /* size */ width: 30rem; height: 30rem;
+                margin: 5px;
+                border-radius: 5px;
+                font-size: 22rem;
+
+                background-color: lightgray;
+            }
         }
     }
 }

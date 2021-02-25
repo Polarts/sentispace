@@ -1,0 +1,40 @@
+/* tags field component */
+
+.tags-field {
+
+    .field-content {
+        
+        /* layout */
+        @include flex(row, flex-start);
+        flex-wrap: wrap;
+
+        /* font */
+        font-family: 'Varela Round';
+        font-size: var(--size-font-medium);
+
+        .tag {
+            
+            @include flex(row);
+            padding: 4rem 6rem;
+            margin: 4rem;
+
+            /* border */
+            border-radius: 5rem;
+            background-color: lightgray;
+
+            &::after {
+                content: '✖';
+                margin-left: 3rem;
+            }
+        }
+
+        input {
+            
+            border: none;
+            
+            /* font */
+            font-family: 'Varela Round';
+            font-size: var(--size-font-medium);
+        }
+    }
+}
