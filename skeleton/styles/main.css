@@ -478,7 +478,7 @@ div[class*='-field'] .field-content {
           align-items: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  height: 60px;
+  padding: 15px 0;
 }
 
 .feelings-field .field-content input {
@@ -488,11 +488,6 @@ div[class*='-field'] .field-content {
 .feelings-field .field-content input:checked + label {
   -webkit-box-shadow: 0px 0px 10px 3px var(--color-primary);
           box-shadow: 0px 0px 10px 3px var(--color-primary);
-}
-
-.feelings-field .field-content label:focus {
-  -webkit-transform: scale(0.95);
-          transform: scale(0.95);
 }
 
 /* time field component */
@@ -605,6 +600,8 @@ div[class*='-field'] .field-content {
 
 .tags-field .field-content input {
   border: none;
+  max-width: 100px;
+  margin: 4rem;
   /* font */
   font-family: 'Varela Round';
   font-size: var(--size-font-medium);

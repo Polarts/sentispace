@@ -8,7 +8,7 @@
         @include flex(row, space-evenly);
         flex-wrap: wrap;
 
-        height: 60px;
+        padding: 15px 0;
 
         input { 
             display: none;
@@ -16,9 +16,6 @@
             &:checked + label {
                 box-shadow: 0px 0px 10px 3px var(--color-primary);
             }
-        }
-        label {
-            &:focus { transform: scale(0.95); }
         }
     }
 }
