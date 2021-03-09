@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import moment from 'moment';
 import Activity from '../Models/Activity';
 
-type ActivityProps {
+type ActivityProps = {
     model: Activity
 }
 
