@@ -1,0 +1,21 @@
+/* feelings field component */
+
+.feelings-field {
+
+    .field-content {
+
+        /* layout */
+        @include flex(row, space-evenly);
+        flex-wrap: wrap;
+
+        padding: 15px 0;
+
+        input { 
+            display: none;
+
+            &:checked + label {
+                box-shadow: 0px 0px 10px 3px var(--color-primary);
+            }
+        }
+    }
+}

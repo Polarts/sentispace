@@ -1,0 +1,12 @@
+/* mixin definitions */
+
+/// Creates a flex layout given the parameters
+/// @param {string} $dir the flex direction
+/// @param {string} $justify the main axis
+/// @param {string} $align the cross axis
+@mixin flex($dir: column, $justify: center, $align: center) {
+    display: flex;
+    flex-direction: $dir;
+    justify-content: $justify;
+    align-items: $align;
+}

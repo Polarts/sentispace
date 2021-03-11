@@ -1,0 +1,29 @@
+/* time field component */
+
+.time-field {
+    
+    .field-content {
+
+        @include flex;
+
+        button {
+            @include flex(row);
+            
+            /* font */
+            font-family: 'Varela Round';
+            font-size: var(--size-font-large);
+
+            .time-icon {
+
+                @include flex;
+
+                /* size */ width: 30rem; height: 30rem;
+                margin: 5px;
+                border-radius: 5px;
+                font-size: 22rem;
+
+                background-color: lightgray;
+            }
+        }
+    }
+}

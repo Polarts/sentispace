@@ -1,0 +1,20 @@
+/* header element */
+
+header { 
+
+    /* size */ width: 100vw; height: 50px;
+    
+    /* position */ 
+    position: sticky; top: 0px; z-index: 2; 
+    
+    @include flex(row);
+
+    /* color */ 
+    background-color: var(--color-primary); 
+    box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.2);
+    color: var(--color-font-bright);
+    
+    /* font */
+    font-size: var(--size-font-large);
+    font-family: 'Station';
+}
