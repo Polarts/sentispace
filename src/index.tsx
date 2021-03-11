@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+import './skeleton/styles/imports/reset.css';
+import './skeleton/styles/imports/fontawesome.css';
+import './skeleton/styles/main.css';
 
 ReactDOM.render(
   <React.StrictMode>
