@@ -3,19 +3,25 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   Redirect
 } from "react-router-dom";
 import DayPage from './Components/Pages/DayPage';
+import TopNavBar from './Components/NavHeader';
+import Routes from './RoutesEnum';
+import ActivitiesStore from './Stores/ActivitiesStore';
 
 function App() {
+
+  ActivitiesStore.instance.init();
+
   return (
     <Router>
+      <TopNavBar/>
       <Switch>
-        <Route path="/day" component={DayPage}/>
-        <Route path="/month"/>
-        <Route path="/year"/>
-        <Redirect from="/" to="/day" exact/>
+        <Route path={Routes.day} component={DayPage}/>
+        <Route path={Routes.month}/>
+        <Route path={Routes.year}/>
+        <Redirect from="/" to={Routes.day} exact/>
       </Switch>
     </Router>
   );

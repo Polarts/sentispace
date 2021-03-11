@@ -1,9 +1,11 @@
 import {observable, computed, IObservableArray, action} from 'mobx';
+import moment from 'moment';
 import Activity from '../Models/Activity';
+import FeelingsEnum from '../Models/FeelingsEnum';
+
+export const DATE_FORMAT = 'YYYY-MM-DD';
 
 export default class ActivitiesStore {
-
-    //#region properties
 
     //#region properties
 
@@ -13,18 +15,15 @@ export default class ActivitiesStore {
     @computed
     public get activities(): Activity[] {
         return this._activities
-            .filter(act => 
-                act.time < this.endTime 
-                && act.time > this.startTime 
-                && act.tags.every(tag => this.selectedTags.includes(tag))
-            );
+            .filter(this.filterActivity)
+            .sort((a, b) => Math.sign(moment(a.time).diff(moment(b.time), 'minutes')));
     }
 
     @observable
-    public startTime: Date = new Date();
+    public startDate: string = '';
 
     @observable
-    public endTime: Date = new Date();
+    public endTime: string = '';
 
     @observable
     public tags: string[] = [];
@@ -48,9 +47,27 @@ export default class ActivitiesStore {
 
     //#region methods
 
+    private filterActivity(act: Activity): boolean {
+
+        const store = ActivitiesStore.instance;
+        const date = moment(act.time).format(DATE_FORMAT);
+
+        if (act.tags.every(tag => store.selectedTags.includes(tag))) {
+            
+            if (store.startDate === store.endTime && date === store.startDate) {
+                return true;
+            }
+            
+            if (date <= store.endTime && date >= store.startDate) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @action
     public init(): void {
-        // THIS IS MOCK FOR TEST
+        // MOCK
         // TODO retrieve actual data from server
         // TODO think of pagination logic
         this.tags = [
@@ -59,6 +76,21 @@ export default class ActivitiesStore {
             'food'
         ];
         this.selectedTags = observable.array(this.tags);
+
+        for (let i=0; i<5; i++) {
+            const rng = Math.random();
+            this._activities.push(new Activity(
+                "Lorem ipsum dolor sit amet!",
+                "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui cupiditate similique, repellat alias veniam reprehenderit debitis maiores, architecto modi repellendus delectus saepe assumenda vero obcaecati adipisci nisi eius fugiat porro.",
+                FeelingsEnum.ok,
+                moment().add(rng, 'hours').format(),
+                [],
+                `act_${rng}`
+            ));
+            console.log(this._activities[i]);
+        }
+
+        this.startDate = this.endTime = moment().format(DATE_FORMAT);
     }
 
     @action
@@ -73,7 +105,7 @@ export default class ActivitiesStore {
     public update(act: Activity) {
         // MOCK
         // TODO update on server
-        let updateIdx = this._activities.findIndex(a => a.id == act.id);
+        let updateIdx = this._activities.findIndex(a => a.id === act.id);
         this._activities[updateIdx] = act;
     }
 

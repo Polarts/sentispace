@@ -18,7 +18,7 @@ export default class ActivityFormViewModel {
     public feeling: FeelingsEnum;
 
     @observable
-    public time: Date;
+    public time: string;
 
     @observable
     public tags: IObservableArray<string>;
