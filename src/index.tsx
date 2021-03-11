@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import './skeleton/styles/imports/reset.css';
-import './skeleton/styles/imports/fontawesome.css';
-import './skeleton/styles/main.css';
+import './Styles/imports/reset.css';
+import './Styles/imports/fontawesome.css';
+import './Styles/main.css';
 
 ReactDOM.render(
   <React.StrictMode>
