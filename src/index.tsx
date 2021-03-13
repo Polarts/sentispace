@@ -7,6 +7,11 @@ import './Styles/imports/reset.css';
 import './Styles/imports/fontawesome.css';
 import './Styles/main.css';
 
+document.addEventListener('contextmenu', e => {
+  e.preventDefault();
+  return false;
+});
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

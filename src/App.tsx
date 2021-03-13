@@ -8,12 +8,8 @@ import {
 import DayPage from './Components/Pages/DayPage';
 import TopNavBar from './Components/NavHeader';
 import Routes from './RoutesEnum';
-import ActivitiesStore from './Stores/ActivitiesStore';
 
 function App() {
-
-  ActivitiesStore.instance.init();
-
   return (
     <Router>
       <TopNavBar/>
