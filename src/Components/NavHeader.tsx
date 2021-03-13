@@ -1,14 +1,14 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import moment from 'moment';
-import ActivitiesStore from '../Stores/ActivitiesStore';
+import { useActivitiesStore } from '../Stores/ActivitiesStore';
 import { useLocation } from 'react-router';
 import Routes from '../RoutesEnum';
 
 export default observer(
     () => {
         
-        const store = ActivitiesStore.instance;
+        const store = useActivitiesStore();
         const location = useLocation();
         
         function Title() {

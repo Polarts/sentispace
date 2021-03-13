@@ -5,6 +5,13 @@ import FeelingsEnum from '../Models/FeelingsEnum';
 
 export const DATE_FORMAT = 'YYYY-MM-DD';
 
+export function useActivitiesStore() {
+    if (!ActivitiesStore.instance.isInit) {
+        ActivitiesStore.instance.init();
+    }
+    return ActivitiesStore.instance;
+}
+
 export default class ActivitiesStore {
 
     //#region properties
@@ -31,6 +38,8 @@ export default class ActivitiesStore {
     @observable
     public selectedTags: IObservableArray<string> = observable.array<string>();
 
+    public isInit = false;
+
     //#endregion
 
     //#region singleton
@@ -53,7 +62,7 @@ export default class ActivitiesStore {
         const date = moment(act.time).format(DATE_FORMAT);
 
         if (act.tags.every(tag => store.selectedTags.includes(tag))) {
-            
+
             if (store.startDate === store.endTime && date === store.startDate) {
                 return true;
             }
@@ -87,10 +96,11 @@ export default class ActivitiesStore {
                 [],
                 `act_${rng}`
             ));
-            console.log(this._activities[i]);
         }
 
         this.startDate = this.endTime = moment().format(DATE_FORMAT);
+
+        this.isInit = true;
     }
 
     @action
