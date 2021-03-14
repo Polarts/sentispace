@@ -6,19 +6,21 @@ import {
   Redirect
 } from "react-router-dom";
 import DayPage from './Components/Pages/DayPage';
-import TopNavBar from './Components/NavHeader';
+import NavHeader from './Components/NavHeader';
 import Routes from './RoutesEnum';
+import NavFooter from './Components/NavFooter';
 
 function App() {
   return (
     <Router>
-      <TopNavBar/>
+      <NavHeader/>
       <Switch>
         <Route path={Routes.day} component={DayPage}/>
         <Route path={Routes.month}/>
         <Route path={Routes.year}/>
         <Redirect from="/" to={Routes.day} exact/>
       </Switch>
+      <NavFooter/>
     </Router>
   );
 }

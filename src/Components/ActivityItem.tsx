@@ -3,7 +3,7 @@ import Hammer from 'hammerjs';
 import { observer } from 'mobx-react';
 import moment from 'moment';
 import Activity from '../Models/Activity';
-import useGlobalClick from '../Hooks/useGlobalClick';
+import MessagingService, { Message } from '../Services/MessagingService';
 
 type ActivityItemProps = {
     activity: Activity,
@@ -15,9 +15,7 @@ export default observer(
 
         const [selected, setSelected] = useState(false);
         const sectionRef = useRef<HTMLSelectElement>(null);
-        // TODO find better way
-        const unregisterGlobal = useGlobalClick(() => setSelected(false));
-
+        const onDeselectIndex = MessagingService.instance.register(Message.actDeselectAll, () => setSelected(false));
 
         useEffect(() => {
             if (sectionRef.current) {
@@ -33,9 +31,14 @@ export default observer(
                     }
                 })
             }
+            return () => {
+                if (!MessagingService.instance.unregister(Message.actDeselectAll, onDeselectIndex)) {
+                    throw new Error(`Failed to unregister actDeselectAll callback from ActivityItem ${activity.id}`);
+                }
+            };
+        }, [onSelected, onDeselectIndex, activity.id]);
 
-            return unregisterGlobal;
-        }, [onSelected]);
+
 
         const SelectedParts = () => (
             <>

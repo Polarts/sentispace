@@ -1,6 +1,6 @@
 import {IObservableArray, observable} from 'mobx';
 import Activity from '../Models/Activity';
-import FeelingsEnum from '../Models/FeelingsEnum';
+import Feelings from '../Models/Feelings';
 import ActivitiesStore from '../Stores/ActivitiesStore';
 
 export default class ActivityFormViewModel {
@@ -15,7 +15,7 @@ export default class ActivityFormViewModel {
     public description: string;
 
     @observable
-    public feeling: FeelingsEnum;
+    public feeling: Feelings;
 
     @observable
     public time: string;
