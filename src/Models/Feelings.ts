@@ -1,4 +1,4 @@
-enum FeelingsEnum {
+enum Feelings {
     great = 'great',
     good = 'good',
     ok = 'ok',
@@ -6,4 +6,4 @@ enum FeelingsEnum {
     worst = 'worst'
 };
 
-export default FeelingsEnum;
+export default Feelings;

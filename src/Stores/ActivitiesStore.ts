@@ -1,7 +1,7 @@
 import {observable, computed, IObservableArray, action} from 'mobx';
 import moment from 'moment';
 import Activity from '../Models/Activity';
-import FeelingsEnum from '../Models/FeelingsEnum';
+import Feelings from '../Models/Feelings';
 
 export const DATE_FORMAT = 'YYYY-MM-DD';
 
@@ -91,7 +91,7 @@ export default class ActivitiesStore {
             this._activities.push(new Activity(
                 "Lorem ipsum dolor sit amet!",
                 "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui cupiditate similique, repellat alias veniam reprehenderit debitis maiores, architecto modi repellendus delectus saepe assumenda vero obcaecati adipisci nisi eius fugiat porro.",
-                FeelingsEnum.ok,
+                Feelings.ok,
                 moment().add(rng, 'hours').format(),
                 [],
                 `act_${rng}`
