@@ -12,6 +12,14 @@ $pos: calc(50% - var(--size-fab) / 2);
     border-radius: 50%;
     box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.3);
 
+    i {
+        transition: transform 0.3s;
+
+        &.rotated {
+            transform: rotate(45deg);
+        }
+    }
+
     &-wing {
 
         position: absolute; 

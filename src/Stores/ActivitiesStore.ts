@@ -1,4 +1,10 @@
-import {observable, computed, IObservableArray, action} from 'mobx';
+import {
+    observable, 
+    computed, 
+    IObservableArray, 
+    action, 
+    makeObservable 
+} from 'mobx';
 import moment from 'moment';
 import Activity from '../Models/Activity';
 import Feelings from '../Models/Feelings';
@@ -16,6 +22,8 @@ export default class ActivitiesStore {
 
     //#region properties
 
+    //#region activities
+
     @observable
     private _activities: IObservableArray<Activity> = observable.array<Activity>();
 
@@ -27,6 +35,16 @@ export default class ActivitiesStore {
     }
 
     @observable
+    public selectedActivities: Activity[] = [];
+
+    @computed
+    public get selectMode(): boolean {
+        return this.selectedActivities.length > 0;
+    }
+
+    //#endregion
+
+    @observable
     public startDate: string = '';
 
     @observable
@@ -35,7 +53,7 @@ export default class ActivitiesStore {
     @observable
     public tags: string[] = [];
 
-    @observable
+    @observable 
     public selectedTags: IObservableArray<string> = observable.array<string>();
 
     public isInit = false;
@@ -46,7 +64,9 @@ export default class ActivitiesStore {
 
     private static _instance: ActivitiesStore;
 
-    private constructor(){}
+    private constructor() {
+        makeObservable(this);
+    }
 
     public static get instance(){ 
         return this._instance ?? (this._instance = new ActivitiesStore()); 
