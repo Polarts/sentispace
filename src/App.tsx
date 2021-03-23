@@ -9,6 +9,11 @@ import DayPage from './Components/Pages/DayPage';
 import NavHeader from './Components/NavHeader';
 import Routes from './RoutesEnum';
 import NavFooter from './Components/NavFooter';
+import { configure } from 'mobx';
+
+configure({
+  enforceActions: "never"
+});
 
 function App() {
   return (

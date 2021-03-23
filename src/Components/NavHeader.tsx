@@ -10,7 +10,17 @@ export default observer(
         
         const store = useActivitiesStore();
         const location = useLocation();
-        
+
+        function onLeftButtonClicked() {
+
+        }
+
+        function onRightButtonClicked() {
+            if (store.selectMode) {
+                store.selectedActivities = [];
+            }
+        }
+
         function Title() {
             switch(location.pathname) {
                 case Routes.day:
@@ -33,12 +43,14 @@ export default observer(
         return (
             <header>
                 <nav className="nav-header">
-                    <button className="nav-menu-button action-button">
-                        <i className="fas fa-calendar-day"></i>
+                    <button className="nav-menu-button action-button"
+                            onClick={onLeftButtonClicked}>
+                        <i className={`fas ${store.selectMode? 'fa-trash-alt' : 'fa-calendar-day'}`}/>
                     </button>
                     <Title/>
-                    <button className="nav-menu-button action-button">
-                        <i className="fas fa-caret-square-down"></i>
+                    <button className="nav-menu-button action-button"
+                            onClick={onRightButtonClicked}>
+                        <i className={`fas ${store.selectMode? 'fa-window-close' : 'fa-caret-square-down'}`}/>
                     </button>
                 </nav>
             </header>
