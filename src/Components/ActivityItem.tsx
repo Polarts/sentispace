@@ -44,11 +44,6 @@ export default observer(
             return disposeSelectionObserver;
         }, [activity, store.selectedActivities, disposeSelectionObserver]);
 
-        function calcTimeOfDay() {
-            const todIdx = Math.floor(momentTime.hour() / 3.1);
-            return todIdx;
-        }
-
         const SelectedParts = () => (
             <>
                 <button className="edit action-button"><i className="fas fa-pen-square"></i></button>
@@ -59,7 +54,8 @@ export default observer(
 
         return (
             <section className="activity" ref={sectionRef}>
-                <div className="time-container" data-tod={calcTimeOfDay()}>
+                <div className="time-container" 
+                     data-tod={Math.floor(momentTime.hour() / 3.1)}>
                     <time>{momentTime.format('HH:mm')}</time>
                 </div>
                 <span className="title">{activity.title}</span>
