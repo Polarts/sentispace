@@ -1,7 +1,7 @@
 /* color definitions */
 
-:root {
-    
+@mixin colors {
+
     // #region moods
     --color-mood-great: hsl(124, 63%, 48%);
     --color-mood-good: hsl(79, 51%, 50%);
@@ -11,15 +11,15 @@
     // #endregion
 
     // #region times-of-day
-    --color-tod-0: hsl(357, 83%, 72%);
     --color-tod-1: hsl(18, 88%, 70%);
     --color-tod-2: hsl(45, 99%, 66%);
     --color-tod-3: hsl(57, 91%, 70%);
     --color-tod-4: hsl(42, 100%, 82%);
     --color-tod-5: hsl(20, 86%, 73%);
-    --color-tod-6: hsl(223, 14%, 60%);
+    //--color-tod-6: hsl(223, 14%, 60%);
     --color-tod-6: hsl(198, 100%, 29%);
     --color-tod-7: hsl(204, 51%, 21%);
+    --color-tod-0: var(--color-tod-7);//hsl(357, 83%, 72%);
     // #endregion
 
     // #region fonts

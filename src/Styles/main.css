@@ -39,34 +39,23 @@
 
 /* mixin definitions */
 /* function definitions */
-/* size definitions */
-:root {
-  --size-font-small: 12rem;
-  --size-font-medium: 14rem;
-  --size-font-large: 18rem;
-  --size-fab: 48px;
-  --size-fab-icon: 25px;
-  --size-action: 25px;
-  --size-mood-width: 53px;
-  --size-mood-height: 20px;
-}
-
+/* variables config */
 /* color definitions */
+/* size definitions */
 :root {
   --color-mood-great: hsl(124, 63%, 48%);
   --color-mood-good: hsl(79, 51%, 50%);
   --color-mood-ok: hsl(45, 83%, 50%);
   --color-mood-bad: hsl(27, 71%, 51%);
   --color-mood-worst: hsl(0, 61%, 50%);
-  --color-tod-0: hsl(357, 83%, 72%);
   --color-tod-1: hsl(18, 88%, 70%);
   --color-tod-2: hsl(45, 99%, 66%);
   --color-tod-3: hsl(57, 91%, 70%);
   --color-tod-4: hsl(42, 100%, 82%);
   --color-tod-5: hsl(20, 86%, 73%);
-  --color-tod-6: hsl(223, 14%, 60%);
   --color-tod-6: hsl(198, 100%, 29%);
   --color-tod-7: hsl(204, 51%, 21%);
+  --color-tod-0: var(--color-tod-7);
   --color-font-bright: white;
   --color-font-dark: black;
   --color-bg: white;
@@ -79,6 +68,14 @@
   --color-primary: var(--color-day-primary);
   --color-secondary: var(--color-day-secondary);
   --color-thirdary: var(--color-day-thirdary);
+  --size-font-small: 12rem;
+  --size-font-medium: 14rem;
+  --size-font-large: 18rem;
+  --size-fab: 48px;
+  --size-fab-icon: 25px;
+  --size-action: 25px;
+  --size-mood-width: 53px;
+  --size-mood-height: 20px;
 }
 
 /* local styles */
@@ -283,6 +280,41 @@ header {
   /* color */
   background-color: var(--color-tod-2);
   color: var(--color-font-dark);
+}
+
+.activity .time-container[data-tod='0'] {
+  background-color: var(--color-tod-0);
+  color: var(--color-font-bright);
+}
+
+.activity .time-container[data-tod='1'] {
+  background-color: var(--color-tod-1);
+}
+
+.activity .time-container[data-tod='2'] {
+  background-color: var(--color-tod-2);
+}
+
+.activity .time-container[data-tod='3'] {
+  background-color: var(--color-tod-3);
+}
+
+.activity .time-container[data-tod='4'] {
+  background-color: var(--color-tod-4);
+}
+
+.activity .time-container[data-tod='5'] {
+  background-color: var(--color-tod-5);
+}
+
+.activity .time-container[data-tod='6'] {
+  background-color: var(--color-tod-6);
+  color: var(--color-font-bright);
+}
+
+.activity .time-container[data-tod='7'] {
+  background-color: var(--color-tod-7);
+  color: var(--color-font-bright);
 }
 
 .activity .time-container time {

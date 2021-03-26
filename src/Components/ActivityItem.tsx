@@ -14,9 +14,12 @@ export default observer(
     ({activity}: ActivityItemProps) => {
 
         const [selected, setSelected] = useState(false);
-        const sectionRef = useRef<HTMLElement>(null);
-        const store = useActivitiesStore();
 
+        const sectionRef = useRef<HTMLElement>(null);
+
+        const momentTime = moment(activity.time);
+
+        const store = useActivitiesStore();
         const disposeSelectionObserver = observe(
             store.selectedActivities,
             () => {
@@ -41,6 +44,11 @@ export default observer(
             return disposeSelectionObserver;
         }, [activity, store.selectedActivities, disposeSelectionObserver]);
 
+        function calcTimeOfDay() {
+            const todIdx = Math.floor(momentTime.hour() / 3.1);
+            return todIdx;
+        }
+
         const SelectedParts = () => (
             <>
                 <button className="edit action-button"><i className="fas fa-pen-square"></i></button>
@@ -50,10 +58,9 @@ export default observer(
         );
 
         return (
-            <section className="activity" 
-                     ref={sectionRef}>
-                <div className="time-container">
-                    <time>{moment(activity.time).format('HH:mm')}</time>
+            <section className="activity" ref={sectionRef}>
+                <div className="time-container" data-tod={calcTimeOfDay()}>
+                    <time>{momentTime.format('HH:mm')}</time>
                 </div>
                 <span className="title">{activity.title}</span>
                 <div className="subtitle">

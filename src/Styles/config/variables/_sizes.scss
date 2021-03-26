@@ -1,6 +1,6 @@
 /* size definitions */
 
-:root {
+@mixin sizes {
 
     // #region font sizes
     --size-font-small: 12rem;
@@ -15,5 +15,5 @@
     --size-mood-width: 53px;
     --size-mood-height: 20px;
     // #endregion
-
+    
 }

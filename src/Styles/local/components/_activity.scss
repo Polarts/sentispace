@@ -26,6 +26,15 @@
         background-color: var(--color-tod-2);
         color: var(--color-font-dark);
 
+        @for $i from 0 through 7 {
+            &[data-tod='#{$i}'] {
+                background-color: var(--color-tod-#{$i});
+                @if $i == 0 or $i >= 6 {
+                    color: var(--color-font-bright);
+                }
+            }
+        }
+
         time {
         
             transform: rotate(90deg);
