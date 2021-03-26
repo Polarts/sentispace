@@ -1,0 +1,9 @@
+/* variables config */
+
+@import './variables/colors';
+@import './variables/sizes';
+
+:root {
+    @include colors;
+    @include sizes;
+}
