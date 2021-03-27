@@ -1,0 +1,23 @@
+/* transition group definitions */
+
+//#region translate-y 
+
+.translate-y-enter {
+    transform: translateY(100vh);
+}
+
+.translate-y-enter-active {
+    transform: translateY(0);
+    transition: transform 300ms;
+}
+
+.translate-y-exit {
+    transform: translateY(0);
+}
+
+.translate-y-exit-active {
+    transform: translateY(100vh);
+    transition: transform 300ms;
+}
+  
+//#endregion 

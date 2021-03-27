@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import moment from 'moment';
 import { useActivitiesStore } from '../Stores/ActivitiesStore';
 import { useLocation } from 'react-router';
-import Routes from '../RoutesEnum';
+import { Routes } from '../App';
 
 export default observer(
     () => {
@@ -30,6 +30,12 @@ export default observer(
                             <span>{moment(store.startDate).format('DD MMM yyyy')}</span>
                         </h1>
                     );
+                case Routes.edit:
+                    return (
+                        <h1>
+                            <span>EDITING</span>
+                        </h1>
+                    )
                 default:
                     return ( 
                         <h1>

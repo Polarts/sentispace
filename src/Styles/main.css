@@ -87,24 +87,24 @@ html {
 
 /* elements */
 /* button element */
-button {
+button, .button {
   -webkit-transition: opacity 0.3s;
   transition: opacity 0.3s;
 }
 
-button:active {
+button:active, .button:active {
   -webkit-transform: scale(0.95);
           transform: scale(0.95);
   -webkit-box-shadow: none;
           box-shadow: none;
 }
 
-button:disabled {
+button:disabled, .button:disabled {
   opacity: 0;
 }
 
 /* header element */
-header {
+header, .header {
   /* size */
   width: 100vw;
   height: 50px;
@@ -709,8 +709,9 @@ div[class*='-field'] .field-content {
   width: 100vw;
   height: 90px;
   /* position */
-  position: fixed;
+  position: absolute;
   bottom: 0;
+  z-index: 1;
   /* layout */
   display: -webkit-box;
   display: -ms-flexbox;
@@ -728,7 +729,7 @@ div[class*='-field'] .field-content {
   overflow: hidden;
 }
 
-.nav-footer nav {
+.nav-footer nav, .nav-footer .content {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -745,15 +746,15 @@ div[class*='-field'] .field-content {
   width: 100%;
 }
 
-.nav-footer nav .fab {
+.nav-footer nav .fab, .nav-footer .content .fab {
   color: var(--color-font-dark);
 }
 
-.nav-footer nav .button-primary {
+.nav-footer nav .button-primary, .nav-footer .content .button-primary {
   background-color: var(--color-secondary);
 }
 
-.nav-footer nav .button-secondary {
+.nav-footer nav .button-secondary, .nav-footer .content .button-secondary {
   background-color: var(--color-thirdary);
   margin-top: 5px;
 }
@@ -771,5 +772,34 @@ div[class*='-field'] .field-content {
   background-color: var(--color-primary);
   -webkit-box-shadow: 0px -2px 10px 0px rgba(0, 0, 0, 0.2);
           box-shadow: 0px -2px 10px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* transition group definitions */
+.translate-y-enter {
+  -webkit-transform: translateY(100vh);
+          transform: translateY(100vh);
+}
+
+.translate-y-enter-active {
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+  -webkit-transition: -webkit-transform 300ms;
+  transition: -webkit-transform 300ms;
+  transition: transform 300ms;
+  transition: transform 300ms, -webkit-transform 300ms;
+}
+
+.translate-y-exit {
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+
+.translate-y-exit-active {
+  -webkit-transform: translateY(100vh);
+          transform: translateY(100vh);
+  -webkit-transition: -webkit-transform 300ms;
+  transition: -webkit-transform 300ms;
+  transition: transform 300ms;
+  transition: transform 300ms, -webkit-transform 300ms;
 }
 /*# sourceMappingURL=main.css.map */
