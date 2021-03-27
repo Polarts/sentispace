@@ -6,7 +6,7 @@ import ActivitiesStore from '../Stores/ActivitiesStore';
 export default class ActivityFormViewModel {
 
     //#region properties
-    private id?: string;
+    public id?: string;
 
     @observable
     public title: string;

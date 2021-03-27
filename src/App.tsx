@@ -1,32 +1,51 @@
 import React from 'react';
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
-  Redirect
+  Redirect,
+  useLocation
 } from "react-router-dom";
 import DayPage from './Components/Pages/DayPage';
 import NavHeader from './Components/NavHeader';
-import Routes from './RoutesEnum';
 import NavFooter from './Components/NavFooter';
 import { configure } from 'mobx';
+import ActivityForm from './Components/ActivityForm';
 
 configure({
   enforceActions: "never"
 });
 
+export enum Routes {
+  day = '/day',
+  month = '/month',
+  year = '/year',
+  edit = '/day/edit'
+}
+
+export interface LocationState {
+  background: any
+}
+
 function App() {
+
+  const location = useLocation<LocationState>();
+
   return (
-    <Router>
+    <>
       <NavHeader/>
       <Switch>
-        <Route path={Routes.day} component={DayPage}/>
-        <Route path={Routes.month}/>
-        <Route path={Routes.year}/>
+        <Route exact path={Routes.day}>
+          <DayPage/>
+        </Route>
+        <Route exact path={Routes.month}/>
+        <Route exact path={Routes.year}/>
+        <Route exact path={Routes.edit}>
+          <ActivityForm/>
+        </Route>
         <Redirect from="/" to={Routes.day} exact/>
       </Switch>
       <NavFooter/>
-    </Router>
+    </>
   );
 }
 

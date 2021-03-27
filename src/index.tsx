@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import './Styles/imports/reset.css';
 import './Styles/imports/fontawesome.css';
 import './Styles/main.css';
+import { BrowserRouter } from 'react-router-dom';
 
 document.addEventListener('contextmenu', e => {
   e.preventDefault();
@@ -14,7 +15,9 @@ document.addEventListener('contextmenu', e => {
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <App /> 
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

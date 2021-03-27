@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { observer } from 'mobx-react';
 import { useActivitiesStore } from '../Stores/ActivitiesStore';
+import { useHistory, useLocation } from 'react-router';
+import { LocationState, Routes } from '../App';
 
 export default observer(
     () => {
@@ -12,11 +14,15 @@ export default observer(
 
         //#endregion
 
+        const location = useLocation();
+        const history = useHistory();
         const store = useActivitiesStore();
 
         function onCenterButtonClicked() {
             if (store.selectMode) {
                 store.selectedActivities = [];
+            } else {
+                history.push(Routes.edit);
             }
         }
 
