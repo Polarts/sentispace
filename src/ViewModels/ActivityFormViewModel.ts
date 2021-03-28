@@ -1,4 +1,4 @@
-import {IObservableArray, observable} from 'mobx';
+import {IObservableArray, makeObservable, observable} from 'mobx';
 import Activity from '../Models/Activity';
 import Feelings from '../Models/Feelings';
 import ActivitiesStore from '../Stores/ActivitiesStore';
@@ -9,31 +9,34 @@ export default class ActivityFormViewModel {
     public id?: string;
 
     @observable
-    public title: string;
+    public title: string = "";
 
     @observable
-    public description: string;
+    public description: string = "";
 
     @observable
-    public feeling: Feelings;
+    public feeling: Feelings = Feelings.great;
 
     @observable
-    public time: string;
+    public time: string = "";
 
     @observable
-    public tags: IObservableArray<string>;
+    public tags: IObservableArray<string> = observable.array([]);
     //#endregion
 
     constructor(
-        private model: Activity,
-        private store: ActivitiesStore
+        private store: ActivitiesStore,
+        private model?: Activity,
     ) {
-        this.id = model.id;
-        this.title = model.title;
-        this.description = model.description;
-        this.feeling = model.feeling;
-        this.time = model.time;
-        this.tags = observable.array(model.tags);
+        if (model !== undefined) {
+            this.id = model.id;
+            this.title = model.title;
+            this.description = model.description;
+            this.feeling = model.feeling;
+            this.time = model.time;
+            this.tags = observable.array(model.tags);
+        }
+        makeObservable(this);
     }
 
     public save() {

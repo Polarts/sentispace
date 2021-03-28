@@ -6,12 +6,12 @@
 
         @include flex;
 
+        /* font */
+        font-family: 'Varela Round';
+        font-size: var(--size-font-large);
+
         button {
             @include flex(row);
-            
-            /* font */
-            font-family: 'Varela Round';
-            font-size: var(--size-font-large);
 
             .time-icon {
 

@@ -1,21 +1,21 @@
 /* transition group definitions */
 
-//#region translate-y 
+//#region translateY
 
-.translate-y-enter {
+.translateY-enter {
     transform: translateY(100vh);
 }
 
-.translate-y-enter-active {
+.translateY-enter-active {
     transform: translateY(0);
     transition: transform 300ms;
 }
 
-.translate-y-exit {
+.translateY-exit {
     transform: translateY(0);
 }
 
-.translate-y-exit-active {
+.translateY-exit-active {
     transform: translateY(100vh);
     transition: transform 300ms;
 }

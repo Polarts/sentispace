@@ -3,6 +3,9 @@ import { observer } from 'mobx-react';
 import { useActivitiesStore } from '../Stores/ActivitiesStore';
 import { useHistory, useLocation } from 'react-router';
 import { LocationState, Routes } from '../App';
+import Activity from '../Models/Activity';
+import Feelings from '../Models/Feelings';
+import moment from 'moment';
 
 export default observer(
     () => {
@@ -22,7 +25,13 @@ export default observer(
             if (store.selectMode) {
                 store.selectedActivities = [];
             } else {
-                history.push(Routes.edit);
+                store.currentlyEditing = new Activity(
+                    "",
+                    "",
+                    Feelings.great,
+                    moment().format(),
+                    []
+                );
             }
         }
 

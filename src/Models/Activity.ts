@@ -10,6 +10,4 @@ export default class Activity {
         public tags: string[],
         public id?: string
     ){}
-
-        
 }
