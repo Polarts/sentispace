@@ -5,6 +5,10 @@ import {
   Redirect,
   useLocation
 } from "react-router-dom";
+import {
+  TransitionGroup,
+  CSSTransition
+} from "react-transition-group";
 import DayPage from './Components/Pages/DayPage';
 import NavHeader from './Components/NavHeader';
 import NavFooter from './Components/NavFooter';
@@ -39,9 +43,6 @@ function App() {
         </Route>
         <Route exact path={Routes.month}/>
         <Route exact path={Routes.year}/>
-        <Route exact path={Routes.edit}>
-          <ActivityForm/>
-        </Route>
         <Redirect from="/" to={Routes.day} exact/>
       </Switch>
       <NavFooter/>

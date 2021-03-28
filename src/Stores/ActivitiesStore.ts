@@ -42,6 +42,9 @@ export default class ActivitiesStore {
         return this.selectedActivities.length > 0;
     }
 
+    @observable
+    public currentlyEditing?: Activity;
+
     //#endregion
 
     @observable
