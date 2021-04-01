@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useActivitiesStore } from '../Stores/ActivitiesStore';
 import ActivityFormViewModel from '../ViewModels/ActivityFormViewModel';
@@ -12,10 +12,25 @@ type ActivitiesFormProps = {
 export default observer(
     ({vm}: ActivitiesFormProps) => {
 
+        //#region state
+        const [currentTag, setCurrentTag] = useState('');
+        //#endregion
+
         const store = useActivitiesStore();
 
         function onFeelingSelected(e: React.ChangeEvent<HTMLInputElement>) {
             vm.feeling = e.currentTarget.value as Feelings;
+        }
+
+        function onTagsKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                e.stopPropagation();
+                if (currentTag && /\S/.test(currentTag)) {
+                    vm.tags.push(currentTag);
+                    setCurrentTag('');
+                }
+            }
         }
         
         function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -101,7 +116,14 @@ export default observer(
                             <span>Tags</span>
                         </label>
                         <div className="field-content">
-                            <input type="text" name="tag-input" id="tag-input"/>
+                            {vm.tags.map(tag => 
+                                <div className="tag" onClick={() => vm.tags.remove(tag)}>
+                                    <span>{tag}</span>
+                                </div>
+                            )}
+                            <input type="text" name="tag-input" id="tag-input"
+                                   value={currentTag} onChange={e => setCurrentTag(e.currentTarget.value)}
+                                   onKeyDown={onTagsKeyDown}/>
                         </div>
                     </div>
                 </div>
@@ -113,7 +135,6 @@ export default observer(
                             <i className="fas fa-times"></i>
                         </button>
                         <button className="fab button-secondary"
-                                onClick={e => {}}
                                 type ="submit">
                             <i className="fas fa-check"></i>
                         </button>

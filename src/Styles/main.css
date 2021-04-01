@@ -652,9 +652,12 @@ div[class*='-field'] .field-content {
 }
 
 .tags-field .field-content input {
+  min-width: 50px;
   border: none;
-  max-width: 100px;
   margin: 4rem;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
   /* font */
   font-family: 'Varela Round';
   font-size: var(--size-font-medium);

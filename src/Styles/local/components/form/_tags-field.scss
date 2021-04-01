@@ -30,9 +30,11 @@
 
         input {
             
+            min-width: 50px;
             border: none;
-            max-width: 100px;
             margin: 4rem;
+
+            flex: 1;
 
             /* font */
             font-family: 'Varela Round';
