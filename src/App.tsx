@@ -2,21 +2,15 @@ import React from 'react';
 import {
   Switch,
   Route,
-  Redirect,
-  useLocation
+  Redirect
 } from "react-router-dom";
-import {
-  TransitionGroup,
-  CSSTransition
-} from "react-transition-group";
 import DayPage from './Components/Pages/DayPage';
 import NavHeader from './Components/NavHeader';
 import NavFooter from './Components/NavFooter';
 import { configure } from 'mobx';
-import ActivityForm from './Components/ActivityForm';
 
 configure({
-  enforceActions: "never"
+  enforceActions: 'never'
 });
 
 export enum Routes {
@@ -26,13 +20,7 @@ export enum Routes {
   edit = '/day/edit'
 }
 
-export interface LocationState {
-  background: any
-}
-
 function App() {
-
-  const location = useLocation<LocationState>();
 
   return (
     <>

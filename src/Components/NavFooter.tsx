@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { observer } from 'mobx-react';
 import { useActivitiesStore } from '../Stores/ActivitiesStore';
-import { useHistory, useLocation } from 'react-router';
-import { LocationState, Routes } from '../App';
 import Activity from '../Models/Activity';
 import Feelings from '../Models/Feelings';
 import moment from 'moment';
@@ -17,8 +15,6 @@ export default observer(
 
         //#endregion
 
-        const location = useLocation();
-        const history = useHistory();
         const store = useActivitiesStore();
 
         function onCenterButtonClicked() {
