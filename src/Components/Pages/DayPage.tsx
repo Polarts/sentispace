@@ -16,7 +16,7 @@ export default observer(
                 <main>
                     {store.activities.map(act => 
                         <ActivityItem key={act.id}
-                                    activity={act} /> 
+                                      activity={act} /> 
                     )}
                 </main>
                 <CSSTransition classNames="translateY" 

@@ -27,7 +27,7 @@ export default observer(
                 e.preventDefault();
                 e.stopPropagation();
                 if (currentTag && /\S/.test(currentTag)) {
-                    vm.tags.push(currentTag);
+                    vm.addTag(currentTag);
                     setCurrentTag('');
                 }
             }
@@ -35,13 +35,14 @@ export default observer(
         
         function onSubmit(e: React.FormEvent<HTMLFormElement>) {
             e.preventDefault();
-            e.stopPropagation();
             vm.save();
             store.currentlyEditing = undefined;
+            store.selectedActivities = [];
         }
 
         function onCancel() {
             store.currentlyEditing = undefined;
+            store.selectedActivities = [];
         }
 
         return (
@@ -71,31 +72,16 @@ export default observer(
                             <span>Feeling</span>
                         </label>
                         <div className="field-content">
-                            <input type="radio" name="feelings" id="feeling-great" 
-                                   value="great" onChange={onFeelingSelected}/>
-                            <label htmlFor="feeling-great" className="feeling-mood" data-mood="great">
-                                <span>GREAT</span>
-                            </label>
-                            <input type="radio" name="feelings" id="feeling-good" 
-                                   value="good" onChange={onFeelingSelected}/>
-                            <label htmlFor="feeling-good" className="feeling-mood" data-mood="good">
-                                <span>GOOD</span>
-                            </label>
-                            <input type="radio" name="feelings" id="feeling-ok" 
-                                   value="ok" onChange={onFeelingSelected}/>
-                            <label htmlFor="feeling-ok" className="feeling-mood" data-mood="ok">
-                                <span>OK</span>
-                            </label>
-                            <input type="radio" name="feelings" id="feeling-bad" 
-                                   value="bad" onChange={onFeelingSelected}/>
-                            <label htmlFor="feeling-bad" className="feeling-mood" data-mood="bad">
-                                <span>BAD</span>
-                            </label>
-                            <input type="radio" name="feelings" id="feeling-worst" 
-                                   value="worst" onChange={onFeelingSelected}/>
-                            <label htmlFor="feeling-worst" className="feeling-mood" data-mood="worst">
-                                <span>WORST</span>
-                            </label>
+                            {Object.values(Feelings).map(feel => (
+                                <React.Fragment key={feel}>
+                                    <input type="radio" name="feelings" id={`feeling-${feel}`} 
+                                           value={feel} onChange={onFeelingSelected}
+                                           checked={vm.feeling === feel}/>
+                                    <label htmlFor={`feeling-${feel}`} className="feeling-mood" data-mood={feel}>
+                                        <span>{feel.toUpperCase()}</span>
+                                    </label>
+                                </React.Fragment>
+                            ))}
                         </div>
                     </div>
                     <div className="time-field">
@@ -117,7 +103,8 @@ export default observer(
                         </label>
                         <div className="field-content">
                             {vm.tags.map(tag => 
-                                <div className="tag" onClick={() => vm.tags.remove(tag)}>
+                                <div className="tag" key={tag}
+                                     onClick={() => vm.tags.remove(tag)}>
                                     <span>{tag}</span>
                                 </div>
                             )}
