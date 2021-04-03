@@ -44,10 +44,26 @@ export default observer(
             return disposeSelectionObserver;
         }, [activity, store.selectedActivities, disposeSelectionObserver]);
 
+        function onEditClick() {
+            store.selectedActivities = store.selectedActivities.removef(activity);
+            store.currentlyEditing = activity;
+        }
+
+        function onRemoveClick() {
+            store.selectedActivities = store.selectedActivities.removef(activity);
+            store.delete(activity);
+        }
+
         const SelectedParts = () => (
             <>
-                <button className="edit action-button"><i className="fas fa-pen-square"></i></button>
-                <button className="delete action-button"><i className="fas fa-minus-square"></i></button>
+                <button className="edit action-button"
+                        onClick={onEditClick}>
+                    <i className="fas fa-pen-square"></i>
+                </button>
+                <button className="delete action-button"
+                        onClick={onRemoveClick}>
+                    <i className="fas fa-minus-square"></i>
+                </button>
                 <div className="selected"></div>
             </>
         );

@@ -25,17 +25,17 @@ export default class ActivitiesStore {
     //#region activities
 
     @observable
-    private _activities: IObservableArray<Activity> = observable.array<Activity>();
+    private _activities: Array<Activity> = [];
 
     @computed
-    public get activities(): Activity[] {
+    public get activities(): Array<Activity> {
         return this._activities
             .filter(this.filterActivity)
             .sort((a, b) => Math.sign(moment(a.time).diff(moment(b.time), 'minutes')));
     }
 
     @observable
-    public selectedActivities: Activity[] = [];
+    public selectedActivities: Array<Activity> = [];
 
     @computed
     public get selectMode(): boolean {
