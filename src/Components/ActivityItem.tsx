@@ -5,6 +5,7 @@ import moment from 'moment';
 import Activity from '../Models/Activity';
 import { useActivitiesStore } from '../Stores/ActivitiesStore';
 import { observe } from 'mobx';
+import { CSSTransition } from 'react-transition-group';
 
 type ActivityItemProps = {
     activity: Activity
@@ -13,21 +14,11 @@ type ActivityItemProps = {
 export default observer(
     ({activity}: ActivityItemProps) => {
 
-        const [selected, setSelected] = useState(false);
-
         const sectionRef = useRef<HTMLElement>(null);
 
         const momentTime = moment(activity.time);
 
         const store = useActivitiesStore();
-        const disposeSelectionObserver = observe(
-            store.selectedActivities,
-            () => {
-                if (!store.selectedActivities.includes(activity)) {
-                    setSelected(false);
-                }
-            }
-        );
 
         useEffect(() => {
             if (sectionRef.current) {
@@ -37,12 +28,10 @@ export default observer(
                     time: 500,
                 }));
                 hammer.on('press', () => {
-                    setSelected(true);
                     store.selectedActivities.push(activity);
                 })
             }
-            return disposeSelectionObserver;
-        }, [activity, store.selectedActivities, disposeSelectionObserver]);
+        }, [activity, store.selectedActivities]);
 
         function onEditClick() {
             store.selectedActivities = store.selectedActivities.removef(activity);
@@ -54,8 +43,8 @@ export default observer(
             store.delete(activity);
         }
 
-        const SelectedParts = () => (
-            <>
+        const SelectedParts = () => {
+            return <div className="selected-parts">
                 <button className="edit action-button"
                         onClick={onEditClick}>
                     <i className="fas fa-pen-square"></i>
@@ -65,8 +54,8 @@ export default observer(
                     <i className="fas fa-minus-square"></i>
                 </button>
                 <div className="selected"></div>
-            </>
-        );
+            </div>
+        }
 
         return (
             <section className="activity" ref={sectionRef}>
@@ -81,7 +70,12 @@ export default observer(
                         <span>{activity.feeling.toUpperCase()}</span>
                     </div>
                 </div>
-                {store.selectMode && selected? <SelectedParts/> : null}
+                <CSSTransition classNames="translate-x" 
+                               in={store.selectedActivities.includes(activity)}
+                               timeout={300}
+                               unmountOnExit>
+                    <SelectedParts/>
+                </CSSTransition>
             </section>  
         )   
     }

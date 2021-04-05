@@ -19,7 +19,7 @@ export default observer(
                                       activity={act} /> 
                     )}
                 </main>
-                <CSSTransition classNames="translateY" 
+                <CSSTransition classNames="translate-y" 
                                in={store.currentlyEditing !== undefined}
                                timeout={300}
                                unmountOnExit>

@@ -5,10 +5,10 @@
     /* layout */
     display: grid;
     grid-template-rows: 1fr 1fr;
-    grid-template-columns: 24px 5% 1fr fit-content(50px) 10px 12px;
+    grid-template-columns: 24px 5% 1fr fit-content(72px);
     grid-template-areas: 
-        'time -lp- title    edit   -rp- selected'
-        'time -lp- subtitle delete -rp- selected'
+        'time _ title    selected'
+        'time _ subtitle selected'
     ;
     
     &:last-of-type { margin-bottom: 150px; }
@@ -80,6 +80,18 @@
     .action-button { 
         filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.3));
         &:active { filter: none; }
+    }
+
+    .selected-parts {
+        grid-area: selected;
+
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: fit-content(50px) 10px 12px;
+        grid-template-areas: 
+            "edit _ selected"
+            "delete _ selected"
+        ;
     }
 
     .edit {

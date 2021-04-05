@@ -7,7 +7,7 @@ Array.prototype.unique = function() {
 
 Array.prototype.remove = function(item: any) {
     for (let i=0; i<this.length; i++) {
-        if (this[i] == item) {
+        if (this[i] === item) {
             this.splice(i, 1);
             i--;
         }

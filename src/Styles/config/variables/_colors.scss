@@ -1,8 +1,9 @@
-/* color definitions */
+// color definitions 
 
 @mixin colors {
 
     // #region moods
+    /* mood colors */
     --color-mood-great: hsl(124, 63%, 48%);
     --color-mood-good: hsl(79, 51%, 50%);
     --color-mood-ok: hsl(45, 83%, 50%);
@@ -11,6 +12,7 @@
     // #endregion
 
     // #region times-of-day
+    /* time of day colors */
     --color-tod-1: hsl(18, 88%, 70%);
     --color-tod-2: hsl(45, 99%, 66%);
     --color-tod-3: hsl(57, 91%, 70%);
@@ -23,11 +25,13 @@
     // #endregion
 
     // #region fonts
+    /* font colors */
     --color-font-bright: white;
     --color-font-dark: black;
     // #endregion
 
     // #region main colors
+    /* main colors */
     --color-bg: white;
     --color-day-primary: hsl(162, 47%, 52%);
     --color-night-primary: hsl(198, 100%, 29%);
@@ -39,6 +43,7 @@
 
 
     // #region use cases
+    /* color use cases */
     --color-primary: var(--color-day-primary);
     --color-secondary: var(--color-day-secondary);
     --color-thirdary: var(--color-day-thirdary);
