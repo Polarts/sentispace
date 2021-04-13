@@ -12,8 +12,8 @@ declare interface Array<T> {
     remove(item: T): void;
 
     /**
-     * Removes an item from an array using filter (chaninable)
-     * @param item The item to remove
+     * Filters given items out of an array and returns an array without them (chaninable)
+     * @param items The items to remove
      */
-    removef(item: T): Array<T>;
+    without(...items: T[]): Array<T>;
 }

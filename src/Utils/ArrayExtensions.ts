@@ -14,8 +14,8 @@ Array.prototype.remove = function(item: any) {
     }  
 }
 
-Array.prototype.removef = function(item: any) {
-    return this.filter(elem => elem !== item);
+Array.prototype.without = function(...items: any[]) {
+    return this.filter(elem => !items.includes(elem));
 }
 
 export {}
