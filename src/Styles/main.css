@@ -586,7 +586,7 @@ div[class*=-field] .field-content {
 
 .translate-x-enter-active {
   transform: translateX(0);
-  transition: transform 300ms;
+  transition: transform 200ms;
 }
 
 .translate-x-exit {
@@ -595,7 +595,7 @@ div[class*=-field] .field-content {
 
 .translate-x-exit-active {
   transform: translateX(100%);
-  transition: transform 300ms;
+  transition: transform 200ms;
 }
 
 .inflate-enter {

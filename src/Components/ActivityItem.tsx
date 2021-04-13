@@ -1,11 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Hammer from 'hammerjs';
 import { observer } from 'mobx-react';
+import { computed } from 'mobx';
 import moment from 'moment';
+import { CSSTransition } from 'react-transition-group';
+
 import Activity from '../Models/Activity';
 import { useActivitiesStore } from '../Stores/ActivitiesStore';
-import { observe } from 'mobx';
-import { CSSTransition } from 'react-transition-group';
 
 type ActivityItemProps = {
     activity: Activity
@@ -15,11 +16,10 @@ export default observer(
     ({activity}: ActivityItemProps) => {
 
         const sectionRef = useRef<HTMLElement>(null);
-
-        const momentTime = moment(activity.time);
-
         const store = useActivitiesStore();
-
+        const isSelected = computed(() => store.selectedActivities.includes(activity));
+        const momentTime = moment(activity.time);
+        
         useEffect(() => {
             if (sectionRef.current) {
                 const hammer = new Hammer(sectionRef.current);
@@ -27,19 +27,35 @@ export default observer(
                     event: 'press',
                     time: 500,
                 }));
+                hammer.add(new Hammer.Tap({
+                    time: 150,
+                    taps: 1,
+                    posThreshold: 30
+                }));
                 hammer.on('press', () => {
-                    store.selectedActivities.push(activity);
-                })
+                    if (!isSelected.get()) {
+                        store.selectedActivities.push(activity);
+                    }
+                });
+                hammer.on('tap', () => {
+                    if (store.selectMode) {
+                        if (isSelected.get()) {
+                            store.selectedActivities = store.selectedActivities.without(activity);
+                        } else {
+                            store.selectedActivities.push(activity); 
+                        }
+                    }
+                });
             }
-        }, [activity, store.selectedActivities]);
+        }, []);
 
         function onEditClick() {
-            store.selectedActivities = store.selectedActivities.removef(activity);
+            store.selectedActivities = store.selectedActivities.without(activity);
             store.currentlyEditing = activity;
         }
 
         function onRemoveClick() {
-            store.selectedActivities = store.selectedActivities.removef(activity);
+            store.selectedActivities = store.selectedActivities.without(activity);
             store.delete(activity);
         }
 
@@ -71,8 +87,8 @@ export default observer(
                     </div>
                 </div>
                 <CSSTransition classNames="translate-x" 
-                               in={store.selectedActivities.includes(activity)}
-                               timeout={300}
+                               in={isSelected.get()}
+                               timeout={200}
                                unmountOnExit>
                     <SelectedParts/>
                 </CSSTransition>
