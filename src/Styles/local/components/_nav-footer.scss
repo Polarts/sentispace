@@ -3,7 +3,7 @@
 .nav-footer {
 
     /* size */ width: 100vw; height: 90px;
-    /* position */ position: absolute; bottom: 0; z-index: 1; 
+    /* position */ position: sticky; bottom: 0; z-index: 1; 
     /* layout */ @include flex($justify: flex-start);
     overflow: hidden;
 

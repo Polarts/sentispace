@@ -1,0 +1,10 @@
+/* body element */
+
+body {
+    overflow-x: hidden;
+    height: 100vh;
+
+    main {
+        min-height: calc(100vh - 140px);
+    }
+}

@@ -78,6 +78,15 @@ html {
 }
 
 /* elements */
+/* body element */
+body {
+  overflow-x: hidden;
+  height: 100vh;
+}
+body main {
+  min-height: calc(100vh - 140px);
+}
+
 /* button element */
 button, .button {
   transition: opacity 0.3s;
@@ -203,7 +212,7 @@ header, .header {
   border-bottom: 1px solid gray;
 }
 .activity:last-of-type {
-  margin-bottom: 150px;
+  margin-bottom: 50px;
 }
 .activity .time-container {
   /* layout */
@@ -496,7 +505,8 @@ div[class*=-field] .field-content {
   width: 100vw;
   height: 90px;
   /* position */
-  position: absolute;
+  position: -webkit-sticky;
+  position: sticky;
   bottom: 0;
   z-index: 1;
   /* layout */
@@ -618,8 +628,4 @@ div[class*=-field] .field-content {
   transform: scale(0);
   opacity: 0;
   transition: transform 300ms, opacity 300ms;
-}
-
-html, body {
-  overflow-x: hidden;
 }/*# sourceMappingURL=main.css.map */
