@@ -14,10 +14,13 @@ configure({
 });
 
 export enum Routes {
+  login = '/login',
   day = '/day',
+  week = '/week',
   month = '/month',
-  year = '/year',
-  edit = '/day/edit'
+  edit = '/day/edit',
+  settings = '/settings',
+  about = '/about'
 }
 
 function App() {
@@ -29,8 +32,8 @@ function App() {
         <Route exact path={Routes.day}>
           <DayPage/>
         </Route>
+        <Route exact path={Routes.week}/>
         <Route exact path={Routes.month}/>
-        <Route exact path={Routes.year}/>
         <Redirect from="/" to={Routes.day} exact/>
       </Switch>
       <NavFooter/>
