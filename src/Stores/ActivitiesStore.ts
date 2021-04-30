@@ -127,26 +127,29 @@ export default class ActivitiesStore {
     }
 
     @action
-    public create(act: Activity) {
+    public create(act: Activity): boolean {
         // MOCK
         // TODO create on server
         act.id = `act_${this._activities.length}`;
         this._activities.push(act);
+        return true;
     }
 
     @action
-    public update(act: Activity) {
+    public update(act: Activity): boolean {
         // MOCK
         // TODO update on server
         let updateIdx = this._activities.findIndex(a => a.id === act.id);
         this._activities[updateIdx] = act;
+        return true;
     }
 
     @action
-    public delete(act: Activity) {
+    public delete(act: Activity): boolean {
         // MOCK
         // TODO delete from server
         this._activities.remove(act);
+        return true;
     }
 
     //#endregion

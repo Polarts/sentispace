@@ -53,10 +53,10 @@ export default class ActivityFormViewModel extends FormViewModelBase {
         this.tags = this.tags.unique();
     }
 
-    public save() {
-        if (this.checkValidity(Object.entries(this))) {
+    public save(): boolean {
+        if (this.checkValidity()) {
             if(!this.id) {
-                this.store.create(new Activity(
+                return this.store.create(new Activity(
                     this.title,
                     this.description,
                     this.feeling,
@@ -64,7 +64,7 @@ export default class ActivityFormViewModel extends FormViewModelBase {
                     this.tags.slice()
                 ));
             } else {
-                this.store.update(new Activity(
+                return this.store.update(new Activity(
                     this.title,
                     this.description,
                     this.feeling,
@@ -73,6 +73,8 @@ export default class ActivityFormViewModel extends FormViewModelBase {
                     this.id
                 ));
             }
+        } else {
+            return false;
         }
     }
 }

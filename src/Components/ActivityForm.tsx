@@ -35,9 +35,8 @@ export default observer(
         
         function onSubmit(e: React.FormEvent<HTMLFormElement>) {
             e.preventDefault();
-            vm.save();
-            store.currentlyEditing = undefined;
-            store.selectedActivities = [];
+            if (vm.save()) 
+                onCancel();
         }
 
         function onCancel() {
@@ -52,7 +51,8 @@ export default observer(
                 </div>
                 <div className="form-body">
                     <div className="text-field">
-                        <label className="field-label" htmlFor="title">
+                        <label className="field-label" htmlFor="title"
+                               style={{background: Object.keys(vm.errors).includes('title')? 'red' : 'var(--color-primary)'}}>
                             <span>Title</span>
                         </label>
                         <input type="text" name="title" id="title" className="field-content" 

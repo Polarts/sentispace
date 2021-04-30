@@ -16,7 +16,13 @@ export default class FormViewModelBase {
         makeObservable(this);
     }
 
-    protected checkValidity(entries: Array<Array<any>>) : boolean {
+    /**
+     * Checks validity of the class' properties according to the rules, 
+     * and raises errors into the errors dictionary.
+     * @returns true if all validation rule predicates have passed.
+     */
+    protected checkValidity(): boolean {
+        const entries = Object.entries(this);
         return Object.keys(this.rules).every(field => {
             const valueEntry = entries.find(entry => entry[0] === field);
             if (valueEntry) {
