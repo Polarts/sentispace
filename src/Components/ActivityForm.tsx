@@ -72,13 +72,13 @@ export default observer(
                             <span>Feeling</span>
                         </label>
                         <div className="field-content">
-                            {Object.values(Feelings).map(feel => (
-                                <React.Fragment key={feel}>
-                                    <input type="radio" name="feelings" id={`feeling-${feel}`} 
-                                           value={feel} onChange={onFeelingSelected}
-                                           checked={vm.feeling === feel}/>
-                                    <label htmlFor={`feeling-${feel}`} className="feeling-mood" data-mood={feel}>
-                                        <span>{feel.toUpperCase()}</span>
+                            {Object.values(Feelings).map(mood => (
+                                <React.Fragment key={mood}>
+                                    <input type="radio" name="feelings" id={`feeling-${mood}`} 
+                                           value={mood} onChange={onFeelingSelected}
+                                           checked={vm.feeling === mood}/>
+                                    <label htmlFor={`feeling-${mood}`} className="feeling-mood" data-mood={mood}>
+                                        <span>{mood.toUpperCase()}</span>
                                     </label>
                                 </React.Fragment>
                             ))}

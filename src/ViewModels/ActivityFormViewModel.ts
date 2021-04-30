@@ -2,9 +2,10 @@ import {action, makeObservable, observable} from 'mobx';
 import Activity from '../Models/Activity';
 import Feelings from '../Models/Feelings';
 import ActivitiesStore from '../Stores/ActivitiesStore';
+import FormViewModelBase from './FormViewModelBase';
 import '../Utils/ArrayExtensions';
 
-export default class ActivityFormViewModel {
+export default class ActivityFormViewModel extends FormViewModelBase {
 
     //#region properties
     public id?: string;
@@ -29,6 +30,12 @@ export default class ActivityFormViewModel {
         private store: ActivitiesStore,
         private model?: Activity,
     ) {
+        super({
+            'title': {
+                predicate: (value: string) => !!value && /\S/.test(value),
+                message: "Title cannot be empty!"
+            }
+        });
         if (model !== undefined) {
             this.id = model.id;
             this.title = model.title;
@@ -47,23 +54,25 @@ export default class ActivityFormViewModel {
     }
 
     public save() {
-        if(!this.id) {
-            this.store.create(new Activity(
-                this.title,
-                this.description,
-                this.feeling,
-                this.time,
-                this.tags.slice()
-            ));
-        } else {
-            this.store.update(new Activity(
-                this.title,
-                this.description,
-                this.feeling,
-                this.time,
-                this.tags.slice(),
-                this.id
-            ));
+        if (this.checkValidity(Object.entries(this))) {
+            if(!this.id) {
+                this.store.create(new Activity(
+                    this.title,
+                    this.description,
+                    this.feeling,
+                    this.time,
+                    this.tags.slice()
+                ));
+            } else {
+                this.store.update(new Activity(
+                    this.title,
+                    this.description,
+                    this.feeling,
+                    this.time,
+                    this.tags.slice(),
+                    this.id
+                ));
+            }
         }
     }
 }
