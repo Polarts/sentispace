@@ -8,20 +8,33 @@ div[class*='-field'] {
     /* font */
     font-family: 'Varela Round';
     color: var(--color-font-dark);
+
+    &.validation-error {
+        .field-label span:nth-child(1) { background-color: tomato }
+        .field-content { border-color: tomato }
+    }
     
     .field-label { 
         
-        @include flex;
-        padding: 4rem;
+        @include flex('row');
 
-        font-size: var(--size-font-medium); 
-        color: var(--color-font-bright);
-        
-        background-color: var(--color-primary);
+        span {
+            padding: 4rem;
+
+            font-size: var(--size-font-medium); 
+            color: var(--color-font-bright);
+            background-color: var(--color-primary);
+
+            &:nth-child(2) {
+                margin-left: 3rem;
+                background-color: var(--color-bg);
+                color: tomato;
+            }
+        }
+
     }
 
     .field-content {
-
         width: 100%;
         border: var(--color-font-dark) 1px solid;
     }

@@ -33,7 +33,7 @@ export default class ActivityFormViewModel extends FormViewModelBase {
         super({
             'title': {
                 predicate: (value: string) => !!value && /\S/.test(value),
-                message: "Title cannot be empty!"
+                message: "must not be empty!"
             }
         });
         if (model !== undefined) {

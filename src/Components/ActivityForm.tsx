@@ -12,10 +12,7 @@ type ActivitiesFormProps = {
 export default observer(
     ({vm}: ActivitiesFormProps) => {
 
-        //#region state
         const [currentTag, setCurrentTag] = useState('');
-        //#endregion
-
         const store = useActivitiesStore();
 
         function onFeelingSelected(e: React.ChangeEvent<HTMLInputElement>) {
@@ -26,7 +23,7 @@ export default observer(
             if (e.key === 'Enter') {
                 e.preventDefault();
                 e.stopPropagation();
-                if (currentTag && /\S/.test(currentTag)) {
+                if (!!currentTag && /\S/.test(currentTag)) {
                     vm.addTag(currentTag);
                     setCurrentTag('');
                 }
@@ -50,10 +47,10 @@ export default observer(
                     {vm.id? "EDIT ACTIVITY" : "NEW ACTIVITY"}
                 </div>
                 <div className="form-body">
-                    <div className="text-field">
-                        <label className="field-label" htmlFor="title"
-                               style={{background: Object.keys(vm.errors).includes('title')? 'red' : 'var(--color-primary)'}}>
+                    <div className={`text-field${Object.keys(vm.errors).includes('title')? ' validation-error' : ''}`}>
+                        <label className="field-label" htmlFor="title">
                             <span>Title</span>
+                            {Object.keys(vm.errors).includes('title')? <span>{vm.errors['title']}</span> : null}
                         </label>
                         <input type="text" name="title" id="title" className="field-content" 
                                value={vm.title}
