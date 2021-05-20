@@ -12,10 +12,7 @@ type ActivitiesFormProps = {
 export default observer(
     ({vm}: ActivitiesFormProps) => {
 
-        //#region state
         const [currentTag, setCurrentTag] = useState('');
-        //#endregion
-
         const store = useActivitiesStore();
 
         function onFeelingSelected(e: React.ChangeEvent<HTMLInputElement>) {
@@ -26,7 +23,7 @@ export default observer(
             if (e.key === 'Enter') {
                 e.preventDefault();
                 e.stopPropagation();
-                if (currentTag && /\S/.test(currentTag)) {
+                if (!!currentTag && /\S/.test(currentTag)) {
                     vm.addTag(currentTag);
                     setCurrentTag('');
                 }
@@ -35,9 +32,8 @@ export default observer(
         
         function onSubmit(e: React.FormEvent<HTMLFormElement>) {
             e.preventDefault();
-            vm.save();
-            store.currentlyEditing = undefined;
-            store.selectedActivities = [];
+            if (vm.save()) 
+                onCancel();
         }
 
         function onCancel() {
@@ -51,9 +47,10 @@ export default observer(
                     {vm.id? "EDIT ACTIVITY" : "NEW ACTIVITY"}
                 </div>
                 <div className="form-body">
-                    <div className="text-field">
+                    <div className={`text-field${Object.keys(vm.errors).includes('title')? ' validation-error' : ''}`}>
                         <label className="field-label" htmlFor="title">
                             <span>Title</span>
+                            {Object.keys(vm.errors).includes('title')? <span>{vm.errors['title']}</span> : null}
                         </label>
                         <input type="text" name="title" id="title" className="field-content" 
                                value={vm.title}
@@ -72,13 +69,13 @@ export default observer(
                             <span>Feeling</span>
                         </label>
                         <div className="field-content">
-                            {Object.values(Feelings).map(feel => (
-                                <React.Fragment key={feel}>
-                                    <input type="radio" name="feelings" id={`feeling-${feel}`} 
-                                           value={feel} onChange={onFeelingSelected}
-                                           checked={vm.feeling === feel}/>
-                                    <label htmlFor={`feeling-${feel}`} className="feeling-mood" data-mood={feel}>
-                                        <span>{feel.toUpperCase()}</span>
+                            {Object.values(Feelings).map(mood => (
+                                <React.Fragment key={mood}>
+                                    <input type="radio" name="feelings" id={`feeling-${mood}`} 
+                                           value={mood} onChange={onFeelingSelected}
+                                           checked={vm.feeling === mood}/>
+                                    <label htmlFor={`feeling-${mood}`} className="feeling-mood" data-mood={mood}>
+                                        <span>{mood.toUpperCase()}</span>
                                     </label>
                                 </React.Fragment>
                             ))}
