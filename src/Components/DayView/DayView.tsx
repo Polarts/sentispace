@@ -1,8 +1,8 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import ActivityItem from '../ActivityItem';
+import ActivityItem from './ActivityItem';
 import { useActivitiesStore } from '../../Stores/ActivitiesStore';
-import ActivityForm from '../ActivityForm';
+import ActivityForm from './ActivityForm';
 import ActivityFormViewModel from '../../ViewModels/ActivityFormViewModel';
 import { CSSTransition } from 'react-transition-group';
 

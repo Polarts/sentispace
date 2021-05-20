@@ -4,7 +4,7 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
-import DayPage from './Components/Pages/DayPage';
+import DayPage from './Components/DayView/DayView';
 import NavHeader from './Components/NavHeader';
 import NavFooter from './Components/NavFooter';
 import { configure } from 'mobx';

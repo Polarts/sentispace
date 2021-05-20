@@ -5,8 +5,8 @@ import { computed } from 'mobx';
 import moment from 'moment';
 import { CSSTransition } from 'react-transition-group';
 
-import Activity from '../Models/Activity';
-import { useActivitiesStore } from '../Stores/ActivitiesStore';
+import Activity from '../../Models/Activity';
+import { useActivitiesStore } from '../../Stores/ActivitiesStore';
 
 type ActivityItemProps = {
     activity: Activity

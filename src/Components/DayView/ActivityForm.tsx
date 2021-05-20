@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import { useActivitiesStore } from '../Stores/ActivitiesStore';
-import ActivityFormViewModel from '../ViewModels/ActivityFormViewModel';
-import Feelings from '../Models/Feelings';
+import { useActivitiesStore } from '../../Stores/ActivitiesStore';
+import ActivityFormViewModel from '../../ViewModels/ActivityFormViewModel';
+import Feelings from '../../Models/Feelings';
 import moment from 'moment';
 
 type ActivitiesFormProps = {
