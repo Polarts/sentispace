@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { observer } from 'mobx-react';
-import { useActivitiesStore } from '../Stores/ActivitiesStore';
-import Activity from '../Models/Activity';
-import Feelings from '../Models/Feelings';
+import { useActivitiesStore } from '../../Stores/ActivitiesStore';
+import Activity from '../../Models/Activity';
+import Feelings from '../../Models/Feelings';
 import moment from 'moment';
 
 export default observer(

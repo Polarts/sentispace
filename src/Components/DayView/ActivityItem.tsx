@@ -7,17 +7,18 @@ import { CSSTransition } from 'react-transition-group';
 
 import Activity from '../../Models/Activity';
 import { useActivitiesStore } from '../../Stores/ActivitiesStore';
+import DayViewModel from '../../ViewModels/Day/DayViewModel';
 
 type ActivityItemProps = {
-    activity: Activity
+    activity: Activity,
+    dayVM: DayViewModel
 };
 
 export default observer(
-    ({activity}: ActivityItemProps) => {
+    ({activity, dayVM}: ActivityItemProps) => {
 
         const sectionRef = useRef<HTMLElement>(null);
-        const store = useActivitiesStore();
-        const isSelected = computed(() => store.selectedActivities.includes(activity));
+        const isSelected = computed(() => dayVM.selectedActivities.includes(activity));
         const momentTime = moment(activity.time);
         
         useEffect(() => {
@@ -34,15 +35,15 @@ export default observer(
                 }));
                 hammer.on('press', () => {
                     if (!isSelected.get()) {
-                        store.selectedActivities.push(activity);
+                        dayVM.selectedActivities.push(activity);
                     }
                 });
                 hammer.on('tap', () => {
-                    if (store.selectMode) {
+                    if (dayVM.selectedActivities.length > 0) {
                         if (isSelected.get()) {
-                            store.selectedActivities = store.selectedActivities.without(activity);
+                            dayVM.selectedActivities = dayVM.selectedActivities.without(activity);
                         } else {
-                            store.selectedActivities.push(activity); 
+                            dayVM.selectedActivities.push(activity); 
                         }
                     }
                 });
@@ -50,13 +51,13 @@ export default observer(
         }, []);
 
         function onEditClick() {
-            store.selectedActivities = store.selectedActivities.without(activity);
-            store.currentlyEditing = activity;
+            dayVM.selectedActivities = dayVM.selectedActivities.without(activity);
+            dayVM.currentlyEditing = activity;
         }
 
         function onRemoveClick() {
-            store.selectedActivities = store.selectedActivities.without(activity);
-            store.delete(activity);
+            dayVM.selectedActivities = dayVM.selectedActivities.without(activity);
+            dayVM.delete(activity);
         }
 
         const SelectedParts = () => {

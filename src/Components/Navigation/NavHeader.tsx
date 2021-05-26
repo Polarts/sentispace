@@ -1,32 +1,36 @@
 import React, { useState } from 'react';
 import { observer } from 'mobx-react';
 import moment from 'moment';
-import { useActivitiesStore } from '../Stores/ActivitiesStore';
+import { useActivitiesStore } from '../../Stores/ActivitiesStore';
 import { useLocation } from 'react-router';
-import { Routes } from '../App';
+import { Routes } from '../../App';
 import { CSSTransition } from 'react-transition-group';
+import NavHeaderViewModel, { SelectModes } from '../../ViewModels/NavHeaderViewModel';
+import NavMenuItem from './NavMenuItem';
+
+type NavHeaderProps = {
+    vm: NavHeaderViewModel
+}
 
 export default observer(
-    () => {
+    ({vm}: NavHeaderProps) => {
         
-        const store = useActivitiesStore();
         const location = useLocation();
-
-        const [menuStates, setMenuStates] = useState({left: false, right: false});
+        const store = useActivitiesStore();
 
         function onLeftButtonClicked() {
-            if (store.selectMode) {
-
+            if (vm.selectMode === SelectModes.selecting) {
+                vm.selectMode = SelectModes.none;
             } else {
-                setMenuStates({left: !menuStates.left, right: false});
+                vm.leftMenuOpen = !vm.leftMenuOpen;
             }
         }
 
         function onRightButtonClicked() {
-            if (store.selectMode) {
-                store.selectedActivities = [];
+            if (vm.selectMode === SelectModes.selecting) {
+                vm.selectMode = SelectModes.deleteAll;
             } else {
-                setMenuStates({left: false, right: !menuStates.right});
+                vm.rightMenuOpen = !vm.rightMenuOpen;
             }
         }
 
@@ -39,12 +43,6 @@ export default observer(
                             <span>{moment(store.startDate).format('DD MMM yyyy')}</span>
                         </h1>
                     );
-                case Routes.edit:
-                    return (
-                        <h1>
-                            <span>EDITING</span>
-                        </h1>
-                    )
                 default:
                     return ( 
                         <h1>
@@ -55,33 +53,15 @@ export default observer(
             }
         }
 
-        type MenuItmeProps = {
-            icon: string,
-            text: string,
-            route: Routes
-        };
-
-        function MenuItem({ icon, text, route}: MenuItmeProps) {
-            return (
-                <li>
-                    <a href={route} 
-                       className={`nav-menu-item${location.pathname === route? ' selected' : ''}`}>
-                        <i className={`fas ${icon}`}></i>
-                        <span>{text}</span>
-                    </a>
-                </li>
-            );
-        }
-
         return (
             <header>
                 <nav className="nav-header">
                     <button className="nav-menu-button action-button"
                             onClick={onLeftButtonClicked}>
                         <i className={`fas ${
-                            store.selectMode
-                                ? 'fa-trash-alt' 
-                                : menuStates.left
+                            vm.selectMode === SelectModes.selecting
+                                ? 'fa-window-close' 
+                                : vm.leftMenuOpen
                                     ? 'fa-times'
                                     : 'fa-calendar-day'
                             }`}/>
@@ -90,32 +70,32 @@ export default observer(
                     <button className="nav-menu-button action-button"
                             onClick={onRightButtonClicked}>
                         <i className={`fas ${
-                            store.selectMode
-                            ? 'fa-window-close' 
-                            : menuStates.right
+                            vm.selectMode === SelectModes.selecting
+                            ? 'fa-trash-alt' 
+                            : vm.rightMenuOpen
                                 ? 'fa-times'
                                 : 'fa-caret-square-down'
                         }`}/>
                     </button>
                     <div className="nav-menus">
                         <CSSTransition classNames="inflate" 
-                                       in={menuStates.left}
+                                       in={vm.leftMenuOpen}
                                        timeout={300}
                                        unmountOnExit>
                             <ul className="nav-menu left">
-                                <MenuItem icon="fa-calendar-day" text="Day View" route={Routes.day}/>
-                                <MenuItem icon="fa-calendar-week" text="Week View" route={Routes.week}/>
-                                <MenuItem icon="fa-calendar-alt" text="Month View" route={Routes.month}/>
+                                <NavMenuItem icon="fa-calendar-day" text="Day View" route={Routes.day}/>
+                                <NavMenuItem icon="fa-calendar-week" text="Week View" route={Routes.week}/>
+                                <NavMenuItem icon="fa-calendar-alt" text="Month View" route={Routes.month}/>
                             </ul>
                         </CSSTransition>
                         <CSSTransition classNames="inflate" 
-                                       in={menuStates.right}
+                                       in={vm.rightMenuOpen}
                                        timeout={300}
                                        unmountOnExit>
                             <ul className="nav-menu right">
-                                <MenuItem icon="fa-cog" text="Settings" route={Routes.settings}/>
-                                <MenuItem icon="fa-info-circle" text="About" route={Routes.about}/>
-                                <MenuItem icon="fa-sign-out-alt" text="Logout" route={Routes.login}/>
+                                <NavMenuItem icon="fa-cog" text="Settings" route={Routes.settings}/>
+                                <NavMenuItem icon="fa-info-circle" text="About" route={Routes.about}/>
+                                <NavMenuItem icon="fa-sign-out-alt" text="Logout" route={Routes.login}/>
                             </ul>
                         </CSSTransition>
                     </div>
