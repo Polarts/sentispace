@@ -1,7 +1,7 @@
 import { computed, makeObservable, observable, reaction, when } from "mobx";
 import Activity from "../../Models/Activity";
 import ActivitiesStore from "../../Stores/ActivitiesStore";
-import NavHeaderViewModel, { SelectModes } from "../NavHeaderViewModel";
+import NavigationViewModel, { SelectModes } from "../NavigationViewModel";
 
 export default class DayViewModel {
 
@@ -20,7 +20,7 @@ export default class DayViewModel {
 
     constructor(
         private store: ActivitiesStore,
-        private navHeader: NavHeaderViewModel
+        private navHeader: NavigationViewModel
     ) {
         makeObservable(this);
 

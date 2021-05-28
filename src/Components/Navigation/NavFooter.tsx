@@ -4,22 +4,20 @@ import { useActivitiesStore } from '../../Stores/ActivitiesStore';
 import Activity from '../../Models/Activity';
 import Feelings from '../../Models/Feelings';
 import moment from 'moment';
+import NavigationViewModel, { SelectModes } from '../../ViewModels/NavigationViewModel';
+
+type NavFooterProps = {
+    vm: NavigationViewModel
+}
 
 export default observer(
-    () => {
-
-        //#region state
-
-        const [hasNext, setHasNext] = useState(true);
-        const [hasPrev, setHasPrev] = useState(true);
-
-        //#endregion
+    ({vm}: NavFooterProps) => {
 
         const store = useActivitiesStore();
 
         function onCenterButtonClicked() {
-            if (store.selectMode) {
-                store.selectedActivities = [];
+            if (vm.selectMode === SelectModes.selecting) {
+                vm.selectMode = SelectModes.none;
             } else {
                 store.currentlyEditing = new Activity(
                     "",
@@ -35,15 +33,15 @@ export default observer(
             <footer className="nav-footer">
                 <nav>
                     <button className="fab button-secondary"
-                            disabled={!hasPrev || store.selectMode}>
+                            disabled={!vm.hasPrev || vm.selectMode === SelectModes.selecting}>
                         <i className="fas fa-chevron-left"></i>
                     </button>
                     <button className="fab button-primary" 
                             onClick={onCenterButtonClicked}>
-                        <i className={`fas fa-plus${store.selectMode? ' rotated' : ''}`}></i>
+                        <i className={`fas fa-plus${vm.selectMode === SelectModes.selecting? ' rotated' : ''}`}></i>
                     </button>
                     <button className="fab button-secondary"
-                            disabled={!hasNext || store.selectMode}>
+                            disabled={!vm.hasNext || vm.selectMode === SelectModes.selecting}>
                         <i className="fas fa-chevron-right"></i>
                     </button>
                 </nav>

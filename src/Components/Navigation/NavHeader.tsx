@@ -5,11 +5,11 @@ import { useActivitiesStore } from '../../Stores/ActivitiesStore';
 import { useLocation } from 'react-router';
 import { Routes } from '../../App';
 import { CSSTransition } from 'react-transition-group';
-import NavHeaderViewModel, { SelectModes } from '../../ViewModels/NavHeaderViewModel';
+import NavigationViewModel, { SelectModes } from '../../ViewModels/NavigationViewModel';
 import NavMenuItem from './NavMenuItem';
 
 type NavHeaderProps = {
-    vm: NavHeaderViewModel
+    vm: NavigationViewModel
 }
 
 export default observer(

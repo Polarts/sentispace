@@ -8,7 +8,7 @@ import DayView from './Components/DayView/DayView';
 import NavHeader from './Components/Navigation/NavHeader';
 import NavFooter from './Components/Navigation/NavFooter';
 import { configure } from 'mobx';
-import NavHeaderViewModel from './ViewModels/NavHeaderViewModel';
+import NavigationViewModel from './ViewModels/NavigationViewModel';
 import DayViewModel from './ViewModels/Day/DayViewModel';
 import { useActivitiesStore } from './Stores/ActivitiesStore';
 
@@ -28,20 +28,20 @@ export enum Routes {
 function App() {
 
   const store = useActivitiesStore();
-  const navHeaderVM = new NavHeaderViewModel();
+  const navVM = new NavigationViewModel();
 
   return (
     <>
-      <NavHeader vm={navHeaderVM}/>
+      <NavHeader vm={navVM}/>
       <Switch>
         <Route exact path={Routes.day}>
-          <DayView vm={new DayViewModel(store, navHeaderVM)}/>
+          <DayView vm={new DayViewModel(store, navVM)}/>
         </Route>
         <Route exact path={Routes.week}/>
         <Route exact path={Routes.month}/>
         <Redirect from="/" to={Routes.day} exact/>
       </Switch>
-      <NavFooter/>
+      <NavFooter vm={navVM}/>
     </>
   );
 }
