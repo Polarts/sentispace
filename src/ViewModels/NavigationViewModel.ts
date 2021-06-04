@@ -1,9 +1,10 @@
-import { autorun, makeObservable, observable, reaction } from "mobx";
+import { autorun, makeObservable, observable } from "mobx";
 
-export enum SelectModes {
+export enum DisplayModes {
     none,
     selecting,
-    deleteAll
+    deleteAll,
+    creating
 }
 
 export default class NavigationViewModel {
@@ -16,7 +17,7 @@ export default class NavigationViewModel {
     public rightMenuOpen: boolean = false;
 
     @observable
-    public selectMode: SelectModes = SelectModes.none;
+    public displayMode: DisplayModes = DisplayModes.none;
 
     @observable
     public hasNext: boolean = true;
@@ -34,7 +35,7 @@ export default class NavigationViewModel {
             if (this.rightMenuOpen) {
                 this.leftMenuOpen = false;
             }
-            if (this.selectMode === SelectModes.selecting) {
+            if (this.displayMode === DisplayModes.selecting) {
                 this.rightMenuOpen = this.leftMenuOpen = false;
             }
         });

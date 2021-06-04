@@ -29,7 +29,7 @@ export default observer(
                                in={vm.currentlyEditing !== undefined}
                                timeout={300}
                                unmountOnExit>
-                    <ActivityForm vm={new ActivityFormViewModel(store, vm.currentlyEditing)}/>
+                    <ActivityForm vm={new ActivityFormViewModel(store, vm.currentlyEditing)} dayVM={vm}/>
                 </CSSTransition>
             </>
         );

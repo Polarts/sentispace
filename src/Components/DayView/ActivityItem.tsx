@@ -6,7 +6,6 @@ import moment from 'moment';
 import { CSSTransition } from 'react-transition-group';
 
 import Activity from '../../Models/Activity';
-import { useActivitiesStore } from '../../Stores/ActivitiesStore';
 import DayViewModel from '../../ViewModels/Day/DayViewModel';
 
 type ActivityItemProps = {

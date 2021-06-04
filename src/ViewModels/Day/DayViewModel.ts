@@ -1,7 +1,9 @@
-import { computed, makeObservable, observable, reaction, when } from "mobx";
+import { computed, makeObservable, observable, reaction } from "mobx";
+import moment from "moment";
 import Activity from "../../Models/Activity";
+import Feelings from "../../Models/Feelings";
 import ActivitiesStore from "../../Stores/ActivitiesStore";
-import NavigationViewModel, { SelectModes } from "../NavigationViewModel";
+import NavigationViewModel, { DisplayModes } from "../NavigationViewModel";
 
 export default class DayViewModel {
 
@@ -20,19 +22,28 @@ export default class DayViewModel {
 
     constructor(
         private store: ActivitiesStore,
-        private navHeader: NavigationViewModel
+        private navVM: NavigationViewModel
     ) {
         makeObservable(this);
 
         reaction(
-            () => this.navHeader.selectMode,
+            () => this.navVM.displayMode,
             mode => {
                 switch(mode) {
-                    case SelectModes.deleteAll:
+                    case DisplayModes.deleteAll:
                         this.selectedActivities.forEach(act => store.delete(act));
                         this.selectedActivities = [];
                         break;
-                    case SelectModes.none:
+                    case DisplayModes.creating:
+                        this.currentlyEditing = new Activity(
+                            "",
+                            "",
+                            Feelings.great,
+                            moment().format(),
+                            []
+                        );
+                        break;
+                    case DisplayModes.none:
                         this.selectedActivities = [];
                         break;
                 }
@@ -43,12 +54,12 @@ export default class DayViewModel {
             () => this.selectedActivities.length,
             length => {
                 if (length > 0) {
-                    this.navHeader.selectMode = SelectModes.selecting;
+                    this.navVM.displayMode = DisplayModes.selecting;
                 } else {
-                    this.navHeader.selectMode = SelectModes.none;
+                    this.navVM.displayMode = DisplayModes.none;
                 }
             }
-        )
+        );
     }
 
     public delete(act: Activity) {

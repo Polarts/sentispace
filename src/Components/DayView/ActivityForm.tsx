@@ -4,13 +4,15 @@ import { useActivitiesStore } from '../../Stores/ActivitiesStore';
 import ActivityFormViewModel from '../../ViewModels/Day/ActivityFormViewModel';
 import Feelings from '../../Models/Feelings';
 import moment from 'moment';
+import DayViewModel from '../../ViewModels/Day/DayViewModel';
 
 type ActivitiesFormProps = {
-    vm: ActivityFormViewModel
+    vm: ActivityFormViewModel,
+    dayVM: DayViewModel
 }
 
 export default observer(
-    ({vm}: ActivitiesFormProps) => {
+    ({vm, dayVM}: ActivitiesFormProps) => {
 
         const [currentTag, setCurrentTag] = useState('');
         const store = useActivitiesStore();
@@ -37,8 +39,8 @@ export default observer(
         }
 
         function onCancel() {
-            store.currentlyEditing = undefined;
-            store.selectedActivities = [];
+            dayVM.currentlyEditing = undefined;
+            dayVM.selectedActivities = [];
         }
 
         return (

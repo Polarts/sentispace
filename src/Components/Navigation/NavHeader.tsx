@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { observer } from 'mobx-react';
 import moment from 'moment';
 import { useActivitiesStore } from '../../Stores/ActivitiesStore';
 import { useLocation } from 'react-router';
 import { Routes } from '../../App';
 import { CSSTransition } from 'react-transition-group';
-import NavigationViewModel, { SelectModes } from '../../ViewModels/NavigationViewModel';
+import NavigationViewModel, { DisplayModes } from '../../ViewModels/NavigationViewModel';
 import NavMenuItem from './NavMenuItem';
 
 type NavHeaderProps = {
@@ -19,19 +19,23 @@ export default observer(
         const store = useActivitiesStore();
 
         function onLeftButtonClicked() {
-            if (vm.selectMode === SelectModes.selecting) {
-                vm.selectMode = SelectModes.none;
+            if (vm.displayMode === DisplayModes.selecting) {
+                vm.displayMode = DisplayModes.none;
             } else {
                 vm.leftMenuOpen = !vm.leftMenuOpen;
             }
         }
 
         function onRightButtonClicked() {
-            if (vm.selectMode === SelectModes.selecting) {
-                vm.selectMode = SelectModes.deleteAll;
+            if (vm.displayMode === DisplayModes.selecting) {
+                vm.displayMode = DisplayModes.deleteAll;
             } else {
                 vm.rightMenuOpen = !vm.rightMenuOpen;
             }
+        }
+
+        function onMenuButtonClick() {
+            vm.rightMenuOpen = vm.leftMenuOpen = false;
         }
 
         function Title() {
@@ -59,7 +63,7 @@ export default observer(
                     <button className="nav-menu-button action-button"
                             onClick={onLeftButtonClicked}>
                         <i className={`fas ${
-                            vm.selectMode === SelectModes.selecting
+                            vm.displayMode === DisplayModes.selecting
                                 ? 'fa-window-close' 
                                 : vm.leftMenuOpen
                                     ? 'fa-times'
@@ -70,7 +74,7 @@ export default observer(
                     <button className="nav-menu-button action-button"
                             onClick={onRightButtonClicked}>
                         <i className={`fas ${
-                            vm.selectMode === SelectModes.selecting
+                            vm.displayMode === DisplayModes.selecting
                             ? 'fa-trash-alt' 
                             : vm.rightMenuOpen
                                 ? 'fa-times'
@@ -83,9 +87,9 @@ export default observer(
                                        timeout={300}
                                        unmountOnExit>
                             <ul className="nav-menu left">
-                                <NavMenuItem icon="fa-calendar-day" text="Day View" route={Routes.day}/>
-                                <NavMenuItem icon="fa-calendar-week" text="Week View" route={Routes.week}/>
-                                <NavMenuItem icon="fa-calendar-alt" text="Month View" route={Routes.month}/>
+                                <NavMenuItem icon="fa-calendar-day" text="Day View" route={Routes.day} onClick={onMenuButtonClick}/>
+                                <NavMenuItem icon="fa-calendar-week" text="Week View" route={Routes.week} onClick={onMenuButtonClick}/>
+                                <NavMenuItem icon="fa-calendar-alt" text="Month View" route={Routes.month} onClick={onMenuButtonClick}/>
                             </ul>
                         </CSSTransition>
                         <CSSTransition classNames="inflate" 
@@ -93,9 +97,9 @@ export default observer(
                                        timeout={300}
                                        unmountOnExit>
                             <ul className="nav-menu right">
-                                <NavMenuItem icon="fa-cog" text="Settings" route={Routes.settings}/>
-                                <NavMenuItem icon="fa-info-circle" text="About" route={Routes.about}/>
-                                <NavMenuItem icon="fa-sign-out-alt" text="Logout" route={Routes.login}/>
+                                <NavMenuItem icon="fa-cog" text="Settings" route={Routes.settings} onClick={onMenuButtonClick}/>
+                                <NavMenuItem icon="fa-info-circle" text="About" route={Routes.about} onClick={onMenuButtonClick}/>
+                                <NavMenuItem icon="fa-sign-out-alt" text="Logout" route={Routes.login} onClick={onMenuButtonClick}/>
                             </ul>
                         </CSSTransition>
                     </div>

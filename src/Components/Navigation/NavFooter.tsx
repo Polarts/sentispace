@@ -1,10 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { observer } from 'mobx-react';
-import { useActivitiesStore } from '../../Stores/ActivitiesStore';
-import Activity from '../../Models/Activity';
-import Feelings from '../../Models/Feelings';
-import moment from 'moment';
-import NavigationViewModel, { SelectModes } from '../../ViewModels/NavigationViewModel';
+import NavigationViewModel, { DisplayModes } from '../../ViewModels/NavigationViewModel';
 
 type NavFooterProps = {
     vm: NavigationViewModel
@@ -13,19 +9,11 @@ type NavFooterProps = {
 export default observer(
     ({vm}: NavFooterProps) => {
 
-        const store = useActivitiesStore();
-
         function onCenterButtonClicked() {
-            if (vm.selectMode === SelectModes.selecting) {
-                vm.selectMode = SelectModes.none;
+            if (vm.displayMode === DisplayModes.selecting) {
+                vm.displayMode = DisplayModes.none;
             } else {
-                store.currentlyEditing = new Activity(
-                    "",
-                    "",
-                    Feelings.great,
-                    moment().format(),
-                    []
-                );
+                vm.displayMode = DisplayModes.creating;
             }
         }
 
@@ -33,15 +21,15 @@ export default observer(
             <footer className="nav-footer">
                 <nav>
                     <button className="fab button-secondary"
-                            disabled={!vm.hasPrev || vm.selectMode === SelectModes.selecting}>
+                            disabled={!vm.hasPrev || vm.displayMode === DisplayModes.selecting}>
                         <i className="fas fa-chevron-left"></i>
                     </button>
                     <button className="fab button-primary" 
                             onClick={onCenterButtonClicked}>
-                        <i className={`fas fa-plus${vm.selectMode === SelectModes.selecting? ' rotated' : ''}`}></i>
+                        <i className={`fas fa-plus${vm.displayMode === DisplayModes.selecting? ' rotated' : ''}`}></i>
                     </button>
                     <button className="fab button-secondary"
-                            disabled={!vm.hasNext || vm.selectMode === SelectModes.selecting}>
+                            disabled={!vm.hasNext || vm.displayMode === DisplayModes.selecting}>
                         <i className="fas fa-chevron-right"></i>
                     </button>
                 </nav>
