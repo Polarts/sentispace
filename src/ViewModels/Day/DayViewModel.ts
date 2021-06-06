@@ -1,4 +1,9 @@
-import { computed, makeObservable, observable, reaction } from "mobx";
+import { 
+    computed, 
+    makeObservable, 
+    observable, 
+    reaction 
+} from "mobx";
 import moment from "moment";
 
 import Activity from "../../Models/Activity";
@@ -26,7 +31,7 @@ export default class DayViewModel {
         private navVM: NavigationViewModel
     ) {
         makeObservable(this);
-
+        
         reaction(
             () => this.navVM.displayMode,
             mode => {
@@ -57,6 +62,15 @@ export default class DayViewModel {
                 if (length > 0) {
                     this.navVM.displayMode = DisplayModes.selecting;
                 } else {
+                    this.navVM.displayMode = DisplayModes.none;
+                }
+            }
+        );
+
+        reaction(
+            () => this.currentlyEditing,
+            editing => {
+                if (!editing) {
                     this.navVM.displayMode = DisplayModes.none;
                 }
             }

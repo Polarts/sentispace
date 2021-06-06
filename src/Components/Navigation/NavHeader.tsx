@@ -23,6 +23,7 @@ export default observer(
             if (vm.displayMode === DisplayModes.selecting) {
                 vm.displayMode = DisplayModes.none;
             } else {
+                vm.rightMenuOpen = false;
                 vm.leftMenuOpen = !vm.leftMenuOpen;
             }
         }
@@ -31,6 +32,7 @@ export default observer(
             if (vm.displayMode === DisplayModes.selecting) {
                 vm.displayMode = DisplayModes.deleteAll;
             } else {
+                vm.leftMenuOpen = false;
                 vm.rightMenuOpen = !vm.rightMenuOpen;
             }
         }

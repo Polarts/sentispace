@@ -1,4 +1,8 @@
-import { autorun, makeObservable, observable } from "mobx";
+import { 
+    makeObservable, 
+    observable, 
+    reaction 
+} from "mobx";
 
 export enum DisplayModes {
     none,
@@ -28,17 +32,14 @@ export default class NavigationViewModel {
 
     constructor() {
         makeObservable(this);
-        autorun(() => {
-            if (this.leftMenuOpen) {
-                this.rightMenuOpen = false;
+        reaction(
+            () => this.displayMode,
+            () => {
+                if (this.displayMode === DisplayModes.selecting) {
+                    this.rightMenuOpen = this.leftMenuOpen = false;
+                }
             }
-            if (this.rightMenuOpen) {
-                this.leftMenuOpen = false;
-            }
-            if (this.displayMode === DisplayModes.selecting) {
-                this.rightMenuOpen = this.leftMenuOpen = false;
-            }
-        });
+        );
     }
 
 }

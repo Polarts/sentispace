@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import Hammer from 'hammerjs';
+import moment from 'moment';
 import { observer } from 'mobx-react';
 import { computed } from 'mobx';
-import moment from 'moment';
 import { CSSTransition } from 'react-transition-group';
 
 import Activity from '../../Models/Activity';
