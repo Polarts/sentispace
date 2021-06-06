@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { observer } from 'mobx-react-lite';
+import { observer } from 'mobx-react';
+import moment from 'moment';
+
 import { useActivitiesStore } from '../../Stores/ActivitiesStore';
 import ActivityFormViewModel from '../../ViewModels/Day/ActivityFormViewModel';
 import Feelings from '../../Models/Feelings';
-import moment from 'moment';
 import DayViewModel from '../../ViewModels/Day/DayViewModel';
 
 type ActivitiesFormProps = {

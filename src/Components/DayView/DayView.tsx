@@ -1,10 +1,11 @@
 import React from 'react';
 import { observer } from 'mobx-react';
+import { CSSTransition } from 'react-transition-group';
+
 import ActivityItem from './ActivityItem';
 import { useActivitiesStore } from '../../Stores/ActivitiesStore';
 import ActivityForm from './ActivityForm';
 import ActivityFormViewModel from '../../ViewModels/Day/ActivityFormViewModel';
-import { CSSTransition } from 'react-transition-group';
 import DayViewModel from '../../ViewModels/Day/DayViewModel';
 
 type DayViewProps = {

@@ -1,9 +1,10 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import moment from 'moment';
-import { useActivitiesStore } from '../../Stores/ActivitiesStore';
 import { useLocation } from 'react-router';
+
 import { Routes } from '../../App';
+import { useActivitiesStore } from '../../Stores/ActivitiesStore';
 import { CSSTransition } from 'react-transition-group';
 import NavigationViewModel, { DisplayModes } from '../../ViewModels/NavigationViewModel';
 import NavMenuItem from './NavMenuItem';

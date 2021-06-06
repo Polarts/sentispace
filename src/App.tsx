@@ -4,10 +4,11 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
+import { configure } from 'mobx';
+
 import DayView from './Components/DayView/DayView';
 import NavHeader from './Components/Navigation/NavHeader';
 import NavFooter from './Components/Navigation/NavFooter';
-import { configure } from 'mobx';
 import NavigationViewModel from './ViewModels/NavigationViewModel';
 import DayViewModel from './ViewModels/Day/DayViewModel';
 import { useActivitiesStore } from './Stores/ActivitiesStore';

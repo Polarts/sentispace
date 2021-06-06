@@ -47,7 +47,7 @@ export default observer(
                     }
                 });
             }
-        }, []);
+        }, [activity, dayVM]);
 
         function onEditClick() {
             dayVM.selectedActivities = dayVM.selectedActivities.without(activity);
