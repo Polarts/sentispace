@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { observer } from 'mobx-react';
 import moment from 'moment';
 
-import { useActivitiesStore } from '../../Stores/ActivitiesStore';
 import ActivityFormViewModel from '../../ViewModels/Day/ActivityFormViewModel';
 import Feelings from '../../Models/Feelings';
 import DayViewModel from '../../ViewModels/Day/DayViewModel';
@@ -16,7 +15,6 @@ export default observer(
     ({vm, dayVM}: ActivitiesFormProps) => {
 
         const [currentTag, setCurrentTag] = useState('');
-        const store = useActivitiesStore();
 
         function onFeelingSelected(e: React.ChangeEvent<HTMLInputElement>) {
             vm.feeling = e.currentTarget.value as Feelings;
