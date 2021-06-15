@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
-import { observer } from 'mobx-react-lite';
-import { useActivitiesStore } from '../../Stores/ActivitiesStore';
-import ActivityFormViewModel from '../../ViewModels/ActivityFormViewModel';
-import Feelings from '../../Models/Feelings';
+import { observer } from 'mobx-react';
 import moment from 'moment';
 
+import ActivityFormViewModel from '../../ViewModels/Day/ActivityFormViewModel';
+import Feelings from '../../Models/Feelings';
+import DayViewModel from '../../ViewModels/Day/DayViewModel';
+
 type ActivitiesFormProps = {
-    vm: ActivityFormViewModel
+    vm: ActivityFormViewModel,
+    dayVM: DayViewModel
 }
 
 export default observer(
-    ({vm}: ActivitiesFormProps) => {
+    ({vm, dayVM}: ActivitiesFormProps) => {
 
         const [currentTag, setCurrentTag] = useState('');
-        const store = useActivitiesStore();
 
         function onFeelingSelected(e: React.ChangeEvent<HTMLInputElement>) {
             vm.feeling = e.currentTarget.value as Feelings;
@@ -37,8 +38,8 @@ export default observer(
         }
 
         function onCancel() {
-            store.currentlyEditing = undefined;
-            store.selectedActivities = [];
+            dayVM.currentlyEditing = undefined;
+            dayVM.selectedActivities = [];
         }
 
         return (

@@ -1,29 +1,36 @@
 import React from 'react';
 import { observer } from 'mobx-react';
+import { CSSTransition } from 'react-transition-group';
+
 import ActivityItem from './ActivityItem';
 import { useActivitiesStore } from '../../Stores/ActivitiesStore';
 import ActivityForm from './ActivityForm';
-import ActivityFormViewModel from '../../ViewModels/ActivityFormViewModel';
-import { CSSTransition } from 'react-transition-group';
+import ActivityFormViewModel from '../../ViewModels/Day/ActivityFormViewModel';
+import DayViewModel from '../../ViewModels/Day/DayViewModel';
+
+type DayViewProps = {
+    vm: DayViewModel
+}
 
 export default observer(
-    () => {
+    ({vm}: DayViewProps) => {
 
         const store = useActivitiesStore();
 
         return (
             <>
                 <main>
-                    {store.activities.map(act => 
+                    {vm.activities.map(act => 
                         <ActivityItem key={act.id}
-                                      activity={act} /> 
+                                      activity={act}
+                                      dayVM={vm} /> 
                     )}
                 </main>
                 <CSSTransition classNames="translate-y" 
-                               in={store.currentlyEditing !== undefined}
+                               in={vm.currentlyEditing !== undefined}
                                timeout={300}
                                unmountOnExit>
-                    <ActivityForm vm={new ActivityFormViewModel(store, store.currentlyEditing)}/>
+                    <ActivityForm vm={new ActivityFormViewModel(store, vm.currentlyEditing)} dayVM={vm}/>
                 </CSSTransition>
             </>
         );

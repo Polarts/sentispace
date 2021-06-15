@@ -4,10 +4,14 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
-import DayPage from './Components/DayView/DayView';
-import NavHeader from './Components/NavHeader';
-import NavFooter from './Components/NavFooter';
 import { configure } from 'mobx';
+
+import DayView from './Components/DayView/DayView';
+import NavHeader from './Components/Navigation/NavHeader';
+import NavFooter from './Components/Navigation/NavFooter';
+import NavigationViewModel from './ViewModels/NavigationViewModel';
+import DayViewModel from './ViewModels/Day/DayViewModel';
+import { useActivitiesStore } from './Stores/ActivitiesStore';
 
 configure({
   enforceActions: 'never'
@@ -15,28 +19,30 @@ configure({
 
 export enum Routes {
   login = '/login',
-  day = '/day',
-  week = '/week',
-  month = '/month',
-  edit = '/day/edit',
-  settings = '/settings',
-  about = '/about'
+  day = '/view/day',
+  week = '/view/week',
+  month = '/view/month',
+  settings = '/menu/settings',
+  about = '/menu/about'
 }
 
 function App() {
 
+  const store = useActivitiesStore();
+  const navVM = new NavigationViewModel();
+
   return (
     <>
-      <NavHeader/>
+      <NavHeader vm={navVM}/>
       <Switch>
         <Route exact path={Routes.day}>
-          <DayPage/>
+          <DayView vm={new DayViewModel(store, navVM)}/>
         </Route>
         <Route exact path={Routes.week}/>
         <Route exact path={Routes.month}/>
         <Redirect from="/" to={Routes.day} exact/>
       </Switch>
-      <NavFooter/>
+      <NavFooter vm={navVM}/>
     </>
   );
 }

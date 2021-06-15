@@ -33,18 +33,7 @@ export default class ActivitiesStore {
             .filter(this.filterActivity)
             .sort((a, b) => Math.sign(moment(a.time).diff(moment(b.time), 'minutes')));
     }
-
-    @observable
-    public selectedActivities: Array<Activity> = [];
-
-    @computed
-    public get selectMode(): boolean {
-        return this.selectedActivities.length > 0;
-    }
-
-    @observable
-    public currentlyEditing?: Activity;
-
+    
     //#endregion
 
     @observable
