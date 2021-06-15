@@ -42,6 +42,13 @@ export default observer(
         }
 
         function Title() {
+            if (vm.displayMode === DisplayModes.selecting) {
+                return (
+                    <h1>
+                        <span>SELECTING</span>
+                    </h1>
+                );
+            }
             switch(location.pathname) {
                 case Routes.day:
                     return (
@@ -60,18 +67,37 @@ export default observer(
             }
         }
 
+        function LeftIcon() {
+            let className = 'fas fa-';
+
+            if (vm.displayMode === DisplayModes.selecting) {
+                className += 'window-close';
+            } else if (vm.leftMenuOpen) {
+                className += 'times';
+            } else {
+                className += 'calendar';
+                switch(location.pathname) {
+                    case Routes.day:
+                        className += '-day';
+                        break;
+                    case Routes.week:
+                        className += '-week';
+                        break;
+                    case Routes.month:
+                        className += '-alt';
+                        break;
+                }
+            }
+
+            return <i className={className}/>
+        }
+
         return (
             <header>
                 <nav className="nav-header">
                     <button className="nav-menu-button action-button"
                             onClick={onLeftButtonClicked}>
-                        <i className={`fas ${
-                            vm.displayMode === DisplayModes.selecting
-                                ? 'fa-window-close' 
-                                : vm.leftMenuOpen
-                                    ? 'fa-times'
-                                    : 'fa-calendar-day'
-                            }`}/>
+                        <LeftIcon/>
                     </button>
                     <Title/>
                     <button className="nav-menu-button action-button"
