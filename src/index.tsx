@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import { BrowserRouter } from 'react-router-dom';
+
 import registerServiceWorker from "./serviceWorker";
 import reportWebVitals from './reportWebVitals';
 
 import './Styles/imports/reset.css';
 import './Styles/imports/fontawesome.css';
 import './Styles/main.css';
-import { BrowserRouter } from 'react-router-dom';
 
 registerServiceWorker();
 

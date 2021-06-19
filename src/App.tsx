@@ -12,6 +12,7 @@ import NavFooter from './Components/Navigation/NavFooter';
 import NavigationViewModel from './ViewModels/NavigationViewModel';
 import DayViewModel from './ViewModels/Day/DayViewModel';
 import { useActivitiesStore } from './Stores/ActivitiesStore';
+import AddToHomeScreen from './Components/AddToHomeScreen';
 
 configure({
   enforceActions: 'never'
@@ -43,6 +44,7 @@ function App() {
         <Redirect from="/" to={Routes.day} exact/>
       </Switch>
       <NavFooter vm={navVM}/>
+      <AddToHomeScreen/>
     </>
   );
 }
