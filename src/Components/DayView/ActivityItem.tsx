@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Hammer from 'hammerjs';
 import moment from 'moment';
 import { observer } from 'mobx-react';
@@ -19,9 +19,10 @@ export default observer(
         const sectionRef = useRef<HTMLElement>(null);
         const isSelected = computed(() => dayVM.selectedActivities.includes(activity));
         const momentTime = moment(activity.time);
-        
+        const [hammerInit, setHammerInit] = useState(false); // Used to bypass dependency on isSelected
+
         useEffect(() => {
-            if (sectionRef.current) {
+            if (sectionRef.current && !hammerInit) {
                 const hammer = new Hammer(sectionRef.current);
                 hammer.add(new Hammer.Press({
                     event: 'press',
@@ -46,8 +47,9 @@ export default observer(
                         }
                     }
                 });
+                setHammerInit(true);
             }
-        }, [activity, dayVM]);
+        }, [activity, dayVM, isSelected, hammerInit]);
 
         function onEditClick() {
             dayVM.selectedActivities = dayVM.selectedActivities.without(activity);
