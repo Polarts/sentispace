@@ -1,4 +1,4 @@
-// CREDIT: https://gist.github.com/rikukissa/cb291a4a82caa670d2e0547c520eae53
+// Based on: https://gist.github.com/rikukissa/cb291a4a82caa670d2e0547c520eae53
 
 import * as React from "react";
 

@@ -27,7 +27,7 @@ export default function AddToHomeScreen() {
                             unmountOnExit>
                 <div className="popup">
                     <div className="popup-title">
-                        ISNTALL ME
+                        INSTALL ME
                         <button className="popup-close-button"
                                 onClick={() => setVisibleState(false)}>
                             <i className="fas fa-times"></i>
@@ -35,7 +35,7 @@ export default function AddToHomeScreen() {
                     </div>
                     <div className="popup-body">
                         <div className="popup-text">
-                            I work best when you save me on your home screen!
+                            I work best from your device! Please add me to your home screen 😁
                         </div>
                         <button className="popup-button primary"
                                 onClick={promptToInstall}>
@@ -43,7 +43,7 @@ export default function AddToHomeScreen() {
                         </button>
                         <button className="popup-button secondary"
                                 onClick={() => setVisibleState(false)}>
-                            I'll pass...
+                            I'll pass ☹
                         </button>
                     </div>
                 </div>
