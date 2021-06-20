@@ -38,11 +38,13 @@ export default function AddToHomeScreen() {
                         </div>
                         <div className="popup-body">
                             <div className="popup-text">
-                                I work best from your device! Please add me to your home screen 😁
+                                I work best on YOUR device! Install me for a smoother experience 😁
+                                <br></br>
+                                (Just one click, no Play Store)
                             </div>
                             <button className="popup-button primary"
                                     onClick={promptToInstall}>
-                                Add to Home Screen
+                                Install App
                             </button>
                             <button className="popup-button secondary"
                                     onClick={() => setVisibleState(false)}>
