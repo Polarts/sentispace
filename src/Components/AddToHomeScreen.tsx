@@ -9,13 +9,15 @@ export default function AddToHomeScreen() {
 
     useEffect(() => {
         if (prompt) {
-            setVisibleState(true);
+            setTimeout(() => 
+                setVisibleState(true),
+            500);
         }
     }, [prompt]);
 
     return (
-        <>
-            <CSSTransition classNames="fade" 
+        <div className="popup">
+            <CSSTransition classNames="popup-fade" 
                                in={isVisible}
                                timeout={300}
                                unmountOnExit>
@@ -25,30 +27,32 @@ export default function AddToHomeScreen() {
                             in={isVisible}
                             timeout={300}
                             unmountOnExit>
-                <div className="popup">
-                    <div className="popup-title">
-                        INSTALL ME
-                        <button className="popup-close-button"
-                                onClick={() => setVisibleState(false)}>
-                            <i className="fas fa-times"></i>
-                        </button>
-                    </div>
-                    <div className="popup-body">
-                        <div className="popup-text">
-                            I work best from your device! Please add me to your home screen 😁
+                <div className="popup-wrapper">
+                    <div className="popup-content">
+                        <div className="popup-title">
+                            INSTALL ME
+                            <button className="popup-close-button"
+                                    onClick={() => setVisibleState(false)}>
+                                <i className="fas fa-times"></i>
+                            </button>
                         </div>
-                        <button className="popup-button primary"
-                                onClick={promptToInstall}>
-                            Add to Home Screen
-                        </button>
-                        <button className="popup-button secondary"
-                                onClick={() => setVisibleState(false)}>
-                            I'll pass ☹
-                        </button>
+                        <div className="popup-body">
+                            <div className="popup-text">
+                                I work best from your device! Please add me to your home screen 😁
+                            </div>
+                            <button className="popup-button primary"
+                                    onClick={promptToInstall}>
+                                Add to Home Screen
+                            </button>
+                            <button className="popup-button secondary"
+                                    onClick={() => setVisibleState(false)}>
+                                I'll pass ☹
+                            </button>
+                        </div>
                     </div>
                 </div>
             </CSSTransition>
             
-        </>
+        </div>
     );
 }
