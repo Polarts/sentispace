@@ -16,7 +16,7 @@ export default function AddToHomeScreen() {
     }, [prompt]);
 
     return (
-        <div className="popup">
+        <>
             <CSSTransition classNames="popup-fade" 
                                in={isVisible}
                                timeout={300}
@@ -52,7 +52,6 @@ export default function AddToHomeScreen() {
                     </div>
                 </div>
             </CSSTransition>
-            
-        </div>
+        </>
     );
 }
