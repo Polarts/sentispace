@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAddToHomescreenPrompt } from '../../Hooks/useAddToHomescreenPrompt';
-import Popup, { PopupButton, ButtonType } from '../Generic/Popup';
+import Popup, { ButtonType } from '../Generic/Popup';
 
 export default function AddToHomeScreen() {
 
