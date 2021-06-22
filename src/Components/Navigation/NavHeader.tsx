@@ -127,7 +127,7 @@ export default observer(
                                        unmountOnExit>
                             <ul className="nav-menu right">
                                 <NavMenuItem icon="fa-cog" text="Settings" route={Routes.settings} onClick={onMenuButtonClick}/>
-                                <NavMenuItem icon="fa-info-circle" text="About" route={Routes.about} onClick={onMenuButtonClick}/>
+                                <NavMenuItem icon="fa-info-circle" text="Info" route={Routes.about} onClick={onMenuButtonClick}/>
                                 <NavMenuItem icon="fa-sign-out-alt" text="Tags" route={Routes.login} onClick={onMenuButtonClick}/>
                             </ul>
                         </CSSTransition>
