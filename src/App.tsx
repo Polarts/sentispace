@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Switch,
   Route,
@@ -12,7 +12,9 @@ import NavFooter from './Components/Navigation/NavFooter';
 import NavigationViewModel from './ViewModels/NavigationViewModel';
 import DayViewModel from './ViewModels/Day/DayViewModel';
 import { useActivitiesStore } from './Stores/ActivitiesStore';
-import AddToHomeScreen from './Components/AddToHomeScreen';
+import AddToHomeScreen from './Components/PWA/AddToHomeScreen';
+import SWConfig from './swConfig';
+import UpdatePrompt from './Components/PWA/UpdatePrompt';
 
 configure({
   enforceActions: 'never'
@@ -27,10 +29,18 @@ export enum Routes {
   about = '/menu/about'
 }
 
-function App() {
+type AppProps = {
+  swConfig: SWConfig
+}
+
+function App({ swConfig }: AppProps) {
 
   const store = useActivitiesStore();
   const navVM = new NavigationViewModel();
+
+  const [isUpdatePending, setUpdatePending] = useState(false);
+
+  swConfig.updateReady = () => setUpdatePending(true);
 
   return (
     <>
@@ -45,6 +55,7 @@ function App() {
       </Switch>
       <NavFooter vm={navVM}/>
       <AddToHomeScreen/>
+      {isUpdatePending? <UpdatePrompt/> : null}
     </>
   );
 }
