@@ -28,20 +28,11 @@ export enum Routes {
   settings = '/menu/settings',
   about = '/menu/about'
 }
-
-type AppProps = {
-  swConfig: SWConfig
-}
-
-function App({ swConfig }: AppProps) {
+function App() {
 
   const store = useActivitiesStore();
   const navVM = new NavigationViewModel();
-
-  const [isUpdatePending, setUpdatePending] = useState(false);
-
-  swConfig.updateReady = () => setUpdatePending(true);
-
+  
   return (
     <>
       <NavHeader vm={navVM}/>
@@ -55,7 +46,6 @@ function App({ swConfig }: AppProps) {
       </Switch>
       <NavFooter vm={navVM}/>
       <AddToHomeScreen/>
-      {isUpdatePending? <UpdatePrompt/> : null}
     </>
   );
 }

@@ -21,7 +21,7 @@ const swConfig = new SWConfig();
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <App swConfig={swConfig} /> 
+      <App/> 
     </Router>
   </React.StrictMode>,
   document.getElementById('root')
