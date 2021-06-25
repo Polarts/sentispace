@@ -13,8 +13,6 @@ import NavigationViewModel from './ViewModels/NavigationViewModel';
 import DayViewModel from './ViewModels/Day/DayViewModel';
 import { useActivitiesStore } from './Stores/ActivitiesStore';
 import AddToHomeScreen from './Components/PWA/AddToHomeScreen';
-import SWConfig from './swConfig';
-import UpdatePrompt from './Components/PWA/UpdatePrompt';
 
 configure({
   enforceActions: 'never'
@@ -32,7 +30,7 @@ function App() {
 
   const store = useActivitiesStore();
   const navVM = new NavigationViewModel();
-  
+
   return (
     <>
       <NavHeader vm={navVM}/>
