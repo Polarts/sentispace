@@ -16,8 +16,6 @@ document.addEventListener('contextmenu', e => {
   return false;
 });
 
-const swConfig = new SWConfig();
-
 ReactDOM.render(
   <React.StrictMode>
     <Router>
@@ -27,7 +25,7 @@ ReactDOM.render(
   document.getElementById('root')
   );
   
-serviceWorkerRegistration.register(swConfig);
+serviceWorkerRegistration.register(new SWConfig());
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
