@@ -101,7 +101,7 @@ export default class ActivitiesStore {
         for (let i=0; i<5; i++) {
             const rng = Math.random() * 23;
             this._activities.push(new Activity(
-                "Lorem ipsum dolor sit amet.",
+                "Lorem ipsum dolor sit amet!",
                 "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui cupiditate similique, repellat alias veniam reprehenderit debitis maiores, architecto modi repellendus delectus saepe assumenda vero obcaecati adipisci nisi eius fugiat porro.",
                 Feelings.ok,
                 moment().startOf('day').add(rng, 'hours').format(),
