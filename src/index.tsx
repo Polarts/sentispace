@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import registerServiceWorker from "./serviceWorker";
+import { BrowserRouter as Router } from 'react-router-dom';
+
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 
 import './Styles/imports/reset.css';
 import './Styles/imports/fontawesome.css';
 import './Styles/main.css';
-import { BrowserRouter } from 'react-router-dom';
-
-registerServiceWorker();
+import SWConfig from './swConfig';
 
 document.addEventListener('contextmenu', e => {
   e.preventDefault();
@@ -18,12 +18,14 @@ document.addEventListener('contextmenu', e => {
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App /> 
-    </BrowserRouter>
+    <Router>
+      <App/> 
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
-);
+  );
+  
+serviceWorkerRegistration.register(new SWConfig());
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

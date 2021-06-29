@@ -12,6 +12,7 @@ import NavFooter from './Components/Navigation/NavFooter';
 import NavigationViewModel from './ViewModels/NavigationViewModel';
 import DayViewModel from './ViewModels/Day/DayViewModel';
 import { useActivitiesStore } from './Stores/ActivitiesStore';
+import AddToHomeScreen from './Components/PWA/AddToHomeScreen';
 
 configure({
   enforceActions: 'never'
@@ -25,7 +26,6 @@ export enum Routes {
   settings = '/menu/settings',
   about = '/menu/about'
 }
-
 function App() {
 
   const store = useActivitiesStore();
@@ -43,6 +43,7 @@ function App() {
         <Redirect from="/" to={Routes.day} exact/>
       </Switch>
       <NavFooter vm={navVM}/>
+      <AddToHomeScreen/>
     </>
   );
 }
