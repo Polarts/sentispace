@@ -1,7 +1,7 @@
 import {action, makeObservable, observable} from 'mobx';
-import Activity from '../../Models/Activity';
-import Feelings from '../../Models/Feelings';
-import ActivitiesStore from '../../Stores/ActivitiesStore';
+import Activity from '../../Data/Models/Activity';
+import Feelings from '../../Data/Models/Feelings';
+import ActivitiesStore from '../../Data/ActivitiesStore';
 import FormViewModelBase from '../FormViewModelBase';
 import '../../Utils/ArrayExtensions';
 

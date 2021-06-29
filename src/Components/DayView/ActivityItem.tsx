@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 import { computed } from 'mobx';
 import { CSSTransition } from 'react-transition-group';
 
-import Activity from '../../Models/Activity';
+import Activity from '../../Data/Models/Activity';
 import DayViewModel from '../../ViewModels/Day/DayViewModel';
 
 type ActivityItemProps = {

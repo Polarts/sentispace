@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { CSSTransition } from 'react-transition-group';
 
 import ActivityItem from './ActivityItem';
-import { useActivitiesStore } from '../../Stores/ActivitiesStore';
+import { useActivitiesStore } from '../../Data/ActivitiesStore';
 import ActivityForm from './ActivityForm';
 import ActivityFormViewModel from '../../ViewModels/Day/ActivityFormViewModel';
 import DayViewModel from '../../ViewModels/Day/DayViewModel';
