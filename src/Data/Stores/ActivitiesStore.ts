@@ -6,8 +6,8 @@ import {
     makeObservable 
 } from 'mobx';
 import moment from 'moment';
-import ActivitiesDatabase from './ActivitiesDatabase';
-import Activity from './Models/Activity';
+import Database from '../Database';
+import Activity from '../Models/Activity';
 
 export const DATE_FORMAT = 'YYYY-MM-DD';
 
@@ -19,6 +19,20 @@ export function useActivitiesStore() {
 }
 
 export default class ActivitiesStore {
+
+    //#region singleton
+
+    private static _instance: ActivitiesStore;
+
+    private constructor() {
+        makeObservable(this);
+    }
+
+    public static get instance(){ 
+        return this._instance ?? (this._instance = new ActivitiesStore()); 
+    }
+
+    //#endregion
 
     //#region properties
 
@@ -50,23 +64,10 @@ export default class ActivitiesStore {
 
     public isInit = false;
     
-    private db!: ActivitiesDatabase;
+    private db!: Database;
 
     //#endregion
 
-    //#region singleton
-
-    private static _instance: ActivitiesStore;
-
-    private constructor() {
-        makeObservable(this);
-    }
-
-    public static get instance(){ 
-        return this._instance ?? (this._instance = new ActivitiesStore()); 
-    }
-
-    //#endregion
 
     //#region methods
 
@@ -75,7 +76,7 @@ export default class ActivitiesStore {
         const store = ActivitiesStore.instance;
         const date = moment(act.time).format(DATE_FORMAT);
 
-        if (store.tags.length === 0
+        if (store.selectedTags.length === 0
             || act.tags.every(tag => store.selectedTags.includes(tag))) {
 
             if (store.startDate === store.endDate && date === store.startDate) {
@@ -92,7 +93,7 @@ export default class ActivitiesStore {
     @action
     public init(): void{
 
-        this.db = new ActivitiesDatabase();
+        this.db = new Database();
 
         // const acts = [];
         // for (let i=0; i<5; i++) {
@@ -116,9 +117,11 @@ export default class ActivitiesStore {
     @action
     public async create(act: Activity): Promise<boolean> {
         try {
+            
             const id = await this.db.activities.add(act);
             act.id = id;
             this._activities.push(act);
+
             return true;
         } catch {
             return false;

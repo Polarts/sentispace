@@ -4,7 +4,7 @@ import moment from 'moment';
 import { useLocation } from 'react-router';
 
 import { Routes } from '../../App';
-import { useActivitiesStore } from '../../Data/ActivitiesStore';
+import { useActivitiesStore } from '../../Data/Stores/ActivitiesStore';
 import { CSSTransition } from 'react-transition-group';
 import NavigationViewModel, { DisplayModes } from '../../ViewModels/NavigationViewModel';
 import NavMenuItem from './NavMenuItem';

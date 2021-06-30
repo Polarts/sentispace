@@ -11,7 +11,7 @@ import NavHeader from './Components/Navigation/NavHeader';
 import NavFooter from './Components/Navigation/NavFooter';
 import NavigationViewModel from './ViewModels/NavigationViewModel';
 import DayViewModel from './ViewModels/Day/DayViewModel';
-import { useActivitiesStore } from './Data/ActivitiesStore';
+import { useActivitiesStore } from './Data/Stores/ActivitiesStore';
 import AddToHomeScreen from './Components/PWA/AddToHomeScreen';
 
 configure({

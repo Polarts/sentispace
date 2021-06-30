@@ -1,6 +1,7 @@
 export default class Tag {
     constructor(
         public name: string,
-        public id?: string
+        public isSelected: boolean = false,
+        public id?: number
     ) {}
 }
