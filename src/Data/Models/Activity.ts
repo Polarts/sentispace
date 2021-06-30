@@ -8,6 +8,6 @@ export default class Activity {
         public feeling: Feelings,
         public time: string,
         public tags: string[],
-        public id?: string
+        public id?: number
     ){}
 }

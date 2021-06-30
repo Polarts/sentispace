@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import { configure } from 'mobx';
 
-import DayView from './Components/DayView/DayView';
+import DayView from './Components/Pages/DayView/DayView';
 import NavHeader from './Components/Navigation/NavHeader';
 import NavFooter from './Components/Navigation/NavFooter';
 import NavigationViewModel from './ViewModels/NavigationViewModel';

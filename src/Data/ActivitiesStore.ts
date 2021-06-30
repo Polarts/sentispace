@@ -6,8 +6,8 @@ import {
     makeObservable 
 } from 'mobx';
 import moment from 'moment';
+import ActivitiesDatabase from './ActivitiesDatabase';
 import Activity from './Models/Activity';
-import Feelings from './Models/Feelings';
 
 export const DATE_FORMAT = 'YYYY-MM-DD';
 
@@ -40,7 +40,7 @@ export default class ActivitiesStore {
     public startDate: string = '';
 
     @observable
-    public endTime: string = '';
+    public endDate: string = '';
 
     @observable
     public tags: string[] = [];
@@ -49,6 +49,8 @@ export default class ActivitiesStore {
     public selectedTags: IObservableArray<string> = observable.array<string>();
 
     public isInit = false;
+    
+    private db!: ActivitiesDatabase;
 
     //#endregion
 
@@ -73,13 +75,14 @@ export default class ActivitiesStore {
         const store = ActivitiesStore.instance;
         const date = moment(act.time).format(DATE_FORMAT);
 
-        if (act.tags.every(tag => store.selectedTags.includes(tag))) {
+        if (store.tags.length === 0
+            || act.tags.every(tag => store.selectedTags.includes(tag))) {
 
-            if (store.startDate === store.endTime && date === store.startDate) {
+            if (store.startDate === store.endDate && date === store.startDate) {
                 return true;
             }
             
-            if (date <= store.endTime && date >= store.startDate) {
+            if (date <= store.endDate && date >= store.startDate) {
                 return true;
             }
         }
@@ -87,58 +90,66 @@ export default class ActivitiesStore {
     }
 
     @action
-    public init(): void {
-        // MOCK
-        // TODO retrieve actual data from server
-        // TODO think of pagination logic
-        this.tags = [
-            'health', 
-            'fitness', 
-            'food'
-        ];
-        this.selectedTags = observable.array(this.tags);
+    public init(): void{
 
-        for (let i=0; i<5; i++) {
-            const rng = Math.random() * 23;
-            this._activities.push(new Activity(
-                "Lorem ipsum dolor sit amet!",
-                "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui cupiditate similique, repellat alias veniam reprehenderit debitis maiores, architecto modi repellendus delectus saepe assumenda vero obcaecati adipisci nisi eius fugiat porro.",
-                Feelings.ok,
-                moment().startOf('day').add(rng, 'hours').format(),
-                [],
-                `act_${rng}`
-            ));
-        }
+        this.db = new ActivitiesDatabase();
 
-        this.startDate = this.endTime = moment().format(DATE_FORMAT);
+        // const acts = [];
+        // for (let i=0; i<5; i++) {
+        //     const rng = Math.random() * 23;
+        //     acts.push(new Activity(
+        //         "Lorem ipsum dolor sit amet!",
+        //         "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui cupiditate similique, repellat alias veniam reprehenderit debitis maiores, architecto modi repellendus delectus saepe assumenda vero obcaecati adipisci nisi eius fugiat porro.",
+        //         Feelings.ok,
+        //         moment().startOf('day').add(rng, 'hours').format(),
+        //         []
+        //     ));
+        // }
+
+        this.db.activities.toArray().then(arr => this._activities = arr);
+
+        this.startDate = this.endDate = moment().format(DATE_FORMAT);
 
         this.isInit = true;
     }
 
     @action
-    public create(act: Activity): boolean {
-        // MOCK
-        // TODO create on server
-        act.id = `act_${this._activities.length}`;
-        this._activities.push(act);
-        return true;
+    public async create(act: Activity): Promise<boolean> {
+        try {
+            const id = await this.db.activities.add(act);
+            act.id = id;
+            this._activities.push(act);
+            return true;
+        } catch {
+            return false;
+        }
     }
 
     @action
-    public update(act: Activity): boolean {
-        // MOCK
-        // TODO update on server
-        let updateIdx = this._activities.findIndex(a => a.id === act.id);
-        this._activities[updateIdx] = act;
-        return true;
+    public async update(act: Activity): Promise<boolean> {
+        try {
+            const id = await this.db.activities.put(act);
+            const index = this._activities.findIndex(a => a.id === id);
+            if (index === -1) {
+                return false;
+            } else {
+                this._activities[index] = act;
+                return true;
+            }
+        } catch {
+            return false;
+        }
     }
 
     @action
-    public delete(act: Activity): boolean {
-        // MOCK
-        // TODO delete from server
-        this._activities.remove(act);
-        return true;
+    public async delete(act: Activity): Promise<boolean> {
+        try {
+            await this.db.activities.delete(act.id!);
+            this._activities.remove(act);
+            return true;
+        } catch {
+            return false;
+        }
     }
 
     //#endregion

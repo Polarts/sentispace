@@ -8,7 +8,7 @@ import '../../Utils/ArrayExtensions';
 export default class ActivityFormViewModel extends FormViewModelBase {
 
     //#region properties
-    public id?: string;
+    public id?: number;
 
     @observable
     public title: string = "";
@@ -53,10 +53,10 @@ export default class ActivityFormViewModel extends FormViewModelBase {
         this.tags = this.tags.unique();
     }
 
-    public save(): boolean {
+    public async save(): Promise<boolean> {
         if (this.checkValidity()) {
             if(!this.id) {
-                return this.store.create(new Activity(
+                return await this.store.create(new Activity(
                     this.title,
                     this.description,
                     this.feeling,
@@ -64,7 +64,7 @@ export default class ActivityFormViewModel extends FormViewModelBase {
                     this.tags.slice()
                 ));
             } else {
-                return this.store.update(new Activity(
+                return await this.store.update(new Activity(
                     this.title,
                     this.description,
                     this.feeling,
