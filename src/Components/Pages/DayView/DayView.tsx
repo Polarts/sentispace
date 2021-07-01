@@ -3,8 +3,8 @@ import { observer } from 'mobx-react';
 import { CSSTransition } from 'react-transition-group';
 
 import ActivityItem from './ActivityItem';
-import { useActivitiesStore } from '../../../Data/Stores/ActivitiesStore';
 import ActivityForm from './ActivityForm';
+import ActivitiesStore from '../../../Data/Stores/ActivitiesStore';
 import ActivityFormViewModel from '../../../ViewModels/Day/ActivityFormViewModel';
 import DayViewModel from '../../../ViewModels/Day/DayViewModel';
 
@@ -15,7 +15,7 @@ type DayViewProps = {
 export default observer(
     ({vm}: DayViewProps) => {
 
-        const store = useActivitiesStore();
+        const store = ActivitiesStore.instance;
 
         return (
             <>

@@ -18,3 +18,9 @@ export default class Database extends Dexie {
       this.tags = this.table("tags");
     }
   }
+  
+  /*  // TODO: implement quota checker:
+      const quota = await navigator.storage.estimate();
+      const totalSpace = quota.quota;
+      const usedSpace = quota.usage;
+  */

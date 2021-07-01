@@ -11,13 +11,6 @@ import Activity from '../Models/Activity';
 
 export const DATE_FORMAT = 'YYYY-MM-DD';
 
-export function useActivitiesStore() {
-    if (!ActivitiesStore.instance.isInit) {
-        ActivitiesStore.instance.init();
-    }
-    return ActivitiesStore.instance;
-}
-
 export default class ActivitiesStore {
 
     //#region singleton
@@ -62,12 +55,11 @@ export default class ActivitiesStore {
     @observable 
     public selectedTags: IObservableArray<string> = observable.array<string>();
 
-    public isInit = false;
+    private isInit = false;
     
     private db!: Database;
 
     //#endregion
-
 
     //#region methods
 
@@ -91,10 +83,10 @@ export default class ActivitiesStore {
     }
 
     @action
-    public init(): void{
+    public init(db: Database): void {
+        if (this.isInit) return;
 
-        this.db = new Database();
-
+        this.db = db;
         // const acts = [];
         // for (let i=0; i<5; i++) {
         //     const rng = Math.random() * 23;
@@ -106,11 +98,8 @@ export default class ActivitiesStore {
         //         []
         //     ));
         // }
-
         this.db.activities.toArray().then(arr => this._activities = arr);
-
         this.startDate = this.endDate = moment().format(DATE_FORMAT);
-
         this.isInit = true;
     }
 

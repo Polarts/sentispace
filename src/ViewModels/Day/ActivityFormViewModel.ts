@@ -1,4 +1,10 @@
-import {action, makeObservable, observable} from 'mobx';
+import {
+    makeObservable, 
+    observable,
+    action, 
+} from 'mobx';
+import moment from 'moment';
+
 import Activity from '../../Data/Models/Activity';
 import Feelings from '../../Data/Models/Feelings';
 import ActivitiesStore from '../../Data/Stores/ActivitiesStore';
@@ -34,6 +40,10 @@ export default class ActivityFormViewModel extends FormViewModelBase {
             'title': {
                 predicate: (value: string) => !!value && /\S/.test(value),
                 message: "must not be empty!"
+            },
+            'time': {
+                predicate: (value: string) => moment(value).diff(moment()) > 0,
+                message: "cannot be in the future!"
             }
         });
         if (model !== undefined) {

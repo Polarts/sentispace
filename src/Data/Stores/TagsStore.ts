@@ -1,8 +1,10 @@
 import { 
     makeObservable, 
     observable, 
-    computed, 
+    computed,
+    action, 
 } from "mobx";
+import Database from "../Database";
 import Tag from "../Models/Tag";
 
 
@@ -32,7 +34,62 @@ export default class TagsStore {
         return this.tags.filter(tag => tag.isSelected);
     }
 
+    private isInit = false;
+
+    private db!: Database;
+
     //#endregion
 
+    //#region methods
+
+    @action
+    public init(db: Database) {
+        if (this.isInit) return;
+        this.db = db;
+        this.db.tags.toArray().then(arr => this.tags = arr);
+        this.isInit = true;
+    }
+
+    @action
+    public async create(name: string): Promise<boolean> {
+        try {
+            const tag = new Tag(name);
+            const id = await this.db.tags.add(tag);
+            tag.id = id;
+            this.tags.push(tag);
+            return true;
+        } catch {
+            return false;
+        }
+    }
+
+    @action
+    public async update(tag: Tag): Promise<boolean> {
+        try {
+            const id = await this.db.tags.put(tag);
+            const index = this.tags.findIndex(a => a.id === id);
+            if (index === -1) {
+                return false;
+            } else {
+                this.tags[index] = tag;
+                return true;
+            }
+        } catch {
+            return false;
+        }
+    }
+
+    @action
+    public async delete(tag: Tag): Promise<boolean> {
+        try {
+            await this.db.tags.delete(tag.id!);
+            this.tags = this.tags.without(tag);
+            return true;
+        } catch {
+            return false;
+        }
+    }
+
+    //#endregion
     
 }
