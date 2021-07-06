@@ -6,8 +6,10 @@ import {
     makeObservable 
 } from 'mobx';
 import moment from 'moment';
+import { without } from '../../Utils/ArrayHelpers';
 import Database from '../Database';
 import Activity from '../Models/Activity';
+import Feelings from '../Models/Feelings';
 
 export const DATE_FORMAT = 'YYYY-MM-DD';
 
@@ -87,6 +89,7 @@ export default class ActivitiesStore {
         if (this.isInit) return;
 
         this.db = db;
+
         // const acts = [];
         // for (let i=0; i<5; i++) {
         //     const rng = Math.random() * 23;
@@ -98,6 +101,8 @@ export default class ActivitiesStore {
         //         []
         //     ));
         // }
+        // db.activities.bulkAdd(acts);
+
         this.db.activities.toArray().then(arr => this._activities = arr);
         this.startDate = this.endDate = moment().format(DATE_FORMAT);
         this.isInit = true;
@@ -137,7 +142,7 @@ export default class ActivitiesStore {
     public async delete(act: Activity): Promise<boolean> {
         try {
             await this.db.activities.delete(act.id!);
-            this._activities.remove(act);
+            this._activities = without(this._activities, act);
             return true;
         } catch {
             return false;

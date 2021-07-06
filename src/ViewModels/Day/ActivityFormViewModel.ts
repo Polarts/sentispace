@@ -3,13 +3,12 @@ import {
     observable,
     action, 
 } from 'mobx';
-import moment from 'moment';
 
 import Activity from '../../Data/Models/Activity';
 import Feelings from '../../Data/Models/Feelings';
 import ActivitiesStore from '../../Data/Stores/ActivitiesStore';
 import FormViewModelBase from '../FormViewModelBase';
-import '../../Utils/ArrayExtensions';
+import { unique } from '../../Utils/ArrayHelpers';
 
 export default class ActivityFormViewModel extends FormViewModelBase {
 
@@ -41,10 +40,10 @@ export default class ActivityFormViewModel extends FormViewModelBase {
                 predicate: (value: string) => !!value && /\S/.test(value),
                 message: "must not be empty!"
             },
-            'time': {
-                predicate: (value: string) => moment(value).diff(moment()) > 0,
-                message: "cannot be in the future!"
-            }
+            // 'time': {
+            //     predicate: (value: string) => moment(value).diff(moment()) > 0,
+            //     message: "cannot be in the future!"
+            // }
         });
         if (model !== undefined) {
             this.id = model.id;
@@ -60,7 +59,7 @@ export default class ActivityFormViewModel extends FormViewModelBase {
     @action
     public addTag(tag: string) {
         this.tags.push(tag);
-        this.tags = this.tags.unique();
+        this.tags = unique(this.tags);
     }
 
     public async save(): Promise<boolean> {

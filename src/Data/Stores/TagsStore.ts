@@ -4,6 +4,7 @@ import {
     computed,
     action, 
 } from "mobx";
+import { without } from "../../Utils/ArrayHelpers";
 import Database from "../Database";
 import Tag from "../Models/Tag";
 
@@ -83,7 +84,7 @@ export default class TagsStore {
     public async delete(tag: Tag): Promise<boolean> {
         try {
             await this.db.tags.delete(tag.id!);
-            this.tags = this.tags.without(tag);
+            this.tags = without(this.tags, tag);
             return true;
         } catch {
             return false;
