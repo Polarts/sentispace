@@ -16,6 +16,7 @@ export default observer(
     ({vm, dayVM}: ActivitiesFormProps) => {
 
         const [currentTag, setCurrentTag] = useState('');
+        const [isWaiting, setWaiting] = useState(false);
 
         function onFeelingSelected(e: React.ChangeEvent<HTMLInputElement>) {
             vm.feeling = e.currentTarget.value as Feelings;
@@ -34,9 +35,12 @@ export default observer(
         
         function onSubmit(e: React.FormEvent<HTMLFormElement>) {
             e.preventDefault();
+            setWaiting(true);
             vm.save().then(succ => {
                 if (succ) {
                     onCancel();
+                } else {
+                    setWaiting(false);
                 }
             })
         }
@@ -117,17 +121,25 @@ export default observer(
                     </div>
                 </div>
                 <div className="nav-footer">
-                    <div className="content">
-                        <button className="fab button-secondary"
-                                type="reset"
-                                onClick={onCancel}>
-                            <i className="fas fa-times"></i>
-                        </button>
-                        <button className="fab button-secondary"
-                                type ="submit">
-                            <i className="fas fa-check"></i>
-                        </button>
-                    </div>
+                    {
+                        isWaiting
+                        ? <div className="content">
+                            <div className="fab" style={{background: "lightgray"}}>
+                                <i className="fas fa-sync rotating"></i>
+                            </div>
+                          </div>
+                        : <div className="content">
+                            <button className="fab button-secondary"
+                                    type="reset"
+                                    onClick={onCancel}>
+                                <i className="fas fa-times"></i>
+                            </button>
+                            <button className="fab button-secondary"
+                                    type ="submit">
+                                <i className="fas fa-check"></i>
+                            </button>
+                          </div> 
+                    }
                     <div className="bottom-filler"/>
                 </div>
             </form>

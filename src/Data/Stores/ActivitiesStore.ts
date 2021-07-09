@@ -118,8 +118,9 @@ export default class ActivitiesStore {
             const id = await this.db.activities.add(act);
             act.id = id;
             this._activities.push(act);
-
+            // Create the new tags, if any
             const newTags = act.tags.filter(tag => !this.tagsStore.tags.map(tag => tag.name).includes(tag));
+            newTags.forEach(tag => this.tagsStore.create(tag));
             return true;
         } catch {
             return false;

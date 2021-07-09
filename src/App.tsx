@@ -31,8 +31,8 @@ export enum Routes {
 function App() {
 
   const db = new Database();
-  const actStore = ActivitiesStore.instance; actStore.init(db);
   const tagStore = TagsStore.instance; tagStore.init(db);
+  const actStore = ActivitiesStore.instance; actStore.init(db, tagStore);
   const navVM = new NavigationViewModel();
 
   return (
