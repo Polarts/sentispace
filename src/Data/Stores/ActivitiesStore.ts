@@ -10,6 +10,7 @@ import { without } from '../../Utils/ArrayHelpers';
 import Database from '../Database';
 import Activity from '../Models/Activity';
 import Feelings from '../Models/Feelings';
+import TagsStore from './TagsStore';
 
 export const DATE_FORMAT = 'YYYY-MM-DD';
 
@@ -61,6 +62,8 @@ export default class ActivitiesStore {
     
     private db!: Database;
 
+    private tagsStore!: TagsStore;
+
     //#endregion
 
     //#region methods
@@ -85,9 +88,10 @@ export default class ActivitiesStore {
     }
 
     @action
-    public init(db: Database): void {
+    public init(db: Database, tagsStore: TagsStore): void {
         if (this.isInit) return;
 
+        this.tagsStore = tagsStore;
         this.db = db;
 
         // const acts = [];
@@ -111,11 +115,11 @@ export default class ActivitiesStore {
     @action
     public async create(act: Activity): Promise<boolean> {
         try {
-            
             const id = await this.db.activities.add(act);
             act.id = id;
             this._activities.push(act);
 
+            const newTags = act.tags.filter(tag => !this.tagsStore.tags.map(tag => tag.name).includes(tag));
             return true;
         } catch {
             return false;

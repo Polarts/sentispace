@@ -16,11 +16,14 @@ export default class Database extends Dexie {
       
       this.activities = this.table("activities");
       this.tags = this.table("tags");
+
+      // TODO: implement quota checker:
+      navigator.storage.estimate()
+        .then(estimate => {
+          console.log(`quota: ${estimate.quota}`);
+          console.log(`used space: ${estimate.usage}`);
+        });
     }
   }
   
-  /*  // TODO: implement quota checker:
-      const quota = await navigator.storage.estimate();
-      const totalSpace = quota.quota;
-      const usedSpace = quota.usage;
-  */
+    
