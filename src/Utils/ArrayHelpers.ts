@@ -12,7 +12,7 @@ export function unique<T>(array: T[]) {
 /**
  * @param array to scan
  * @param items to remove
- * @returns array without items
+ * @returns array without given items
  */
 export function without<T>(array: T[], ...items: T[]) {
     return array.filter(elem => !items.includes(elem));
