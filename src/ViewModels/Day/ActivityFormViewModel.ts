@@ -1,14 +1,19 @@
-import {action, makeObservable, observable} from 'mobx';
-import Activity from '../../Models/Activity';
-import Feelings from '../../Models/Feelings';
-import ActivitiesStore from '../../Stores/ActivitiesStore';
+import {
+    makeObservable, 
+    observable,
+    action, 
+} from 'mobx';
+
+import Activity from '../../Data/Models/Activity';
+import Feelings from '../../Data/Models/Feelings';
+import ActivitiesStore from '../../Data/Stores/ActivitiesStore';
 import FormViewModelBase from '../FormViewModelBase';
-import '../../Utils/ArrayExtensions';
+import { unique } from '../../Utils/ArrayHelpers';
 
 export default class ActivityFormViewModel extends FormViewModelBase {
 
     //#region properties
-    public id?: string;
+    public id?: number;
 
     @observable
     public title: string = "";
@@ -34,7 +39,11 @@ export default class ActivityFormViewModel extends FormViewModelBase {
             'title': {
                 predicate: (value: string) => !!value && /\S/.test(value),
                 message: "must not be empty!"
-            }
+            },
+            // 'time': {
+            //     predicate: (value: string) => moment(value).diff(moment()) > 0,
+            //     message: "cannot be in the future!"
+            // }
         });
         if (model !== undefined) {
             this.id = model.id;
@@ -50,13 +59,13 @@ export default class ActivityFormViewModel extends FormViewModelBase {
     @action
     public addTag(tag: string) {
         this.tags.push(tag);
-        this.tags = this.tags.unique();
+        this.tags = unique(this.tags);
     }
 
-    public save(): boolean {
+    public async save(): Promise<boolean> {
         if (this.checkValidity()) {
             if(!this.id) {
-                return this.store.create(new Activity(
+                return await this.store.create(new Activity(
                     this.title,
                     this.description,
                     this.feeling,
@@ -64,7 +73,7 @@ export default class ActivityFormViewModel extends FormViewModelBase {
                     this.tags.slice()
                 ));
             } else {
-                return this.store.update(new Activity(
+                return await this.store.update(new Activity(
                     this.title,
                     this.description,
                     this.feeling,

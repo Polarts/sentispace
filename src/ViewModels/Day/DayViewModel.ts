@@ -6,9 +6,9 @@ import {
 } from "mobx";
 import moment from "moment";
 
-import Activity from "../../Models/Activity";
-import Feelings from "../../Models/Feelings";
-import ActivitiesStore from "../../Stores/ActivitiesStore";
+import Activity from "../../Data/Models/Activity";
+import Feelings from "../../Data/Models/Feelings";
+import ActivitiesStore from "../../Data/Stores/ActivitiesStore";
 import NavigationViewModel, { DisplayModes } from "../NavigationViewModel";
 
 export default class DayViewModel {

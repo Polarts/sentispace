@@ -4,10 +4,10 @@ import moment from 'moment';
 import { useLocation } from 'react-router';
 
 import { Routes } from '../../App';
-import { useActivitiesStore } from '../../Stores/ActivitiesStore';
 import { CSSTransition } from 'react-transition-group';
 import NavigationViewModel, { DisplayModes } from '../../ViewModels/NavigationViewModel';
 import NavMenuItem from './NavMenuItem';
+import ActivitiesStore from '../../Data/Stores/ActivitiesStore';
 
 type NavHeaderProps = {
     vm: NavigationViewModel
@@ -17,7 +17,7 @@ export default observer(
     ({vm}: NavHeaderProps) => {
         
         const location = useLocation();
-        const store = useActivitiesStore();
+        const store = ActivitiesStore.instance;
 
         function onLeftButtonClicked() {
             if (vm.displayMode === DisplayModes.selecting) {

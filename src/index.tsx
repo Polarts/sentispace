@@ -4,12 +4,12 @@ import App from './App';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import SWConfig from './swConfig';
 import reportWebVitals from './reportWebVitals';
 
 import './Styles/imports/reset.css';
 import './Styles/imports/fontawesome.css';
 import './Styles/main.css';
-import SWConfig from './swConfig';
 
 document.addEventListener('contextmenu', e => {
   e.preventDefault();

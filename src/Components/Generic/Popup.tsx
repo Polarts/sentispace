@@ -61,8 +61,9 @@ export default function Popup({
                             <div className="popup-text">
                                 {content}
                             </div>
-                            {buttons.map(b => (
-                                <button className={`popup-button ${b.type}`}
+                            {buttons.map((b, i) => (
+                                <button key={`popup-button-${i}`} 
+                                        className={`popup-button ${b.type}`}
                                         onClick={() => { b.onClick(); hide(); }}>
                                     {b.content}
                                 </button>

@@ -6,13 +6,15 @@ import {
 } from "react-router-dom";
 import { configure } from 'mobx';
 
-import DayView from './Components/DayView/DayView';
+import DayView from './Components/Pages/DayView/DayView';
 import NavHeader from './Components/Navigation/NavHeader';
 import NavFooter from './Components/Navigation/NavFooter';
 import NavigationViewModel from './ViewModels/NavigationViewModel';
 import DayViewModel from './ViewModels/Day/DayViewModel';
-import { useActivitiesStore } from './Stores/ActivitiesStore';
 import AddToHomeScreen from './Components/PWA/AddToHomeScreen';
+import ActivitiesStore from './Data/Stores/ActivitiesStore';
+import Database from './Data/Database';
+import TagsStore from './Data/Stores/TagsStore';
 
 configure({
   enforceActions: 'never'
@@ -28,7 +30,9 @@ export enum Routes {
 }
 function App() {
 
-  const store = useActivitiesStore();
+  const db = new Database();
+  const tagStore = TagsStore.instance; tagStore.init(db);
+  const actStore = ActivitiesStore.instance; actStore.init(db, tagStore);
   const navVM = new NavigationViewModel();
 
   return (
@@ -36,7 +40,7 @@ function App() {
       <NavHeader vm={navVM}/>
       <Switch>
         <Route exact path={Routes.day}>
-          <DayView vm={new DayViewModel(store, navVM)}/>
+          <DayView vm={new DayViewModel(actStore, navVM)}/>
         </Route>
         <Route exact path={Routes.week}/>
         <Route exact path={Routes.month}/>
