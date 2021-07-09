@@ -7,12 +7,11 @@ import {
 } from 'mobx';
 import moment from 'moment';
 import { without } from '../../Utils/ArrayHelpers';
+import { DATE_FORMAT } from '../../Utils/Constants';
 import Database from '../Database';
 import Activity from '../Models/Activity';
-import Feelings from '../Models/Feelings';
+//import Feelings from '../Models/Feelings';
 import TagsStore from './TagsStore';
-
-export const DATE_FORMAT = 'YYYY-MM-DD';
 
 export default class ActivitiesStore {
 
