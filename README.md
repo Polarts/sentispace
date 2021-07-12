@@ -13,6 +13,22 @@ I decided to make my own app to track my daily activities, with the ability to t
 
 Talking to some friends, I realized there's more demand for such app than I had imagined, so I decided to make it a public open-source project.
 
+## Runnning Locally
+
+To run locally simply do `npm i` and then `npm start`.
+
+To debug with VSCode and Chrome, with my neat "F5 to start debugging" setup:
+
+- First, do `npm i -g pm2`
+- Then, add to your local .env file the following: `BROWSER=none`
+- Done! Press F5 in VSCode to start debugging with Chrome!
+
+## Active Testing:
+
+The app's `dev/main` branch is live on Vercel! 
+
+Feel free to test it [here](https://feel-tracker.vercel.app) and open an issue on anything you find funny and doesn't exist on the [Roadmap](https://github.com/Polarts/feel-tracker/projects/1) 😁
+
 ## The Tech Stack
 
 The app is built using React, TS and Mobx.
@@ -23,15 +39,11 @@ I'm using SCSS and following [Elad Shechter](https://eladsc.com/)'s [Storytellin
 ### Business Logic:
 I chose the [MVVM design pattern](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel), as I'm mostly comfortable with it and it aligns perfectly with TS and Mobx.
 
-### Back-End:
+### Back-End (currently suspended):
 Please refer to the [back-end repo](https://github.com/skamensky/feel-tracker-backend) for more info.
 
-### FUTURE PLANS:
-For the testing and prototyping stages, I'll release it as a web app.
-
-In the future, however, I'm planning to convert it to a PWA that'll run locally on your phone. This is due to privacy matters, since the app deals with very personal (and potentially medically sensitive) data. 
-
-I'd rather have my users store their data locally than trust a cloud server to store and do heck-knows-what with it.
+### PWA and Local Storage:
+To maximize privacy on this app, all of the user's data will be stored in local storage via [Dexie](https://dexie.org) (an IndexedDB wrapper). No server needed! Just "install" it locally and you're good to go.
 
 ## Contributing
 

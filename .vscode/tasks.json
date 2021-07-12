@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "startReact",
+            "command": "pm2 start node_modules/react-scripts/scripts/start.js --name feel-tracker",
+            "type": "shell"
+        },
+        {
+            "label": "stopReact",
+            "command": "pm2 delete feel-tracker",
+            "type": "shell"
+        }
+    ]
+}

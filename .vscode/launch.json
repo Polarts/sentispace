@@ -6,7 +6,9 @@
             "type": "chrome",
             "request": "launch",
             "url": "http://localhost:3000",
-            "webRoot": "${workspaceFolder}/public"
+            "webRoot": "${workspaceFolder}/public",
+            "preLaunchTask": "startReact",
+            "postDebugTask": "stopReact"
         }
     ]
 }
