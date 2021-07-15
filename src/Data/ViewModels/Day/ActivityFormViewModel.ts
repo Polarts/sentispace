@@ -58,8 +58,7 @@ export default class ActivityFormViewModel extends FormViewModelBase {
 
     @action
     public addTag(tag: string) {
-        this.tags.push(tag);
-        this.tags = unique(this.tags);
+        this.tags = unique([...this.tags, tag]);
     }
 
     public async save(): Promise<boolean> {

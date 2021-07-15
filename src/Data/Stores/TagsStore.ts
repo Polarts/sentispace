@@ -30,6 +30,11 @@ export default class TagsStore {
     @observable
     public tags: Tag[] = [];
 
+    @computed
+    public get tagNames() {
+        return this.tags.map(t => t.name);
+    }
+
     @computed 
     public get selectedTags() {
         return this.tags.filter(tag => tag.isSelected);
@@ -58,6 +63,21 @@ export default class TagsStore {
             const id = await this.db.tags.add(tag);
             tag.id = id;
             this.tags.push(tag);
+            return true;
+        } catch {
+            return false;
+        }
+    }
+
+    @action
+    public async createMany(names: string[]): Promise<boolean> {
+        try {
+            const tags = names.map(name => new Tag(name));
+            const ids = await this.db.tags.bulkAdd(tags, {allKeys: true});
+            for(let i=0; i<tags.length; i++) {
+                tags[i].id = ids[i];
+            }
+            this.tags.push(...tags);
             return true;
         } catch {
             return false;
