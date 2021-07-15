@@ -5,7 +5,7 @@ import moment from 'moment';
 import ActivityFormViewModel from '../../../Data/ViewModels/Day/ActivityFormViewModel';
 import Feelings from '../../../Data/Models/Feelings';
 import DayViewModel from '../../../Data/ViewModels/Day/DayViewModel';
-import { without } from '../../../Utils/ArrayHelpers';
+import { exclude } from '../../../Utils/ArrayHelpers';
 
 type ActivitiesFormProps = {
     vm: ActivityFormViewModel,
@@ -110,7 +110,7 @@ export default observer(
                         <div className="field-content">
                             {vm.tags.map(tag => 
                                 <div className="tag" key={tag}
-                                     onClick={() => vm.tags = without(vm.tags, tag)}>
+                                     onClick={() => vm.tags = exclude(vm.tags, tag)}>
                                     <span>{tag}</span>
                                 </div>
                             )}

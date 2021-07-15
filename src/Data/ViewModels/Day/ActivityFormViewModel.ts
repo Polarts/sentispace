@@ -9,6 +9,7 @@ import Feelings from '../../Models/Feelings';
 import ActivitiesStore from '../../Stores/ActivitiesStore';
 import FormViewModelBase from '../FormViewModelBase';
 import { unique } from '../../../Utils/ArrayHelpers';
+import moment from 'moment';
 
 export default class ActivityFormViewModel extends FormViewModelBase {
 
@@ -50,7 +51,7 @@ export default class ActivityFormViewModel extends FormViewModelBase {
             this.title = model.title;
             this.description = model.description;
             this.feeling = model.feeling;
-            this.time = model.time;
+            this.time = moment.unix(model.time).format('HH:mm');
             this.tags = model.tags;
         }
         makeObservable(this);
@@ -62,13 +63,14 @@ export default class ActivityFormViewModel extends FormViewModelBase {
     }
 
     public async save(): Promise<boolean> {
+        const time = moment().startOf('day').unix() + moment(this.time, 'HH:mm').unix();
         if (this.checkValidity()) {
             if(!this.id) {
                 return await this.store.create(new Activity(
                     this.title,
                     this.description,
                     this.feeling,
-                    this.time,
+                    time,
                     this.tags.slice()
                 ));
             } else {
@@ -76,7 +78,7 @@ export default class ActivityFormViewModel extends FormViewModelBase {
                     this.title,
                     this.description,
                     this.feeling,
-                    this.time,
+                    time,
                     this.tags.slice(),
                     this.id
                 ));

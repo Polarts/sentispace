@@ -1,15 +1,14 @@
 import {
     observable, 
-    computed, 
     IObservableArray, 
     action, 
-    makeObservable 
+    makeObservable, 
 } from 'mobx';
-import moment from 'moment';
-import { without } from '../../Utils/ArrayHelpers';
-import { DATE_FORMAT } from '../../Utils/Constants';
+import { Moment } from 'moment';
+import { exclude } from '../../Utils/ArrayHelpers';
 import Database from '../Database';
 import Activity from '../Models/Activity';
+//import moment from 'moment';
 //import Feelings from '../Models/Feelings';
 import TagsStore from './TagsStore';
 
@@ -31,29 +30,6 @@ export default class ActivitiesStore {
 
     //#region properties
 
-    //#region activities
-
-    @observable
-    private _activities: Array<Activity> = [];
-
-    @computed
-    public get activities(): Array<Activity> {
-        return this._activities
-            .filter(this.filterActivity)
-            .sort((a, b) => Math.sign(moment(a.time).diff(moment(b.time), 'minutes')));
-    }
-    
-    //#endregion
-
-    @observable
-    public startDate: string = '';
-
-    @observable
-    public endDate: string = '';
-
-    @observable
-    public tags: string[] = [];
-
     @observable 
     public selectedTags: IObservableArray<string> = observable.array<string>();
 
@@ -63,6 +39,11 @@ export default class ActivitiesStore {
 
     private tagsStore!: TagsStore;
 
+    @observable
+    public activities: IObservableArray<Activity> = observable.array<Activity>();
+
+    public earliestActivity!: Activity;
+
     //#endregion
 
     //#region methods
@@ -70,20 +51,13 @@ export default class ActivitiesStore {
     private filterActivity(act: Activity): boolean {
 
         const store = ActivitiesStore.instance;
-        const date = moment(act.time).format(DATE_FORMAT);
 
-        if (store.selectedTags.length === 0
-            || act.tags.every(tag => store.selectedTags.includes(tag))) {
+        return store.selectedTags.length === 0 || 
+                act.tags.every(tag => store.selectedTags.includes(tag));
+    }
 
-            if (store.startDate === store.endDate && date === store.startDate) {
-                return true;
-            }
-            
-            if (date <= store.endDate && date >= store.startDate) {
-                return true;
-            }
-        }
-        return false;
+    private sortActivity(a: Activity, b: Activity): number {
+        return Math.sign(a.time - b.time);
     }
 
     @action
@@ -100,14 +74,13 @@ export default class ActivitiesStore {
         //         "Lorem ipsum dolor sit amet!",
         //         "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui cupiditate similique, repellat alias veniam reprehenderit debitis maiores, architecto modi repellendus delectus saepe assumenda vero obcaecati adipisci nisi eius fugiat porro.",
         //         Feelings.ok,
-        //         moment().startOf('day').add(rng, 'hours').format(),
+        //         moment().startOf('day').add(rng, 'hours').unix(),
         //         []
         //     ));
         // }
         // db.activities.bulkAdd(acts);
 
-        this.db.activities.toArray().then(arr => this._activities = arr);
-        this.startDate = this.endDate = moment().format(DATE_FORMAT);
+        this.db.activities.limit(1).toArray().then(acts => this.earliestActivity = acts[0]);
         this.isInit = true;
     }
 
@@ -116,9 +89,8 @@ export default class ActivitiesStore {
         try {
             const id = await this.db.activities.add(act);
             act.id = id;
-            this._activities.push(act);
             // Create the new tags, if any
-            const newTags = without(act.tags, ...this.tagsStore.tagNames);
+            const newTags = exclude(act.tags, ...this.tagsStore.tagNames);
             this.tagsStore.createMany(newTags);
             return true;
         } catch {
@@ -130,13 +102,11 @@ export default class ActivitiesStore {
     public async update(act: Activity): Promise<boolean> {
         try {
             const id = await this.db.activities.put(act);
-            const index = this._activities.findIndex(a => a.id === id);
-            if (index === -1) {
-                return false;
-            } else {
-                this._activities[index] = act;
-                return true;
+            const index = this.activities.findIndex(a => a.id === id);
+            if (index !== -1) {
+                this.activities[index] = act;
             }
+            return true;
         } catch {
             return false;
         }
@@ -146,11 +116,38 @@ export default class ActivitiesStore {
     public async delete(act: Activity): Promise<boolean> {
         try {
             await this.db.activities.delete(act.id!);
-            this._activities = without(this._activities, act);
+            this.activities.remove(act);
             return true;
         } catch {
             return false;
         }
+    }
+
+    public async filterByDate(date: Moment) {
+        const startOfDay = date.startOf('day');
+        const theDayAfter = startOfDay.clone().add(1, 'days');
+
+        const acts = await this.db.activities
+            .where('time')
+            .between(startOfDay.unix(), theDayAfter.unix())
+            .toArray();
+
+        this.activities = observable.array(
+            acts.filter(this.filterActivity)
+            .sort(this.sortActivity)
+        );
+    }
+
+    public async filterByDateRange(start: Moment, end: Moment) {
+        const acts = await this.db.activities
+            .where('time')
+            .between(start.unix(), end.unix())
+            .toArray();
+
+        this.activities = observable.array(
+            acts.filter(this.filterActivity)
+            .sort(this.sortActivity)
+        );
     }
 
     //#endregion

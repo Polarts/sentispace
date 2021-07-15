@@ -14,6 +14,6 @@ export function unique<T>(array: T[]) {
  * @param items to remove
  * @returns array without given items
  */
-export function without<T>(array: T[], ...items: T[]) {
+export function exclude<T>(array: T[], ...items: T[]) {
     return array.filter(elem => !items.includes(elem));
 }

@@ -1,10 +1,11 @@
 import { 
-    computed, 
+    action,
+    computed,
     makeObservable, 
     observable, 
     reaction 
 } from "mobx";
-import moment from "moment";
+import moment, { Moment } from "moment";
 
 import Activity from "../../Models/Activity";
 import Feelings from "../../Models/Feelings";
@@ -14,16 +15,21 @@ import NavigationViewModel, { DisplayModes } from "../NavigationViewModel";
 export default class DayViewModel {
 
     //#region properties
+
     @observable
     public selectedActivities: Activity[] = [];
     
     @observable
     public currentlyEditing?: Activity;
 
+    @observable
+    private currentDate: Moment = moment().startOf('day');
+
     @computed
-    get activities(): Activity[] {
-        return this.store.activities;
+    public get activities() {
+        return this.store.activities.slice();
     }
+
     //#endregion
 
     constructor(
@@ -31,7 +37,16 @@ export default class DayViewModel {
         private navVM: NavigationViewModel
     ) {
         makeObservable(this);
-        
+
+        navVM.nextCallback = () => this.next();
+        navVM.prevCallback = () => this.prev();
+        this.onDateUpdated(this.currentDate);
+
+        reaction(
+            () => this.currentDate,
+            date => this.onDateUpdated(date)
+        )
+
         reaction(
             () => this.navVM.displayMode,
             mode => {
@@ -45,7 +60,7 @@ export default class DayViewModel {
                             "",
                             "",
                             Feelings.great,
-                            moment().format(),
+                            moment().unix(),
                             []
                         );
                         break;
@@ -77,8 +92,30 @@ export default class DayViewModel {
         );
     }
 
+    //#region methods
+    
     public delete(act: Activity) {
         this.store.delete(act);
     }
+    
+    @action
+    public next() {
+        this.currentDate = this.currentDate.clone().add(1, 'days');
+    }
 
+    @action
+    public prev() {
+        this.currentDate = this.currentDate.clone().subtract(1, 'days');
+    }
+
+    private onDateUpdated(date: Moment) {
+        this.store.filterByDate(date);
+        this.navVM.headerContent = [
+            this.currentDate.format('dddd'),
+            this.currentDate.format('DD MMM yyyy')
+        ];
+        this.navVM.hasNext = this.currentDate.startOf('day').unix() !== moment().startOf('day').unix();
+    }
+
+    //#endregion
 }

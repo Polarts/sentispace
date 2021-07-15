@@ -6,7 +6,7 @@ export default class Activity {
         public title: string,
         public description: string,
         public feeling: Feelings,
-        public time: string,
+        public time: number,
         public tags: string[],
         public id?: number
     ){}

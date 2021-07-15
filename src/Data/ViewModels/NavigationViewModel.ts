@@ -14,6 +14,7 @@ export enum DisplayModes {
 export default class NavigationViewModel {
 
     //#region properties
+
     @observable
     public leftMenuOpen: boolean = false;
 
@@ -24,10 +25,20 @@ export default class NavigationViewModel {
     public displayMode: DisplayModes = DisplayModes.none;
 
     @observable
-    public hasNext: boolean = true;
+    public headerContent: string[] = [];
 
     @observable
+    public nextCallback?: () => void;
+
+    @observable
+    public prevCallback?: () => void;
+
+    @observable
+    public hasNext: boolean = false;
+
+    @observable 
     public hasPrev: boolean = true;
+
     //#endregion
 
     constructor() {

@@ -7,7 +7,7 @@ import { CSSTransition } from 'react-transition-group';
 
 import Activity from '../../../Data/Models/Activity';
 import DayViewModel from '../../../Data/ViewModels/Day/DayViewModel';
-import { without } from '../../../Utils/ArrayHelpers';
+import { exclude } from '../../../Utils/ArrayHelpers';
 
 type ActivityItemProps = {
     activity: Activity,
@@ -42,7 +42,7 @@ export default observer(
                 hammer.on('tap', () => {
                     if (dayVM.selectedActivities.length > 0) {
                         if (isSelected.get()) {
-                            dayVM.selectedActivities = without(dayVM.selectedActivities, activity);
+                            dayVM.selectedActivities = exclude(dayVM.selectedActivities, activity);
                         } else {
                             dayVM.selectedActivities.push(activity); 
                         }
@@ -53,12 +53,12 @@ export default observer(
         }, [activity, dayVM, isSelected, hammerInit]);
 
         function onEditClick() {
-            dayVM.selectedActivities = without(dayVM.selectedActivities, activity);
+            dayVM.selectedActivities = exclude(dayVM.selectedActivities, activity);
             dayVM.currentlyEditing = activity;
         }
 
         function onRemoveClick() {
-            dayVM.selectedActivities = without(dayVM.selectedActivities, activity);
+            dayVM.selectedActivities = exclude(dayVM.selectedActivities, activity);
             dayVM.delete(activity);
         }
 

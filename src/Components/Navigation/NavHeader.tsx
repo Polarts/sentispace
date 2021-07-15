@@ -1,13 +1,11 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import moment from 'moment';
 import { useLocation } from 'react-router';
 
 import { Routes } from '../../App';
 import { CSSTransition } from 'react-transition-group';
 import NavigationViewModel, { DisplayModes } from '../../Data/ViewModels/NavigationViewModel';
 import NavMenuItem from './NavMenuItem';
-import ActivitiesStore from '../../Data/Stores/ActivitiesStore';
 
 type NavHeaderProps = {
     vm: NavigationViewModel
@@ -17,7 +15,6 @@ export default observer(
     ({vm}: NavHeaderProps) => {
         
         const location = useLocation();
-        const store = ActivitiesStore.instance;
 
         function onLeftButtonClicked() {
             if (vm.displayMode === DisplayModes.selecting) {
@@ -41,29 +38,33 @@ export default observer(
             vm.rightMenuOpen = vm.leftMenuOpen = false;
         }
 
-        function Title() {
-            if (vm.displayMode === DisplayModes.selecting) {
+        type TitleProps = {
+            mode: DisplayModes,
+            header: string[]
+        }
+        function Title({mode, header}: TitleProps) {
+            if (mode === DisplayModes.selecting) {
                 return (
                     <h1>
                         <span>SELECTING</span>
                     </h1>
                 );
-            }
-            switch(location.pathname) {
-                case Routes.day:
-                    return (
-                        <h1>
-                            <span>{moment(store.startDate).format('dddd').toUpperCase()}</span>
-                            <span>{moment(store.startDate).format('DD MMM yyyy')}</span>
-                        </h1>
-                    );
-                default:
-                    return ( 
-                        <h1>
-                            <span>404</span>
-                            <span>Page Not Found</span>
-                        </h1>
-                    );
+            } else if (Object.values(Routes)
+                .map(r => r.toString())
+                .includes(location.pathname)) {
+                return (
+                    <h1>
+                        <span>{header[0]}</span>
+                        <span>{header[1]}</span>
+                    </h1>
+                );
+            } else {
+                return ( 
+                    <h1>
+                        <span>404</span>
+                        <span>Page Not Found</span>
+                    </h1>
+                );
             }
         }
 
@@ -99,7 +100,7 @@ export default observer(
                             onClick={onLeftButtonClicked}>
                         <LeftIcon/>
                     </button>
-                    <Title/>
+                    <Title mode={vm.displayMode} header={vm.headerContent}/>
                     <button className="nav-menu-button action-button"
                             onClick={onRightButtonClicked}>
                         <i className={`fas ${
