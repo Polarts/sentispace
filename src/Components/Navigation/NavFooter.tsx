@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 
-import NavigationViewModel, { DisplayModes } from '../../ViewModels/NavigationViewModel';
+import NavigationViewModel, { DisplayModes } from '../../Data/ViewModels/NavigationViewModel';
 
 type NavFooterProps = {
     vm: NavigationViewModel

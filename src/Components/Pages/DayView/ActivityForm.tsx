@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { observer } from 'mobx-react';
 import moment from 'moment';
 
-import ActivityFormViewModel from '../../../ViewModels/Day/ActivityFormViewModel';
+import ActivityFormViewModel from '../../../Data/ViewModels/Day/ActivityFormViewModel';
 import Feelings from '../../../Data/Models/Feelings';
-import DayViewModel from '../../../ViewModels/Day/DayViewModel';
+import DayViewModel from '../../../Data/ViewModels/Day/DayViewModel';
 import { without } from '../../../Utils/ArrayHelpers';
 
 type ActivitiesFormProps = {

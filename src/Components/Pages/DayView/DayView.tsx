@@ -5,8 +5,8 @@ import { CSSTransition } from 'react-transition-group';
 import ActivityItem from './ActivityItem';
 import ActivityForm from './ActivityForm';
 import ActivitiesStore from '../../../Data/Stores/ActivitiesStore';
-import ActivityFormViewModel from '../../../ViewModels/Day/ActivityFormViewModel';
-import DayViewModel from '../../../ViewModels/Day/DayViewModel';
+import ActivityFormViewModel from '../../../Data/ViewModels/Day/ActivityFormViewModel';
+import DayViewModel from '../../../Data/ViewModels/Day/DayViewModel';
 
 type DayViewProps = {
     vm: DayViewModel

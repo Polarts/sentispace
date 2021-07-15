@@ -4,11 +4,11 @@ import {
     action, 
 } from 'mobx';
 
-import Activity from '../../Data/Models/Activity';
-import Feelings from '../../Data/Models/Feelings';
-import ActivitiesStore from '../../Data/Stores/ActivitiesStore';
+import Activity from '../../Models/Activity';
+import Feelings from '../../Models/Feelings';
+import ActivitiesStore from '../../Stores/ActivitiesStore';
 import FormViewModelBase from '../FormViewModelBase';
-import { unique } from '../../Utils/ArrayHelpers';
+import { unique } from '../../../Utils/ArrayHelpers';
 
 export default class ActivityFormViewModel extends FormViewModelBase {
 

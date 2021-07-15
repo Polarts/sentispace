@@ -5,7 +5,7 @@ import { useLocation } from 'react-router';
 
 import { Routes } from '../../App';
 import { CSSTransition } from 'react-transition-group';
-import NavigationViewModel, { DisplayModes } from '../../ViewModels/NavigationViewModel';
+import NavigationViewModel, { DisplayModes } from '../../Data/ViewModels/NavigationViewModel';
 import NavMenuItem from './NavMenuItem';
 import ActivitiesStore from '../../Data/Stores/ActivitiesStore';
 
