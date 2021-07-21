@@ -95,12 +95,15 @@ export default observer(
                             <span>Time</span>
                         </div>
                         <div className="field-content">
-                            <button type="button">
+                            {/* <button type="button">
                                 <span>{moment(vm.time).format("HH:mm")}</span>
                                 <div className="time-icon">
                                     <i className="far fa-clock"></i>
                                 </div>
-                            </button>
+                            </button> */}
+                            <input type="time" 
+                                   value={vm.time?.format("HH:mm") ?? "00:00"} 
+                                   onChange={e => vm.time = moment(e.target.value, "HH:mm")}/>
                         </div>
                     </div>
                     <div className="tags-field">

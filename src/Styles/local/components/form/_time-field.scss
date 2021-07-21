@@ -10,6 +10,12 @@
         font-family: 'Varela Round';
         font-size: var(--size-font-large);
 
+        input[type=time] {
+            border: none; outline: none;
+            background: none;
+            max-width: calc(var(--size-font-large) * 6);
+        }
+
         button {
             @include flex(row);
 

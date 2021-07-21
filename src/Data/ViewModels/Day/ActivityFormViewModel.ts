@@ -9,7 +9,7 @@ import Feelings from '../../Models/Feelings';
 import ActivitiesStore from '../../Stores/ActivitiesStore';
 import FormViewModelBase from '../FormViewModelBase';
 import { unique } from '../../../Utils/ArrayHelpers';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 
 export default class ActivityFormViewModel extends FormViewModelBase {
 
@@ -26,7 +26,7 @@ export default class ActivityFormViewModel extends FormViewModelBase {
     public feeling: Feelings = Feelings.great;
 
     @observable
-    public time: string = "";
+    public time!: Moment;
 
     @observable
     public tags: Array<string> = [];
@@ -51,7 +51,7 @@ export default class ActivityFormViewModel extends FormViewModelBase {
             this.title = model.title;
             this.description = model.description;
             this.feeling = model.feeling;
-            this.time = moment.unix(model.time).format('HH:mm');
+            this.time = moment.unix(model.time);
             this.tags = model.tags;
         }
         makeObservable(this);

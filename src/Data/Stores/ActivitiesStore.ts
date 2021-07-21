@@ -134,7 +134,7 @@ export default class ActivitiesStore {
 
         this.activities = observable.array(
             acts.filter(this.filterActivity)
-            .sort(this.sortActivity)
+                .sort(this.sortActivity)
         );
     }
 
@@ -146,7 +146,7 @@ export default class ActivitiesStore {
 
         this.activities = observable.array(
             acts.filter(this.filterActivity)
-            .sort(this.sortActivity)
+                .sort(this.sortActivity)
         );
     }
 

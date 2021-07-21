@@ -639,6 +639,13 @@ div[class*='-field'] .field-content {
   font-size: var(--size-font-large);
 }
 
+.time-field .field-content input[type=time] {
+  border: none;
+  outline: none;
+  background: none;
+  max-width: calc(var(--size-font-large) * 6);
+}
+
 .time-field .field-content button {
   display: -webkit-box;
   display: -ms-flexbox;
