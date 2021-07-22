@@ -72,21 +72,3 @@
         }
     }
 }
-
-.popup-fade {
-    &-enter {
-        opacity: 0;
-        &-active { 
-            opacity: 0.5;
-            transition: opacity 300ms;
-        }
-    }
-
-    &-exit {
-        opacity: 0.5;
-        &-active {
-            opacity: 0;
-            transition: opacity 300ms;
-        }
-    }
-}

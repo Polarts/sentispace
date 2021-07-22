@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { CSSTransition } from 'react-transition-group';
+import { AnimatePresence } from 'framer-motion';
 
 import ActivityItem from './ActivityItem';
 import ActivityForm from './ActivityForm';
@@ -26,12 +26,11 @@ export default observer(
                                       dayVM={vm} /> 
                     )}
                 </main>
-                <CSSTransition classNames="translate-y" 
-                               in={vm.currentlyEditing !== undefined}
-                               timeout={300}
-                               unmountOnExit>
-                    <ActivityForm vm={new ActivityFormViewModel(store, vm.currentlyEditing)} dayVM={vm}/>
-                </CSSTransition>
+                <AnimatePresence initial={false}>
+                    {!!vm.currentlyEditing && (
+                        <ActivityForm vm={new ActivityFormViewModel(store, vm.currentlyEditing)} dayVM={vm}/>
+                    )}
+                </AnimatePresence>
             </>
         );
     }

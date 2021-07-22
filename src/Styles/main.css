@@ -1112,26 +1112,6 @@ div[class*='-field'] .field-content {
   background-color: var(--color-thirdary);
 }
 
-.popup-fade-enter {
-  opacity: 0;
-}
-
-.popup-fade-enter-active {
-  opacity: 0.5;
-  -webkit-transition: opacity 300ms;
-  transition: opacity 300ms;
-}
-
-.popup-fade-exit {
-  opacity: 0.5;
-}
-
-.popup-fade-exit-active {
-  opacity: 0;
-  -webkit-transition: opacity 300ms;
-  transition: opacity 300ms;
-}
-
 /* transition group definitions */
 .translate-y-enter {
   -webkit-transform: translateY(100%);

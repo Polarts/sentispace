@@ -1,11 +1,12 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { observer } from 'mobx-react';
 import { useLocation } from 'react-router';
 
 import { Routes } from '../../App';
-import { CSSTransition } from 'react-transition-group';
 import NavigationViewModel, { DisplayModes } from '../../Data/ViewModels/NavigationViewModel';
 import NavMenuItem from './NavMenuItem';
+import { AnimatePresence, motion } from 'framer-motion';
+import { inflate } from '../../Utils/MotionAnimations';
 
 type NavHeaderProps = {
     vm: NavigationViewModel
@@ -14,8 +15,6 @@ type NavHeaderProps = {
 export default observer(
     ({vm}: NavHeaderProps) => {
         
-        const leftMenuRef = useRef(null);
-        const rightMenuRef = useRef(null);
         const location = useLocation();
 
         function onLeftButtonClicked() {
@@ -114,28 +113,24 @@ export default observer(
                         }`}/>
                     </button>
                     <div className="nav-menus">
-                        <CSSTransition classNames="inflate" 
-                                       nodeRef={leftMenuRef}
-                                       in={vm.leftMenuOpen}
-                                       timeout={300}
-                                       unmountOnExit>
-                            <ul className="nav-menu left" ref={leftMenuRef}>
-                                <NavMenuItem icon="fa-calendar-day" text="Day View" route={Routes.day} onClick={onMenuButtonClick}/>
-                                <NavMenuItem icon="fa-calendar-week" text="Week View" route={Routes.week} onClick={onMenuButtonClick}/>
-                                <NavMenuItem icon="fa-calendar-alt" text="Month View" route={Routes.month} onClick={onMenuButtonClick}/>
-                            </ul>
-                        </CSSTransition>
-                        <CSSTransition classNames="inflate" 
-                                       nodeRef={rightMenuRef}
-                                       in={vm.rightMenuOpen}
-                                       timeout={300}
-                                       unmountOnExit>
-                            <ul className="nav-menu right" ref={rightMenuRef}>
-                                <NavMenuItem icon="fa-cog" text="Settings" route={Routes.settings} onClick={onMenuButtonClick}/>
-                                <NavMenuItem icon="fa-info-circle" text={"Help & About"} route={Routes.about} onClick={onMenuButtonClick}/>
-                                <NavMenuItem icon="fa-filter" text="Filter" route={Routes.login} onClick={onMenuButtonClick}/>
-                            </ul>
-                        </CSSTransition>
+                        <AnimatePresence initial={false}>
+                            {vm.leftMenuOpen && (
+                                <motion.ul className="nav-menu left" {...inflate}>
+                                    <NavMenuItem icon="fa-calendar-day" text="Day View" route={Routes.day} onClick={onMenuButtonClick}/>
+                                    <NavMenuItem icon="fa-calendar-week" text="Week View" route={Routes.week} onClick={onMenuButtonClick}/>
+                                    <NavMenuItem icon="fa-calendar-alt" text="Month View" route={Routes.month} onClick={onMenuButtonClick}/>
+                                </motion.ul>
+                            )}
+                        </AnimatePresence>
+                        <AnimatePresence initial={false}>
+                            {vm.rightMenuOpen && (
+                                <motion.ul className="nav-menu right" {...inflate}>
+                                    <NavMenuItem icon="fa-cog" text="Settings" route={Routes.settings} onClick={onMenuButtonClick}/>
+                                    <NavMenuItem icon="fa-info-circle" text={"Help & About"} route={Routes.about} onClick={onMenuButtonClick}/>
+                                    <NavMenuItem icon="fa-filter" text="Filter" route={Routes.login} onClick={onMenuButtonClick}/>
+                                </motion.ul>
+                            )}
+                        </AnimatePresence>
                     </div>
                 </nav>
             </header>

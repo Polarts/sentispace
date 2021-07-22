@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { CSSTransition } from 'react-transition-group';
+import { AnimatePresence, motion } from 'framer-motion';
+import React, { useEffect, useState } from 'react'
+import { halfFade, inflate } from '../../Utils/MotionAnimations';
 
 export enum ButtonType {
     primary='primary',
@@ -28,8 +29,6 @@ export default function Popup({
     isLightDismiss = false
 }: PopupProps) {
 
-    const bgRef = useRef(null);
-    const popupRef  = useRef(null);
     const [isVisible, setVisibleState] = useState(isOpen);
 
     useEffect(() => setVisibleState(isOpen), [isOpen]);
@@ -40,44 +39,39 @@ export default function Popup({
 
     return (
         <>
-            <CSSTransition classNames="popup-fade" 
-                           nodeRef={bgRef}
-                           in={isVisible}
-                           timeout={300}
-                           unmountOnExit>
-                <div className="popup-bg" 
-                     ref={bgRef}
-                     onClick={() => { if (isLightDismiss) hide(); }}/>
-            </CSSTransition>
-            <CSSTransition classNames="inflate" 
-                           nodeRef={popupRef}
-                           in={isVisible}
-                           timeout={300}
-                           unmountOnExit>
-                <div className="popup-wrapper" ref={popupRef}>
-                    <div className="popup-content">
-                        <div className="popup-title">
-                            {title}
-                            <button className="popup-close-button"
-                                    onClick={hide}>
-                                <i className="fas fa-times"></i>
-                            </button>
-                        </div>
-                        <div className="popup-body">
-                            <div className="popup-text">
-                                {content}
-                            </div>
-                            {buttons.map((b, i) => (
-                                <button key={`popup-button-${i}`} 
-                                        className={`popup-button ${b.type}`}
-                                        onClick={() => { b.onClick(); hide(); }}>
-                                    {b.content}
+            <AnimatePresence initial={false}>
+                {isVisible && (
+                    <motion.div className="popup-bg" {...halfFade}
+                                onClick={() => { if (isLightDismiss) hide(); }}/>
+                )}
+            </AnimatePresence>
+            <AnimatePresence initial={false}>
+                {isVisible && (
+                    <motion.div className="popup-wrapper" {...inflate}>
+                        <div className="popup-content">
+                            <div className="popup-title">
+                                {title}
+                                <button className="popup-close-button"
+                                        onClick={hide}>
+                                    <i className="fas fa-times"></i>
                                 </button>
-                            ))}
+                            </div>
+                            <div className="popup-body">
+                                <div className="popup-text">
+                                    {content}
+                                </div>
+                                {buttons.map((b, i) => (
+                                    <button key={`popup-button-${i}`} 
+                                            className={`popup-button ${b.type}`}
+                                            onClick={() => { b.onClick(); hide(); }}>
+                                        {b.content}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </CSSTransition>
+                    </motion.div>    
+                )}
+            </AnimatePresence>
         </>
     );
 }
