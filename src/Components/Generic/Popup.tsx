@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { halfFade, inflate } from '../../Utils/MotionAnimations';
 
 export enum ButtonType {
