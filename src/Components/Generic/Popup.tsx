@@ -1,6 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useEffect, useRef, useState } from 'react'
-import { CSSTransition } from 'react-transition-group';
 import { halfFade, inflate } from '../../Utils/MotionAnimations';
 
 export enum ButtonType {
@@ -30,8 +29,6 @@ export default function Popup({
     isLightDismiss = false
 }: PopupProps) {
 
-    const bgRef = useRef(null);
-    const popupRef  = useRef(null);
     const [isVisible, setVisibleState] = useState(isOpen);
 
     useEffect(() => setVisibleState(isOpen), [isOpen]);
