@@ -55,7 +55,7 @@ HOWEVER, feel free to open issues and create PRs wherever you see fit. I'm alway
 
 - Bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 - Utilizing the [Mobx](https://mobx.js.org/README.html) state management library. 
-- Using [React Transition Group](http://reactcommunity.org/react-transition-group/css-transition) to make page transitions easy to implement.
+- Using [Framer Motion](https://www.framer.com/docs/introduction/) to implement animations.
 - SCSS compiled using the [VSCode Live Sass Compiler extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.live-sass).
 
 ## Special Thanks To:
