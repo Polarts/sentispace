@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { observer } from 'mobx-react';
 import moment from 'moment';
+import { motion } from 'framer-motion';
 
 import ActivityFormViewModel from '../../../Data/ViewModels/Day/ActivityFormViewModel';
 import Feelings from '../../../Data/Models/Feelings';
 import DayViewModel from '../../../Data/ViewModels/Day/DayViewModel';
 import { exclude } from '../../../Utils/ArrayHelpers';
+import { translateY } from '../../../Utils/MotionAnimations';
 
 type ActivitiesFormProps = {
     vm: ActivityFormViewModel,
@@ -51,7 +53,8 @@ export default observer(
         }
 
         return (
-            <form className="activity-form" onSubmit={onSubmit}>
+            <motion.form className="activity-form" onSubmit={onSubmit}
+                         {...translateY}>
                 <div className="header">
                     {vm.id? "EDIT ACTIVITY" : "NEW ACTIVITY"}
                 </div>
@@ -145,7 +148,7 @@ export default observer(
                     }
                     <div className="bottom-filler"/>
                 </div>
-            </form>
+            </motion.form>
             
         );
     }

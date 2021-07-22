@@ -3,11 +3,12 @@ import moment from 'moment';
 import Hammer from 'react-hammerjs';
 import { observer } from 'mobx-react';
 import { computed } from 'mobx';
-import { CSSTransition } from 'react-transition-group';
 
 import Activity from '../../../Data/Models/Activity';
 import DayViewModel from '../../../Data/ViewModels/Day/DayViewModel';
 import { exclude } from '../../../Utils/ArrayHelpers';
+import { AnimatePresence, motion } from 'framer-motion';
+import { translateX } from '../../../Utils/MotionAnimations';
 
 type ActivityItemProps = {
     activity: Activity,
@@ -17,7 +18,6 @@ type ActivityItemProps = {
 export default observer(
     ({activity, dayVM}: ActivityItemProps) => {
 
-        const selectedPartsRef = useRef(null); // Required for transition to properly work ffs...
         const sectionRef = useRef<HTMLElement>(null);
         const isSelected = computed(() => dayVM.selectedActivities.includes(activity));
         const momentTime = moment(activity.time);
@@ -74,24 +74,21 @@ export default observer(
                             <span>{activity.feeling.toUpperCase()}</span>
                         </div>
                     </div>
-                    <CSSTransition classNames="translate-x" 
-                                   nodeRef={selectedPartsRef}
-                                   in={isSelected.get()}
-                                   timeout={200}
-                                   unmountOnExit>
-                        <div className="selected-parts"
-                             ref={selectedPartsRef}>
-                            <button className="edit action-button"
-                                    onClick={onEditClick}>
-                                <i className="fas fa-pen-square"></i>
-                            </button>
-                            <button className="delete action-button"
-                                    onClick={onRemoveClick}>
-                                <i className="fas fa-minus-square"></i>
-                            </button>
-                            <div className="selected"></div>
-                        </div>
-                    </CSSTransition>
+                    <AnimatePresence initial={false}>
+                        {isSelected.get() && (
+                            <motion.div className='selected-parts' {...translateX}>
+                                <button className="edit action-button"
+                                            onClick={onEditClick}>
+                                        <i className="fas fa-pen-square"></i>
+                                    </button>
+                                    <button className="delete action-button"
+                                            onClick={onRemoveClick}>
+                                        <i className="fas fa-minus-square"></i>
+                                    </button>
+                                    <div className="selected"></div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </section>  
             </Hammer>
         )   
