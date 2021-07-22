@@ -14,8 +14,7 @@ type DayViewProps = {
 
 export default observer(
     ({vm}: DayViewProps) => {
-
-        const formRef = useRef(null);
+        
         const store = ActivitiesStore.instance;
 
         return (
