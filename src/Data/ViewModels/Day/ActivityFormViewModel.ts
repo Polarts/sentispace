@@ -41,10 +41,10 @@ export default class ActivityFormViewModel extends FormViewModelBase {
                 predicate: (value: string) => !!value && /\S/.test(value),
                 message: "must not be empty!"
             },
-            // 'time': {
-            //     predicate: (value: string) => moment(value).diff(moment()) > 0,
-            //     message: "cannot be in the future!"
-            // }
+            'time': {
+                predicate: (value: Moment) => value.diff(moment()) < 0,
+                message: "cannot be in the future!"
+            }
         });
         if (model !== undefined) {
             this.id = model.id;

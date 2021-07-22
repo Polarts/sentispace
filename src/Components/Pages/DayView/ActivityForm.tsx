@@ -93,9 +93,10 @@ export default observer(
                             ))}
                         </div>
                     </div>
-                    <div className="time-field">
+                    <div className={`time-field${Object.keys(vm.errors).includes('time')? ' validation-error' : ''}`}>
                         <div className="field-label">
                             <span>Time</span>
+                            {Object.keys(vm.errors).includes('time')? <span>{vm.errors['time']}</span> : null}
                         </div>
                         <div className="field-content">
                             {/* <button type="button">

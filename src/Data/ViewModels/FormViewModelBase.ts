@@ -23,20 +23,15 @@ export default class FormViewModelBase {
      */
     protected checkValidity(): boolean {
         const entries = Object.entries(this);
-        return Object.keys(this.rules).every(field => {
-            const valueEntry = entries.find(entry => entry[0] === field);
-            if (valueEntry) {
+        Object.keys(this.rules).forEach(fieldName => {
+            const valueEntry = entries.find(entry => entry[0] === fieldName);
+            if (!!valueEntry) {
                 const value = valueEntry[1];
-                const rule = this.rules[field];
-                if (rule.predicate(value)) {
-                    return true;
-                } else {
-                    this.errors = { ...this.errors, [field]: rule.message};
-                    return false;
-                }
-            } else {
-                return false;
+                const rule = this.rules[fieldName];
+                if (!rule.predicate(value))
+                    this.errors = { ...this.errors, [fieldName]: rule.message};
             }
         });
+        return Object.keys(this.errors).length == 0;
     }
 }
