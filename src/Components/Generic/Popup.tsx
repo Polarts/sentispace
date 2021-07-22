@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group';
 
 export enum ButtonType {
@@ -28,6 +28,8 @@ export default function Popup({
     isLightDismiss = false
 }: PopupProps) {
 
+    const bgRef = useRef(null);
+    const popupRef  = useRef(null);
     const [isVisible, setVisibleState] = useState(isOpen);
 
     useEffect(() => setVisibleState(isOpen), [isOpen]);
@@ -39,16 +41,20 @@ export default function Popup({
     return (
         <>
             <CSSTransition classNames="popup-fade" 
-                               in={isVisible}
-                               timeout={300}
-                               unmountOnExit>
-                <div className="popup-bg" onClick={() => { if (isLightDismiss) hide(); }}></div>
+                           nodeRef={bgRef}
+                           in={isVisible}
+                           timeout={300}
+                           unmountOnExit>
+                <div className="popup-bg" 
+                     ref={bgRef}
+                     onClick={() => { if (isLightDismiss) hide(); }}/>
             </CSSTransition>
             <CSSTransition classNames="inflate" 
-                            in={isVisible}
-                            timeout={300}
-                            unmountOnExit>
-                <div className="popup-wrapper">
+                           nodeRef={popupRef}
+                           in={isVisible}
+                           timeout={300}
+                           unmountOnExit>
+                <div className="popup-wrapper" ref={popupRef}>
                     <div className="popup-content">
                         <div className="popup-title">
                             {title}

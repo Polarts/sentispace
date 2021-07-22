@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { observer } from 'mobx-react';
 import { useLocation } from 'react-router';
 
@@ -14,6 +14,8 @@ type NavHeaderProps = {
 export default observer(
     ({vm}: NavHeaderProps) => {
         
+        const leftMenuRef = useRef(null);
+        const rightMenuRef = useRef(null);
         const location = useLocation();
 
         function onLeftButtonClicked() {
@@ -113,20 +115,22 @@ export default observer(
                     </button>
                     <div className="nav-menus">
                         <CSSTransition classNames="inflate" 
+                                       nodeRef={leftMenuRef}
                                        in={vm.leftMenuOpen}
                                        timeout={300}
                                        unmountOnExit>
-                            <ul className="nav-menu left">
+                            <ul className="nav-menu left" ref={leftMenuRef}>
                                 <NavMenuItem icon="fa-calendar-day" text="Day View" route={Routes.day} onClick={onMenuButtonClick}/>
                                 <NavMenuItem icon="fa-calendar-week" text="Week View" route={Routes.week} onClick={onMenuButtonClick}/>
                                 <NavMenuItem icon="fa-calendar-alt" text="Month View" route={Routes.month} onClick={onMenuButtonClick}/>
                             </ul>
                         </CSSTransition>
                         <CSSTransition classNames="inflate" 
+                                       nodeRef={rightMenuRef}
                                        in={vm.rightMenuOpen}
                                        timeout={300}
                                        unmountOnExit>
-                            <ul className="nav-menu right">
+                            <ul className="nav-menu right" ref={rightMenuRef}>
                                 <NavMenuItem icon="fa-cog" text="Settings" route={Routes.settings} onClick={onMenuButtonClick}/>
                                 <NavMenuItem icon="fa-info-circle" text={"Help & About"} route={Routes.about} onClick={onMenuButtonClick}/>
                                 <NavMenuItem icon="fa-filter" text="Filter" route={Routes.login} onClick={onMenuButtonClick}/>
