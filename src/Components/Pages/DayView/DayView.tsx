@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { observer } from 'mobx-react';
 import { CSSTransition } from 'react-transition-group';
 
@@ -14,7 +14,7 @@ type DayViewProps = {
 
 export default observer(
     ({vm}: DayViewProps) => {
-        
+
         const store = ActivitiesStore.instance;
 
         return (
