@@ -63,14 +63,13 @@ export default class ActivityFormViewModel extends FormViewModelBase {
     }
 
     public async save(): Promise<boolean> {
-        const time = moment().startOf('day').unix() + moment(this.time, 'HH:mm').unix();
         if (this.checkValidity()) {
             if(!this.id) {
                 return await this.store.create(new Activity(
                     this.title,
                     this.description,
                     this.feeling,
-                    time,
+                    this.time.unix(),
                     this.tags.slice()
                 ));
             } else {
@@ -78,7 +77,7 @@ export default class ActivityFormViewModel extends FormViewModelBase {
                     this.title,
                     this.description,
                     this.feeling,
-                    time,
+                    this.time.unix(),
                     this.tags.slice(),
                     this.id
                 ));

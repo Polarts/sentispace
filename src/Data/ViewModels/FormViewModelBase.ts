@@ -22,6 +22,7 @@ export default class FormViewModelBase {
      * @returns true if all validation rule predicates have passed.
      */
     protected checkValidity(): boolean {
+        this.errors = {};
         const entries = Object.entries(this);
         Object.keys(this.rules).forEach(fieldName => {
             const valueEntry = entries.find(entry => entry[0] === fieldName);
@@ -32,6 +33,6 @@ export default class FormViewModelBase {
                     this.errors = { ...this.errors, [fieldName]: rule.message};
             }
         });
-        return Object.keys(this.errors).length == 0;
+        return Object.keys(this.errors).length === 0;
     }
 }

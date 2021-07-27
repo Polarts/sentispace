@@ -8,7 +8,7 @@ import Activity from '../../../Data/Models/Activity';
 import DayViewModel from '../../../Data/ViewModels/Day/DayViewModel';
 import { exclude } from '../../../Utils/ArrayHelpers';
 import { AnimatePresence, motion } from 'framer-motion';
-import { translateX } from '../../../Utils/MotionAnimations';
+import { transition, translateX } from '../../../Utils/MotionAnimations';
 
 type ActivityItemProps = {
     activity: Activity,
@@ -20,7 +20,7 @@ export default observer(
 
         const sectionRef = useRef<HTMLElement>(null);
         const isSelected = computed(() => dayVM.selectedActivities.includes(activity));
-        const momentTime = moment(activity.time);
+        const momentTime = moment.unix(activity.time);
 
         function onPressed() {
             if (!isSelected.get()) {
@@ -74,21 +74,19 @@ export default observer(
                             <span>{activity.feeling.toUpperCase()}</span>
                         </div>
                     </div>
-                    <AnimatePresence initial={false}>
-                        {isSelected.get() && (
-                            <motion.div className='selected-parts' {...translateX}>
-                                <button className="edit action-button"
-                                            onClick={onEditClick}>
-                                        <i className="fas fa-pen-square"></i>
-                                    </button>
-                                    <button className="delete action-button"
-                                            onClick={onRemoveClick}>
-                                        <i className="fas fa-minus-square"></i>
-                                    </button>
-                                    <div className="selected"></div>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+                    {isSelected.get() && (
+                        <div className='selected-parts'>
+                            <button className="edit action-button"
+                                        onClick={onEditClick}>
+                                    <i className="fas fa-pen-square"></i>
+                                </button>
+                                <button className="delete action-button"
+                                        onClick={onRemoveClick}>
+                                    <i className="fas fa-minus-square"></i>
+                                </button>
+                                <div className="selected"></div>
+                        </div>
+                    )}
                 </section>  
             </Hammer>
         )   

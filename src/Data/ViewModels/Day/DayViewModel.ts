@@ -87,6 +87,7 @@ export default class DayViewModel {
             editing => {
                 if (!editing) {
                     this.navVM.displayMode = DisplayModes.none;
+                    this.onDateUpdated(this.currentDate);
                 }
             }
         );

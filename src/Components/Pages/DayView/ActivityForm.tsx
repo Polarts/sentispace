@@ -40,6 +40,7 @@ export default observer(
             setWaiting(true);
             vm.save().then(succ => {
                 if (succ) {
+                    
                     onCancel();
                 } else {
                     setWaiting(false);

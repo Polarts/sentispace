@@ -1,4 +1,4 @@
-const transition = {
+export const transition = {
     duration: 0.3,
     type: "just",
 }
