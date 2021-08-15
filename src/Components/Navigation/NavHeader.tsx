@@ -109,7 +109,7 @@ export default observer(
                             ? 'fa-trash-alt' 
                             : vm.rightMenuOpen
                                 ? 'fa-times'
-                                : 'fa-caret-square-down'
+                                : 'fa-ellipsis-h'
                         }`}/>
                     </button>
                     <div className="nav-menus">

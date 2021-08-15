@@ -1,24 +1,27 @@
 import React, { useState } from 'react';
 import { observer } from 'mobx-react';
-import moment from 'moment';
+import moment, { duration } from 'moment';
 import { motion } from 'framer-motion';
 
 import ActivityFormViewModel from '../../../Data/ViewModels/Day/ActivityFormViewModel';
 import Feelings from '../../../Data/Models/Feelings';
-import DayViewModel from '../../../Data/ViewModels/Day/DayViewModel';
 import { exclude } from '../../../Utils/ArrayHelpers';
-import { translateY } from '../../../Utils/MotionAnimations';
+import { AnimationDefinition, fade } from '../../../Utils/MotionAnimations';
 
-type ActivitiesFormProps = {
+type ActivityEditFormProps = {
     vm: ActivityFormViewModel,
-    dayVM: DayViewModel
+    isAnimated?: boolean
 }
 
 export default observer(
-    ({vm, dayVM}: ActivitiesFormProps) => {
+    ({ vm, isAnimated }: ActivityEditFormProps) => {
 
         const [currentTag, setCurrentTag] = useState('');
-        const [isWaiting, setWaiting] = useState(false);
+
+        let currAnimation: AnimationDefinition | undefined = fade;
+        if (isAnimated === false) {
+            currAnimation = undefined;
+        }
 
         function onFeelingSelected(e: React.ChangeEvent<HTMLInputElement>) {
             vm.feeling = e.currentTarget.value as Feelings;
@@ -34,32 +37,9 @@ export default observer(
                 }
             }
         }
-        
-        function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-            e.preventDefault();
-            setWaiting(true);
-            vm.save().then(succ => {
-                if (succ) {
-                    
-                    onCancel();
-                } else {
-                    setWaiting(false);
-                }
-            })
-        }
-
-        function onCancel() {
-            dayVM.currentlyEditing = undefined;
-            dayVM.selectedActivities = [];
-        }
 
         return (
-            <motion.form className="activity-form" onSubmit={onSubmit}
-                         {...translateY}>
-                <div className="header">
-                    {vm.id? "EDIT ACTIVITY" : "NEW ACTIVITY"}
-                </div>
-                <div className="form-body">
+            <motion.div className="form-body" {...currAnimation}>
                     <div className={`text-field${Object.keys(vm.errors).includes('title')? ' validation-error' : ''}`}>
                         <label className="field-label" htmlFor="title">
                             <span>Title</span>
@@ -127,31 +107,7 @@ export default observer(
                                    onKeyDown={onTagsKeyDown}/>
                         </div>
                     </div>
-                </div>
-                <div className="nav-footer">
-                    {
-                        isWaiting
-                        ? <div className="content">
-                            <div className="fab" style={{background: "lightgray"}}>
-                                <i className="fas fa-sync rotating"></i>
-                            </div>
-                          </div>
-                        : <div className="content">
-                            <button className="fab button-secondary"
-                                    type="reset"
-                                    onClick={onCancel}>
-                                <i className="fas fa-times"></i>
-                            </button>
-                            <button className="fab button-secondary"
-                                    type ="submit">
-                                <i className="fas fa-check"></i>
-                            </button>
-                          </div> 
-                    }
-                    <div className="bottom-filler"/>
-                </div>
-            </motion.form>
-            
+                </motion.div>
         );
     }
-);
+)

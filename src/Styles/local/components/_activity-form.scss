@@ -16,6 +16,23 @@
 
         @include flex($justify: 'flex-start', $align: 'none');
 
+        &.read-only {
+            .title {
+                @include flex($justify: 'flex-start', $align: 'none');
+                
+                /* font */
+                font-family: 'Varela Round';
+                font-size: var(--size-font-large);
+                
+                color: var(--color-font-dark);
+                
+                .time-container { padding: 3rem; }
+            }
+
+            .subtitle {
+                @include flex($justify: 'flex-start', $align: 'none');
+            }
+        }
     }
 
     button {

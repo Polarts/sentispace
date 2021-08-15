@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { AnimatePresence } from 'framer-motion';
 
 import ActivityItem from './ActivityItem';
-import ActivityForm from './ActivityForm';
+import NewActivityPage from './NewActivityPage';
 import ActivitiesStore from '../../../Data/Stores/ActivitiesStore';
 import ActivityFormViewModel from '../../../Data/ViewModels/Day/ActivityFormViewModel';
 import DayViewModel from '../../../Data/ViewModels/Day/DayViewModel';
@@ -28,7 +28,7 @@ export default observer(
                 </main>
                 <AnimatePresence initial={false}>
                     {!!vm.currentlyEditing && (
-                        <ActivityForm vm={new ActivityFormViewModel(store, vm.currentlyEditing)} dayVM={vm}/>
+                        <NewActivityPage vm={new ActivityFormViewModel(store, vm.currentlyEditing)} dayVM={vm}/>
                     )}
                 </AnimatePresence>
             </>

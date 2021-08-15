@@ -285,6 +285,69 @@ header, .header {
   --size: calc(var(--size-fab) * 2);
 }
 
+/* Time Container Component */
+.time-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.time-container[data-tod='0'] {
+  background-color: var(--color-tod-0);
+  color: var(--color-font-bright);
+}
+
+.time-container[data-tod='1'] {
+  background-color: var(--color-tod-1);
+  color: var(--color-font-dark);
+}
+
+.time-container[data-tod='2'] {
+  background-color: var(--color-tod-2);
+  color: var(--color-font-dark);
+}
+
+.time-container[data-tod='3'] {
+  background-color: var(--color-tod-3);
+  color: var(--color-font-dark);
+}
+
+.time-container[data-tod='4'] {
+  background-color: var(--color-tod-4);
+  color: var(--color-font-dark);
+}
+
+.time-container[data-tod='5'] {
+  background-color: var(--color-tod-5);
+  color: var(--color-font-dark);
+}
+
+.time-container[data-tod='6'] {
+  background-color: var(--color-tod-6);
+  color: var(--color-font-bright);
+}
+
+.time-container[data-tod='7'] {
+  background-color: var(--color-tod-7);
+  color: var(--color-font-bright);
+}
+
+.time-container time {
+  /* font */
+  font-family: 'Varela Round';
+  font-size: var(--size-font-large);
+}
+
 /* activity component */
 .activity {
   /* layout */
@@ -306,70 +369,15 @@ header, .header {
 }
 
 .activity .time-container {
-  /* layout */
   -ms-grid-row: 1;
   -ms-grid-row-span: 2;
   -ms-grid-column: 1;
   grid-area: time;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  /* color */
-  background-color: var(--color-tod-2);
-  color: var(--color-font-dark);
-}
-
-.activity .time-container[data-tod='0'] {
-  background-color: var(--color-tod-0);
-  color: var(--color-font-bright);
-}
-
-.activity .time-container[data-tod='1'] {
-  background-color: var(--color-tod-1);
-}
-
-.activity .time-container[data-tod='2'] {
-  background-color: var(--color-tod-2);
-}
-
-.activity .time-container[data-tod='3'] {
-  background-color: var(--color-tod-3);
-}
-
-.activity .time-container[data-tod='4'] {
-  background-color: var(--color-tod-4);
-}
-
-.activity .time-container[data-tod='5'] {
-  background-color: var(--color-tod-5);
-}
-
-.activity .time-container[data-tod='6'] {
-  background-color: var(--color-tod-6);
-  color: var(--color-font-bright);
-}
-
-.activity .time-container[data-tod='7'] {
-  background-color: var(--color-tod-7);
-  color: var(--color-font-bright);
 }
 
 .activity .time-container time {
   -webkit-transform: rotate(90deg);
           transform: rotate(90deg);
-  /* font */
-  font-family: 'Varela Round';
-  font-size: var(--size-font-large);
 }
 
 .activity .title {
@@ -967,6 +975,46 @@ div[class*='-field'] .field-content {
   height: 100%;
   padding: 15px;
   background-color: var(--color-bg);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: "flex-start";
+      -ms-flex-pack: "flex-start";
+          justify-content: "flex-start";
+  -webkit-box-align: "none";
+      -ms-flex-align: "none";
+          align-items: "none";
+}
+
+.activity-form .form-body.read-only .title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: "flex-start";
+      -ms-flex-pack: "flex-start";
+          justify-content: "flex-start";
+  -webkit-box-align: "none";
+      -ms-flex-align: "none";
+          align-items: "none";
+  /* font */
+  font-family: 'Varela Round';
+  font-size: var(--size-font-large);
+  color: var(--color-font-dark);
+}
+
+.activity-form .form-body.read-only .title .time-container {
+  padding: 3rem;
+}
+
+.activity-form .form-body.read-only .subtitle {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

@@ -1,0 +1,23 @@
+/* Time Container Component */
+
+.time-container {
+
+    @include flex;
+
+    @for $i from 0 through 7 {
+        &[data-tod='#{$i}'] {
+            background-color: var(--color-tod-#{$i});
+            @if $i == 0 or $i >= 6 {
+                color: var(--color-font-bright);
+            } @else {
+                color: var(--color-font-dark);
+            }
+        }
+    }
+
+    time {
+        /* font */ 
+        font-family: 'Varela Round'; 
+        font-size: var(--size-font-large);
+    }
+}
