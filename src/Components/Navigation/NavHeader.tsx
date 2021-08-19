@@ -18,7 +18,7 @@ export default observer(
         const location = useLocation();
 
         function onLeftButtonClicked() {
-            if (vm.displayMode === DisplayModes.selecting) {
+            if (vm.displayMode === DisplayModes.selection) {
                 vm.displayMode = DisplayModes.none;
             } else {
                 vm.rightMenuOpen = false;
@@ -27,8 +27,8 @@ export default observer(
         }
 
         function onRightButtonClicked() {
-            if (vm.displayMode === DisplayModes.selecting) {
-                vm.displayMode = DisplayModes.deleteAll;
+            if (vm.displayMode === DisplayModes.selection) {
+                vm.displayMode = DisplayModes.deleteSelected;
             } else {
                 vm.leftMenuOpen = false;
                 vm.rightMenuOpen = !vm.rightMenuOpen;
@@ -44,7 +44,7 @@ export default observer(
             header: string[]
         }
         function Title({mode, header}: TitleProps) {
-            if (mode === DisplayModes.selecting) {
+            if (mode === DisplayModes.selection) {
                 return (
                     <h1>
                         <span>SELECTING</span>
@@ -72,7 +72,7 @@ export default observer(
         function LeftIcon() {
             let className = 'fas fa-';
 
-            if (vm.displayMode === DisplayModes.selecting) {
+            if (vm.displayMode === DisplayModes.selection) {
                 className += 'window-close';
             } else if (vm.leftMenuOpen) {
                 className += 'times';
@@ -105,7 +105,7 @@ export default observer(
                     <button className="nav-menu-button action-button"
                             onClick={onRightButtonClicked}>
                         <i className={`fas ${
-                            vm.displayMode === DisplayModes.selecting
+                            vm.displayMode === DisplayModes.selection
                             ? 'fa-trash-alt' 
                             : vm.rightMenuOpen
                                 ? 'fa-times'

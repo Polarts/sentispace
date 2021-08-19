@@ -7,6 +7,7 @@ import NewActivityPage from './NewActivityPage';
 import ActivitiesStore from '../../../Data/Stores/ActivitiesStore';
 import ActivityFormViewModel from '../../../Data/ViewModels/Day/ActivityFormViewModel';
 import DayViewModel from '../../../Data/ViewModels/Day/DayViewModel';
+import DetailsPage from '../Activity/DetailsPage';
 
 type DayViewProps = {
     vm: DayViewModel
@@ -29,6 +30,9 @@ export default observer(
                 <AnimatePresence initial={false}>
                     {!!vm.currentlyEditing && (
                         <NewActivityPage vm={new ActivityFormViewModel(store, vm.currentlyEditing)} dayVM={vm}/>
+                    )}
+                    {!!vm.currentlyViewing && (
+                        <DetailsPage activity={vm.currentlyViewing}/>
                     )}
                 </AnimatePresence>
             </>

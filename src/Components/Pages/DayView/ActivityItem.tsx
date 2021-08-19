@@ -35,6 +35,8 @@ export default observer(
                 } else {
                     dayVM.selectedActivities.push(activity); 
                 }
+            } else {
+                dayVM.currentlyViewing = activity;
             }
         }
 

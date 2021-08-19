@@ -23,6 +23,9 @@ export default class DayViewModel {
     public currentlyEditing?: Activity;
 
     @observable
+    public currentlyViewing?: Activity;
+
+    @observable
     private currentDate: Moment = moment().startOf('day');
 
     @computed
@@ -51,11 +54,11 @@ export default class DayViewModel {
             () => this.navVM.displayMode,
             mode => {
                 switch(mode) {
-                    case DisplayModes.deleteAll:
+                    case DisplayModes.deleteSelected:
                         this.selectedActivities.forEach(act => store.delete(act));
                         this.selectedActivities = [];
                         break;
-                    case DisplayModes.creating:
+                    case DisplayModes.creation:
                         this.currentlyEditing = new Activity(
                             "",
                             "",
@@ -75,7 +78,7 @@ export default class DayViewModel {
             () => this.selectedActivities.length,
             length => {
                 if (length > 0) {
-                    this.navVM.displayMode = DisplayModes.selecting;
+                    this.navVM.displayMode = DisplayModes.selection;
                 } else {
                     this.navVM.displayMode = DisplayModes.none;
                 }
@@ -91,6 +94,18 @@ export default class DayViewModel {
                 }
             }
         );
+
+        reaction(
+            () => this.currentlyViewing,
+            viewing => {
+                if (!!viewing) {
+                    this.navVM.displayMode = DisplayModes.details;
+                } else {
+                    this.navVM.displayMode = DisplayModes.none;
+                    this.onDateUpdated(this.currentDate);
+                }
+            }
+        )
     }
 
     //#region methods

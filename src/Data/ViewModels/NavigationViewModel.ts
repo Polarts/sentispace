@@ -6,9 +6,10 @@ import {
 
 export enum DisplayModes {
     none,
-    selecting,
-    deleteAll,
-    creating
+    selection,
+    deleteSelected,
+    creation,
+    details
 }
 
 export default class NavigationViewModel {
@@ -46,7 +47,7 @@ export default class NavigationViewModel {
         reaction(
             () => this.displayMode,
             () => {
-                if (this.displayMode === DisplayModes.selecting) {
+                if (this.displayMode === DisplayModes.selection) {
                     this.rightMenuOpen = this.leftMenuOpen = false;
                 }
             }

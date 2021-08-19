@@ -17,20 +17,29 @@
         @include flex($justify: 'flex-start', $align: 'none');
 
         &.read-only {
+
+            font-family: 'Varela Round';
+
             .title {
-                @include flex($justify: 'flex-start', $align: 'none');
-                
-                /* font */
-                font-family: 'Varela Round';
+                @include flex('row', 'flex-start', 'none');
+            
                 font-size: var(--size-font-large);
                 
                 color: var(--color-font-dark);
                 
-                .time-container { padding: 3rem; }
+                .time-container { padding: 3rem; margin-right: 5rem; }
             }
 
             .subtitle {
-                @include flex($justify: 'flex-start', $align: 'none');
+                @include flex('row', 'flex-start');
+                
+                font-size: var(--size-font-medium);
+
+                .feeling-label { margin-right: 5rem; }
+            }
+
+            .description {
+                font-size: var(--size-font-large);
             }
         }
     }
