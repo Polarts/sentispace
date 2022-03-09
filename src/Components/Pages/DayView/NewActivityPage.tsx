@@ -7,6 +7,7 @@ import DayViewModel from '../../../Data/ViewModels/Day/DayViewModel';
 import { translateY } from '../../../Utils/MotionAnimations';
 import { useFormSubmit } from '../../../Hooks/useFormSubmit';
 import ActivityEditForm from '../Activity/ActivityEditForm';
+import { useHistory } from 'react-router';
 
 type ActivitiesFormProps = {
     vm: ActivityFormViewModel,

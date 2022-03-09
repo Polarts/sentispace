@@ -896,8 +896,7 @@ div[class*='-field'] .field-content {
   width: 100vw;
   height: 90px;
   /* position */
-  position: -webkit-sticky;
-  position: sticky;
+  position: fixed;
   bottom: 0;
   z-index: 1;
   /* layout */

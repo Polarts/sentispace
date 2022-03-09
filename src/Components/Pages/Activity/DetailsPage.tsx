@@ -18,8 +18,8 @@ export default observer(
     ({ activity }: DetailsPageProps) => {
 
         const formVM = new ActivityFormViewModel(ActivitiesStore.instance, activity);
-        const [isEditMode, setEditMode] = useState(false);
-        const {isWaiting, onSubmit} = useFormSubmit(formVM, onCancelEdit)
+        const [isEditMode] = useState(false);
+        const {onSubmit} = useFormSubmit(formVM, onCancelEdit)
 
 
         function onCancelEdit() {

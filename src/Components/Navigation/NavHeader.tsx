@@ -127,7 +127,7 @@ export default observer(
                                 <motion.ul className="nav-menu right" {...inflate}>
                                     <NavMenuItem icon="fa-cog" text="Settings" route={Routes.settings} onClick={onMenuButtonClick}/>
                                     <NavMenuItem icon="fa-info-circle" text={"Help & About"} route={Routes.about} onClick={onMenuButtonClick}/>
-                                    <NavMenuItem icon="fa-filter" text="Filter" route={Routes.login} onClick={onMenuButtonClick}/>
+                                    {/* <NavMenuItem icon="fa-filter" text="Filter" route={Routes.login} onClick={onMenuButtonClick}/> */}
                                 </motion.ul>
                             )}
                         </AnimatePresence>

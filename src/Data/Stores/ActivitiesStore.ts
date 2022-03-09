@@ -80,7 +80,8 @@ export default class ActivitiesStore {
         // }
         // db.activities.bulkAdd(acts);
 
-        this.db.activities.limit(1).toArray().then(acts => this.earliestActivity = acts[0]);
+        this.db.activities.limit(1).toArray()
+            .then(acts => this.earliestActivity = acts[0]);
         this.isInit = true;
     }
 

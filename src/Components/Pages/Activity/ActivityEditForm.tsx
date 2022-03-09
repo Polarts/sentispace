@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { observer } from 'mobx-react';
-import moment, { duration } from 'moment';
+import moment from 'moment';
 import { motion } from 'framer-motion';
 
 import ActivityFormViewModel from '../../../Data/ViewModels/Day/ActivityFormViewModel';
