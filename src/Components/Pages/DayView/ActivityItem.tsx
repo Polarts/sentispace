@@ -7,8 +7,6 @@ import { computed } from 'mobx';
 import Activity from '../../../Data/Models/Activity';
 import DayViewModel from '../../../Data/ViewModels/Day/DayViewModel';
 import { exclude } from '../../../Utils/ArrayHelpers';
-import { AnimatePresence, motion } from 'framer-motion';
-import { transition, translateX } from '../../../Utils/MotionAnimations';
 
 type ActivityItemProps = {
     activity: Activity,
