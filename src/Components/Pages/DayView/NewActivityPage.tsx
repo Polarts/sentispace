@@ -7,7 +7,7 @@ import DayViewModel from '../../../Data/ViewModels/Day/DayViewModel';
 import { translateY } from '../../../Utils/MotionAnimations';
 import { useFormSubmit } from '../../../Hooks/useFormSubmit';
 import ActivityEditForm from '../Activity/ActivityEditForm';
-import { useHistory } from 'react-router';
+import NavigationViewModel, { DisplayModes } from '../../../Data/ViewModels/NavigationViewModel';
 
 type ActivitiesFormProps = {
     vm: ActivityFormViewModel,
@@ -17,7 +17,7 @@ type ActivitiesFormProps = {
 export default observer(
     ({vm, dayVM}: ActivitiesFormProps) => {
 
-        const {isWaiting, onSubmit} = useFormSubmit(vm, onCancel);
+        const {isWaiting, onSubmit} = useFormSubmit(vm, onCancel, onCancel);
 
         function onCancel() {
             dayVM.currentlyEditing = undefined;

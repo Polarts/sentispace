@@ -53,6 +53,8 @@ export default class ActivityFormViewModel extends FormViewModelBase {
             this.feeling = model.feeling;
             this.time = moment.unix(model.time);
             this.tags = model.tags;
+        } else {
+            this.time = moment();
         }
         makeObservable(this);
     }
