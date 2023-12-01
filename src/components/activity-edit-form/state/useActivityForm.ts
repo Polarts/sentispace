@@ -15,7 +15,7 @@ import { ActionType, ActivityFormAlerts } from './activityForm.enums';
 import { copyDate } from '../../../utils/time';
 
 const defaultState: DefaultState = {
-    iconKey: () => getRandomIconKey(),
+    iconKey: getRandomIconKey,
     title: '',
     description: '',
     categoryIds: [],
