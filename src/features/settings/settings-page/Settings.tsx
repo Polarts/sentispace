@@ -3,6 +3,7 @@ import InstallApp from '../items/install-app/InstallApp'
 import DeleteData from '../items/user-data/delete-data/DeleteData'
 import ExportData from '../items/user-data/export-data/ExportData'
 import ImportData from '../items/user-data/import-data/ImportData'
+import TimeMode   from '../items/time-mode/TimeMode';
 import SettingsItem from '../settings-item/SettingsItem'
 import classes from './Settings.module.scss'
 
@@ -16,6 +17,7 @@ const Settings = () => (
         label="Bug report"
         to="https://github.com/Polarts/sentispace/issues/new"
       />
+       <TimeMode />
       <InstallApp />
       <ImportData />
       <ExportData />
