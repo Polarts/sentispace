@@ -1,6 +1,5 @@
 import './styles/css-variables.scss'
 import './styles/main.scss'
-
 import { iconConfig } from '@assets/icons'
 import { IconContext } from '@phosphor-icons/react'
 import ReactDOM from 'react-dom/client'
@@ -10,7 +9,6 @@ import DayViewContextProvider from './features/views/day/DayViewContext'
 import { InstallPromptProvider } from './data/contexts/InstallPromptContext'
 import { generateData } from './data/MOCK_DATA'
 import { routesConfig } from './features/navigation/routes'
-
 if (import.meta.env.DEV) generateData()
 
 const router = createBrowserRouter([routesConfig])
@@ -25,4 +23,4 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       </InstallPromptProvider>
     </DayViewContextProvider>
   </CategoryContextProvider>,
-)
+  )

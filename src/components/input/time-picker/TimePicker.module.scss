@@ -34,8 +34,10 @@
   font-size: var(--font-size-xxl);
   background-color: var(--color-neutral-5);
   border-radius: var(--border-radius-inner);
-}
+  padding: 0.5rem; // Use padding to control height without setting a fixed value
+  min-height: 80px; // Ensures it doesn’t collapse smaller than this
 
+}
 .inputContainer {
   @include focus;
 
@@ -44,11 +46,11 @@
 }
 
 .timePeriodToggle {
-  @include focus;
-
-  aspect-ratio: 1/1;
+  @include flex(row, center, center);
+  aspect-ratio: 1 / 1;
   color: var(--color-neutral-2);
   width: 25%;
+  padding: 0.5rem; // Matches the inputContainer padding
 }
 
 .timeInput {
@@ -66,7 +68,9 @@
 
 .endTimeToggle {
   @include flex(row, space-between, center);
+  margin-bottom: 16px; // Adjust the value as needed
 }
+
 
 .endTimeWrapper {
   display: grid;
@@ -104,4 +108,11 @@
     background-color: var(--color-neutral-5);
     border-radius: var(--border-radius-inner);
   }
+}
+
+
+.labelContainer {
+  @include flex(row, space-between, center);  
+  margin-bottom: 16px; 
+  width: 100%;  
 }
