@@ -1,5 +1,13 @@
 @use '../../../../styles/config/mixins' as *;
 
+.categoryBadgeContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Space between the badge and delete icon */
+  gap: var(--spacing-xs); /* Optional gap between badge and icon */
+  width: 98.5%; /* Ensure container spans full width */
+}
+
 .categoryBadge {
   @include flex;
   gap: var(--spacing-xs);
@@ -24,5 +32,24 @@
 
   &:has(svg) {
     padding-left: var(--spacing-xs);
+  }
+}
+
+.deleteIconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: var(--spacing-xs); /* Adjust margin to move closer to the badge */
+}
+
+.deleteIcon {
+  cursor: pointer;
+  transform: translateX(0); /* Remove the left shift */
+  color: var(--color-neutral-3); /* Match color to PlusCircle if needed */
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateX(-3px); /* Optional subtle hover effect */
+    color: var(--color-neutral-5); /* Optional hover color */
   }
 }
