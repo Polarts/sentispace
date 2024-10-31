@@ -1,14 +1,20 @@
 @use '../../../styles/config/mixins' as *;
-
 $gap: 2px;
 
 .categorySelect {
-  @include flex(column);
+  @include flex(column); // Set to row for horizontal layout
+  gap: 5px; // Gap between the elements
+  max-width: 100%;
+  display: flex;
+  justify-content: flex-start; // Align items to the left
 }
 
 .modalContent {
-  /* Retaining existing styles */
-  background-color: white; /* Transparent background */
+  @include flex(column);
+  padding: var(--spacing-lg);
+  gap: var(--spacing-md);
+  background-color: white;
+  overflow-y: auto; // or scroll if you want a fixed height with scroll
 }
 
 .label {
@@ -28,11 +34,12 @@ $gap: 2px;
 }
 
 .select {
-  @include flex(row, space-between, center);
+  @include flex(row, space-between, center); // Ensure select items are aligned correctly
+  width: 100%;
   @include focus;
-
   color: var(--color-neutral-2);
   border-radius: var(--border-radius-inner);
+  position: relative; // Adjust if needed to maintain positioning
 
   .placeholder {
     @include text-truncate;
@@ -41,23 +48,21 @@ $gap: 2px;
   }
 
   .selectedLabel {
-    font-size: 1.2rem; // Adjust size as needed
+    font-size: 1.2rem;
     font-weight: bold;
-    margin-bottom: 0.5rem; // Add space below the label
-    color: #333; // Change color as needed
+    margin-bottom: 0.5rem;
+    color: #333;
   }
 
   .fixedLabel {
-    position: absolute;
-    top: -30px; // Move this higher by increasing the negative value
+    position: relative;
+    top: -30px;
     left: 0;
     font-size: 1.2rem;
     font-weight: bold;
     color: #333;
-    background-color: white; // Prevent overlap with other elements
+    background-color: white;
   }
-
-
 
   &.isOpen {
     border-bottom-right-radius: 0;
@@ -68,9 +73,7 @@ $gap: 2px;
 
 .fixedLabelSelectItems {
   margin-bottom: var(--spacing-md);
-  // font-weight: bold;
-  transform: translateX(15px); // Move it 5px to the left
-  
+  transform: translateX(15px);
 }
 
 .sideButton,
@@ -79,6 +82,7 @@ $gap: 2px;
   @include flex(row, center, center);
   box-sizing: content-box;
   color: var(--color-neutral-3);
+  position: static;
 
   svg {
     max-width: fit-content;
@@ -86,32 +90,27 @@ $gap: 2px;
 }
 
 .selectIcon {
-  padding-left: var(--spacing-lg);
-  padding-right: var(--spacing-md);
-  padding-top: var(--spacing-sm);
-  padding-bottom: var(--spacing-sm);
+  position: static;
+  padding: var(--spacing-sm);
+  flex-shrink: 0; // Ensure selectIcon does not shrink
 }
 
 .toggleSelect {
   border-left: $gap solid var(--color-neutral-4);
-  padding: var(--spacing-sm) var(--spacing-md);
+  padding: var(--spacing-sm);
+  position: relative;
 }
 
 .sideButton {
-  border-left: $gap solid var(--color-neutral-4); // Keep the divider on the left side
-  padding: var(--spacing-sm) var(--spacing-md);
+  border-left: $gap solid var(--color-neutral-4);
+  padding: var(--spacing-sm);
 }
 
 .selectedCategoriesWrapper {
-  width: 100%;
-  max-width: 63vw;
-
-  .selectedCategories {
-    @include flex(row, flex-start, center);
-    gap: var(--spacing-md);
-    flex-wrap: wrap;
-    margin: 5% 0;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  justify-content: flex-start; // Align items to the left
 }
 
 .modalTitle {
@@ -121,29 +120,27 @@ $gap: 2px;
 }
 
 .categoryBadges {
-  position: relative; // Ensure this is relative for .fixedLabel to position correctly
+  position: relative;
   margin: var(--spacing-lg) 0;
   @include flex(column);
   gap: var(--spacing-md);
-  transform: translate(12px, -20px); // Moves 20px left and 20px upwards
+  transform: translate(12px, -20px);
 }
 
 .selectItems {
-  position: relative; // Relative position for positioning child elements
+  position: relative;
   margin: var(--spacing-lg) 0;
-  
-  display: flex; // Use flex to handle layout
-  flex-direction: column; // Stack items vertically
-  gap: var(--spacing-md); // Add space between items
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
 }
 
-
-.modalContent {
-  @include flex(column);
-  padding: var(--spacing-lg);
-  gap: var(--spacing-md);
-  background-color: white;
-  overflow-y: scroll;
+.selectedItems {
+  position: relative;
+  margin: var(--spacing-lg) 0;
+  transform: translateX(10px);
+  display: flex;
+  flex-direction: column;
 }
 
 .selectionList {
@@ -152,15 +149,15 @@ $gap: 2px;
 }
 
 .selectItem {
-  @include flex(row, space-between, center); // Align items horizontally with space between
+  @include flex(row, space-between, center);
   @include focus;
-
   height: var(--category-select-item-height);
   border-bottom: 2px solid var(--color-neutral-4);
+  align-items: center;
 
   &Content {
     padding: 0 var(--spacing-md);
-    flex-grow: 1; // Ensure the content takes up available space
+    flex-grow: 1;
   }
 
   .createNewCategory {
@@ -181,69 +178,68 @@ $gap: 2px;
   }
 }
 
-.headerContainer {
+.sideButton {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  width: 100%;
-}
-
-.saveButton {
-  background: transparent;
-  color: #007bff;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  font-size: 20px;
-  text-decoration: none;
-
-  &:hover {
-    color: #0056b3;
-  }
-
-  &:focus,
-  &:active {
-    outline: none;
-    box-shadow: none;
-  }
-}
-
-.textFieldOverride {
-  background-color: transparent !important;
-  border: none;
+  justify-content: center;
+  box-sizing: content-box;
+  color: var(--color-neutral-3);
 }
 
 .plusButton {
-  display: flex; // Use flexbox for centering
-  justify-content: center; // Center the icon horizontally
-  align-items: center; // Center the icon vertically
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   color: #007bff;
+  transform: scale(1.5);
+  padding: var(--spacing-sm);
 
-  transform: scale(1.5); // Increase scale to 1.5 for a bigger size
-  padding: var(--spacing-sm); // Adjust padding for a larger click area
-
-  // Optional hover effect to visually indicate interactivity
   &:hover {
-    transform: scale(1.6); // Increase scale on hover for a larger effect
+    transform: scale(1.6);
   }
 
   svg {
-    width: 2rem; // Adjust width of the SVG (if necessary)
-    height: 2rem; // Adjust height of the SVG
+    width: 2rem;
+    height: 2rem;
   }
 }
+
 .border {
-  border-bottom: 2px solid #ccc; // Light grey color for the border
-  margin: 10px 0; // Space between bordered sections
-  // padding: 10px; // Padding inside the bordered sections
+  border-bottom: 2px solid #ccc;
+  margin: 10px 0;
 }
 
-.border_input
-{
-  // border: 2px solid #ccc; // Light grey color for the border
-  margin: 10px 0; // Space between bordered sections
+.border_input {
+  margin: 10px 0;
   background-color: var(--color-neutral-5);
   border-radius: var(--border-radius-inner);
-  // padding: 10px; // Padding inside the bordered sections
+}
+
+.flexcontainer {
+  display: flex;
+  flex-wrap: wrap; // Allow wrapping of items
+  justify-content: flex-start; // Align items to the left
+  width: 100%; // Full width of the container
+  gap: 5px; // Space between items
+
+  @media (max-width: 768px) {
+    gap: 2px; // Reduce gap for smaller screens
+  }
+}
+
+.flexcontainer > div {
+  display: flex;
+  align-items: flex-start; 
+  flex: 0 0 calc(25% - 5px);
+  height: 50px;
+
+  @media (max-width: 768px) {
+    flex: 0 0 calc(50% - 2px); 
+    height: 40px; 
+  }
+
+  @media (max-width: 480px) {
+    flex: 0 0 25%; // Stack items on mobile
+  }
 }
