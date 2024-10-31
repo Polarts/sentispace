@@ -1,12 +1,23 @@
 @use '../../../../styles/config/mixins' as *;
 
 .categoryBadgeContainer {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Space between the badge and delete icon */
-  gap: var(--spacing-xs); /* Optional gap between badge and icon */
-  width: 98.5%; /* Ensure container spans full width */
+  justify-content: space-between; /* Keeps badge and delete icon apart */
+  width: 100.3%; /* Ensures full-width container */
+  padding: var(--spacing-sm);
+  gap: var(--spacing-xs);
+  
+  @media (max-width: 768px) { /* For tablets */
+    padding: var(--spacing-xs); /* Reduce padding for smaller screens */
+  }
+
+  @media (max-width: 480px) { /* For smartphones */
+    padding: var(--spacing-xxs); /* Even smaller padding for phones */
+  }
 }
+
 
 .categoryBadge {
   @include flex;
@@ -37,19 +48,24 @@
 
 .deleteIconContainer {
   display: flex;
+  position: relative;
   align-items: center;
   justify-content: center;
-  margin-left: var(--spacing-xs); /* Adjust margin to move closer to the badge */
+
+  
+  @media (max-width: 768px) { /* For tablets */
+    margin-left: var(--spacing-sm); /* Adjust margin for better spacing on tablets */
+  }
+
+  @media (max-width: 480px) { /* For smartphones */
+    margin-left: 0;
+  }
 }
 
 .deleteIcon {
   cursor: pointer;
-  transform: translateX(0); /* Remove the left shift */
+  transform: translateX(-25px); /* Remove the left shift */
   color: var(--color-neutral-3); /* Match color to PlusCircle if needed */
   transition: transform 0.2s ease-in-out;
 
-  &:hover {
-    transform: translateX(-3px); /* Optional subtle hover effect */
-    color: var(--color-neutral-5); /* Optional hover color */
-  }
 }
