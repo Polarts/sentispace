@@ -1,30 +1,22 @@
-import classes from './CategorySelect.module.scss'
+import classes from './CategorySelect.module.scss';
+import { IconKeyType } from '@assets/icons';
+import { CaretRight, Hash } from '@phosphor-icons/react';
+import classNames from 'classnames/bind';
+import { IndexableType } from 'dexie';
+import { useContext, useState } from 'react';
+import { CategoriesContext } from '../CategoriesContext';
+import CategoryBadge from './category-badge/CategoryBadge';
+import CategorySelectionModal from './CategorySelectionModal';
 
-import { IconKeyType } from '@assets/icons'
-import { CaretRight, Hash } from '@phosphor-icons/react'
-import classNames from 'classnames/bind'
-import { IndexableType } from 'dexie'
-import { useContext, useState } from 'react'
-import { CategoriesContext } from '../CategoriesContext'
-import CategoryBadge from './category-badge/CategoryBadge'
-import CategorySelectionModal from './CategorySelectionModal'
-
-const cx = classNames.bind(classes)
+const cx = classNames.bind(classes);
 
 interface SelectProps {
-  label: string
-  placeholder: string
-  iconKey?: IconKeyType
-  categoryIds: IndexableType[]
-  onCategoriesChange: (categories: IndexableType[]) => void
+  label: string;
+  placeholder: string;
+  iconKey?: IconKeyType;
+  categoryIds: IndexableType[];
+  onCategoriesChange: (categories: IndexableType[]) => void;
 }
-
-type CategorySelectionOperations = 'add' | 'remove'
-
-export type CategorySelectionFunction = (
-  categoryId: IndexableType,
-  operation: CategorySelectionOperations,
-) => void
 
 const CategorySelect = ({
   label,
@@ -32,32 +24,28 @@ const CategorySelect = ({
   categoryIds,
   onCategoriesChange: setSelectedCategories,
 }: SelectProps) => {
-  const { categories } = useContext(CategoriesContext)
-  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const { categories } = useContext(CategoriesContext);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleSelectToggle = () => {
-    setIsOpen((prev) => !prev)
-  }
+    setIsOpen((prev) => !prev);
+  };
 
-  const handleCategorySelection: CategorySelectionFunction = (
-    categoryId,
-    operation,
-  ) => {
+  const handleCategorySelection = (categoryId: IndexableType, operation: 'add' | 'remove') => {
     switch (operation) {
       case 'add':
-        setSelectedCategories([...categoryIds, categoryId])
-        break
+        setSelectedCategories([...categoryIds, categoryId]);
+        break;
       case 'remove':
-        setSelectedCategories(categoryIds.filter((id) => id !== categoryId))
-        break
+        setSelectedCategories(categoryIds.filter((id) => id !== categoryId));
+        break;
     }
-  }
+  };
 
   return (
     <>
       <div className={classes.categorySelect}>
         <span className={classes.label}>{label}</span>
-
         <div
           tabIndex={0}
           className={cx({ select: true, isOpen })}
@@ -66,9 +54,11 @@ const CategorySelect = ({
           <div className={classes.selectIcon}>
             <Hash />
           </div>
-          {categoryIds.length > 0 ? (
-            <div className={classes.selectedCategoriesWrapper}>
-              <div className={classes.selectedCategories}>
+          <div className={classes.selectedCategoriesWrapper}>
+            {categoryIds.length === 0 ? (
+              <span className={classes.placeholder}>{placeholder}</span>
+            ) : (
+              <div className={classes.flexcontainer}>
                 {categories
                   ?.filter(({ id }) => categoryIds.includes(id))
                   .map((cat) => (
@@ -79,10 +69,8 @@ const CategorySelect = ({
                     />
                   ))}
               </div>
-            </div>
-          ) : (
-            <span className={classes.placeholder}>{placeholder}</span>
-          )}
+            )}
+          </div>
           <div className={classes.toggleSelect}>
             <CaretRight />
           </div>
@@ -90,13 +78,13 @@ const CategorySelect = ({
       </div>
       {isOpen && (
         <CategorySelectionModal
-          onClose={handleSelectToggle}
-          categoryIds={categoryIds}
-          onCategoriesChange={setSelectedCategories}
+        onClose={handleSelectToggle}
+        categoryIds={categoryIds}
+        onCategoriesChange={setSelectedCategories}
         />
       )}
     </>
-  )
-}
+  );
+};
 
-export default CategorySelect
+export default CategorySelect;
