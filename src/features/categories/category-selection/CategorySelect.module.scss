@@ -1,12 +1,12 @@
-@use '../../../styles/config/mixins' as *;
+@use '../../../styles/config/mixins' as *; 
 $gap: 2px;
 
 .categorySelect {
-  @include flex(column); // Set to row for horizontal layout
-  gap: 5px; // Gap between the elements
+  @include flex(column);
+  gap: 5px;
   max-width: 100%;
   display: flex;
-  justify-content: flex-start; // Align items to the left
+  justify-content: flex-start;
 }
 
 .modalContent {
@@ -14,7 +14,7 @@ $gap: 2px;
   padding: var(--spacing-lg);
   gap: var(--spacing-md);
   background-color: white;
-  overflow-y: auto; // or scroll if you want a fixed height with scroll
+  overflow-y: auto;
 }
 
 .label {
@@ -34,12 +34,12 @@ $gap: 2px;
 }
 
 .select {
-  @include flex(row, space-between, center); // Ensure select items are aligned correctly
+  @include flex(row, space-between, center);
   width: 100%;
   @include focus;
   color: var(--color-neutral-2);
   border-radius: var(--border-radius-inner);
-  position: relative; // Adjust if needed to maintain positioning
+  position: relative;
 
   .placeholder {
     @include text-truncate;
@@ -92,7 +92,7 @@ $gap: 2px;
 .selectIcon {
   position: static;
   padding: var(--spacing-sm);
-  flex-shrink: 0; // Ensure selectIcon does not shrink
+  flex-shrink: 0;
 }
 
 .toggleSelect {
@@ -110,7 +110,7 @@ $gap: 2px;
   display: flex;
   flex-wrap: wrap;
   gap: var(--spacing-xs);
-  justify-content: flex-start; // Align items to the left
+  justify-content: flex-start;
 }
 
 .modalTitle {
@@ -178,14 +178,6 @@ $gap: 2px;
   }
 }
 
-.sideButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: content-box;
-  color: var(--color-neutral-3);
-}
-
 .plusButton {
   display: flex;
   justify-content: center;
@@ -210,36 +202,36 @@ $gap: 2px;
   margin: 10px 0;
 }
 
-.border_input {
+.borderInput {
   margin: 10px 0;
   background-color: var(--color-neutral-5);
   border-radius: var(--border-radius-inner);
 }
 
-.flexcontainer {
+.flexContainer {
   display: flex;
-  flex-wrap: wrap; // Allow wrapping of items
-  justify-content: flex-start; // Align items to the left
-  width: 100%; // Full width of the container
-  gap: 5px; // Space between items
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  width: 100%;
+  gap: 5px;
 
   @media (max-width: 768px) {
-    gap: 2px; // Reduce gap for smaller screens
+    gap: 2px;
   }
 }
 
-.flexcontainer > div {
+.flexContainerItem {
   display: flex;
-  align-items: flex-start; 
-  flex: 0 0 calc(25% - 5px);
+  align-items: flex-start;
+  flex: 0 0 calc(25% - 5px); /* 4 items per row */
   height: 50px;
 
   @media (max-width: 768px) {
-    flex: 0 0 calc(50% - 2px); 
-    height: 40px; 
+    flex: 0 0 calc(50% - 2px); /* 2 items per row on medium screens */
+    height: 40px;
   }
 
   @media (max-width: 480px) {
-    flex: 0 0 25%; // Stack items on mobile
+    flex: 0 0 100%; /* 1 item per row on small screens */
   }
 }
