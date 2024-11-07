@@ -2,78 +2,24 @@
 
 .form {
   @include flex(column);
+
   min-height: 100%;
   position: relative;
-  flex-wrap: nowrap;
 
   .inputs {
-    display: flex;
-    flex-direction: column;
+    @include flex(column);
+
     padding: var(--spacing-lg);
     gap: var(--spacing-md);
-  
-    .categorySelectWrapper {
-      display: flex;
-      flex-direction: column;
-      gap: var(--spacing-md);
-      margin-top: var(--spacing-sm); /* Space between categories and other elements */
-      height: auto; /* Allow height to adjust based on content */
-      min-width: 100%; /* Ensure the wrapper has a minimum width */
+    flex-grow: 1;
 
-      .categorySelect {
-        display: flex;
-        align-items: center;
-        gap: var(--spacing-sm);
-        flex-wrap: nowrap; /* Prevent wrapping */
-        overflow-x: auto; /* Allow horizontal scrolling if needed */
-        
-        .selectedCategoriesWrapper {
-          display: flex;
-          flex-wrap: nowrap;
-          overflow-x: auto; /* Allow horizontal scrolling */
-          gap: var(--spacing-sm);
-        }
-        
-        .label {
-          margin-right: var(--spacing-sm);
-        }
-        
-        .select {
-          display: flex;
-          align-items: center;
-          flex: 1; /* Allow the select to take remaining space */
-          cursor: pointer;
+    .titleAndIcon {
+      position: relative;
 
-          .selectIcon {
-            margin-right: var(--spacing-sm);
-          }
-
-          .placeholder {
-            flex: 1; /* Allow placeholder to take remaining space */
-            color: var(--gray);
-          }
-
-          .toggleSelect {
-            margin-left: auto;
-          }
-        }
+      .iconPicker {
+        position: absolute;
+        right: 0;
       }
     }
-  }
-
-  .titleAndIcon {
-    position: relative;
-
-    .iconPicker {
-      position: absolute;
-      right: 0;
-    }
-  }
-}
-
-@media (max-width: 600px) {
-  .categorySelectWrapper {
-    height: auto; /* Allow to expand based on content */
-    padding: var(--spacing-sm); /* Adjust padding on smaller screens */
   }
 }
