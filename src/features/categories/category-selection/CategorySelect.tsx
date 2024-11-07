@@ -58,15 +58,16 @@ const CategorySelect = ({
             {categoryIds.length === 0 ? (
               <span className={classes.placeholder}>{placeholder}</span>
             ) : (
-              <div className={classes.flexcontainer}>
+              <div className={classes.flexContainer}>
                 {categories
                   ?.filter(({ id }) => categoryIds.includes(id))
                   .map((cat) => (
-                    <CategoryBadge
-                      {...cat}
-                      onClick={() => handleCategorySelection(cat.id, 'remove')}
-                      key={cat.id.toString()}
-                    />
+                    <div className={classes.flexContainerItem} key={cat.id.toString()}>
+                      <CategoryBadge
+                        {...cat}
+                        onClick={() => handleCategorySelection(cat.id, 'remove')}
+                      />
+                    </div>
                   ))}
               </div>
             )}
@@ -78,9 +79,9 @@ const CategorySelect = ({
       </div>
       {isOpen && (
         <CategorySelectionModal
-        onClose={handleSelectToggle}
-        categoryIds={categoryIds}
-        onCategoriesChange={setSelectedCategories}
+          onClose={handleSelectToggle}
+          categoryIds={categoryIds}
+          onCategoriesChange={setSelectedCategories}
         />
       )}
     </>
