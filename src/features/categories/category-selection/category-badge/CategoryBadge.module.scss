@@ -4,17 +4,17 @@
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Keeps badge and delete icon apart */
-  width: 100.3%; /* Ensures full-width container */
+  justify-content: space-between; 
+  width: 100.3%; 
   padding: var(--spacing-sm);
   gap: var(--spacing-xs);
   
-  @media (max-width: 768px) { /* For tablets */
-    padding: var(--spacing-xs); /* Reduce padding for smaller screens */
+  @media (max-width: 768px) { 
+    padding: var(--spacing-xs); 
   }
 
-  @media (max-width: 480px) { /* For smartphones */
-    padding: var(--spacing-xxs); /* Even smaller padding for phones */
+  @media (max-width: 480px) { 
+    padding: var(--spacing-xxs);
   }
 }
 
@@ -53,19 +53,19 @@
   justify-content: center;
 
   
-  @media (max-width: 768px) { /* For tablets */
-    margin-left: var(--spacing-sm); /* Adjust margin for better spacing on tablets */
+  @media (max-width: 768px) {
+    margin-left: var(--spacing-sm); 
   }
 
-  @media (max-width: 480px) { /* For smartphones */
+  @media (max-width: 480px) { 
     margin-left: 0;
   }
 }
 
 .deleteIcon {
   cursor: pointer;
-  transform: translateX(-25px); /* Remove the left shift */
-  color: var(--color-neutral-3); /* Match color to PlusCircle if needed */
+  transform: translateX(-25px); 
+  color: var(--color-neutral-3);
   transition: transform 0.2s ease-in-out;
 
 }
