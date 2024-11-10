@@ -18,7 +18,7 @@ const CategoryBadge = ({
   name,
   color,
   onClick,
-  onDelete, // Receive onDelete as a prop
+  onDelete,
   deletable,
 }: CategoryBadgeProps) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
