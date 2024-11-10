@@ -20,7 +20,7 @@ const CategoryItem = ({
     <div className={classes.selectItemContent}>
       <CategoryBadge id={id} name={name} color={color} />
     </div>
-    <div className={classes.sideButton}> {/* Moved to the right */}
+    <div className={classes.sideButton}> 
       {isSelected ? (
         <X onClick={() => onChange(id, 'remove')} />
       ) : (
