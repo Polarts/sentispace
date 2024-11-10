@@ -1,5 +1,24 @@
 @use '../../../../styles/config/mixins' as *;
 
+.categoryBadgeContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+  width: 100.3%; 
+  padding: var(--spacing-sm);
+  gap: var(--spacing-xs);
+  
+  @media (max-width: 768px) { 
+    padding: var(--spacing-xs); 
+  }
+
+  @media (max-width: 480px) { 
+    padding: var(--spacing-xxs);
+  }
+}
+
+
 .categoryBadge {
   @include flex;
   gap: var(--spacing-xs);
@@ -25,4 +44,28 @@
   &:has(svg) {
     padding-left: var(--spacing-xs);
   }
+}
+
+.deleteIconContainer {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+
+  
+  @media (max-width: 768px) {
+    margin-left: var(--spacing-sm); 
+  }
+
+  @media (max-width: 480px) { 
+    margin-left: 0;
+  }
+}
+
+.deleteIcon {
+  cursor: pointer;
+  transform: translateX(-25px); 
+  color: var(--color-neutral-3);
+  transition: transform 0.2s ease-in-out;
+
 }

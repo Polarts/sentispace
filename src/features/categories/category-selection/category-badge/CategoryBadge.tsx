@@ -1,15 +1,16 @@
-import classes from './CategoryBadge.module.scss'
-import { XCircle } from '@phosphor-icons/react'
-import classNames from 'classnames/bind'
-import { MouseEvent, TouchEvent, useState } from 'react'
-import CategoryModal from '../../category-edit-modal/CategoryModal'
-import { Category } from '@categories/Category.interface'
+import classes from './CategoryBadge.module.scss'; 
+import { XCircle } from '@phosphor-icons/react';
+import classNames from 'classnames/bind';
+import { MouseEvent, TouchEvent, useState } from 'react';
+import CategoryModal from '../../category-edit-modal/CategoryModal';
+import { Category } from '@categories/Category.interface';
 
-const cx = classNames.bind(classes)
+const cx = classNames.bind(classes);
 
 export interface CategoryBadgeProps extends Category {
-  onClick?: () => void
-  deletable?: boolean
+  onClick?: () => void;
+  onDelete?: () => void; 
+  deletable?: boolean;
 }
 
 const CategoryBadge = ({
@@ -17,28 +18,52 @@ const CategoryBadge = ({
   name,
   color,
   onClick,
+  onDelete,
   deletable,
 }: CategoryBadgeProps) => {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleOnClick = (event: MouseEvent | TouchEvent) => {
-    event.stopPropagation()
-    // TODO remove monkey patch (issue #39)
-    onClick ? onClick() : setIsModalOpen(true)
-  }
+    event.stopPropagation();
+
+    if (!deletable) {
+      onClick && onClick();
+    } else {
+      setIsModalOpen(true);
+    }
+  };
+
+  const handleDeleteClick = (event: MouseEvent | TouchEvent) => {
+    event.stopPropagation();
+    if (onDelete) {
+      onDelete(); 
+    }
+  };
 
   return (
     <>
-      <div
-        onClick={handleOnClick}
-        className={cx({
-          categoryBadge: true,
-          [`categoryColor${color}`]: color,
-        })}
-      >
-        {deletable && <XCircle weight="fill" size={17} />}
-        <span className={classes.badgeText}>{name}</span>
+      <div className={classes.categoryBadgeContainer}>
+        <div
+          onClick={handleOnClick}
+          className={cx({
+            categoryBadge: true,
+            [`categoryColor${color}`]: color,
+          })}
+        >
+          <span className={classes.badgeText}>{name}</span>
+        </div>
+        {deletable && (
+          <div className={classes.deleteIconContainer}>
+            <XCircle
+              className={classes.deleteIcon}
+              weight="fill"
+              size={44}
+              onClick={handleDeleteClick}
+            />
+          </div>
+        )}
       </div>
+
       {isModalOpen && (
         <CategoryModal
           onClose={() => setIsModalOpen(false)}
@@ -46,7 +71,7 @@ const CategoryBadge = ({
         />
       )}
     </>
-  )
-}
+  );
+};
 
-export default CategoryBadge
+export default CategoryBadge;

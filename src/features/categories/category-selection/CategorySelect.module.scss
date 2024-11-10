@@ -1,9 +1,20 @@
-@use '../../../styles/config/mixins' as *;
-
+@use '../../../styles/config/mixins' as *; 
 $gap: 2px;
 
 .categorySelect {
   @include flex(column);
+  gap: 5px;
+  max-width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.modalContent {
+  @include flex(column);
+  padding: var(--spacing-lg);
+  gap: var(--spacing-md);
+  background-color: white;
+  overflow-y: auto;
 }
 
 .label {
@@ -13,19 +24,44 @@ $gap: 2px;
   margin-bottom: var(--spacing-md);
 }
 
+.sectionBackgroundWhite {
+  background-color: white;
+}
+
+.textFieldWhite {
+  background-color: white;
+  border: none;
+}
+
 .select {
   @include flex(row, space-between, center);
+  width: 100%;
   @include focus;
-
-  background-color: var(--color-neutral-5);
   color: var(--color-neutral-2);
   border-radius: var(--border-radius-inner);
+  position: relative;
 
   .placeholder {
     @include text-truncate;
-
     padding-right: var(--spacing-sm);
     flex-grow: 1;
+  }
+
+  .selectedLabel {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #333;
+  }
+
+  .fixedLabel {
+    position: relative;
+    top: -30px;
+    left: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    background-color: white;
   }
 
   &.isOpen {
@@ -35,14 +71,18 @@ $gap: 2px;
   }
 }
 
+.fixedLabelSelectItems {
+  margin-bottom: var(--spacing-md);
+  transform: translateX(15px);
+}
+
 .sideButton,
 .toggleSelect,
 .selectIcon {
   @include flex(row, center, center);
-
   box-sizing: content-box;
-
   color: var(--color-neutral-3);
+  position: static;
 
   svg {
     max-width: fit-content;
@@ -50,57 +90,57 @@ $gap: 2px;
 }
 
 .selectIcon {
-  padding-left: var(--spacing-lg);
-  padding-right: var(--spacing-md);
-  padding-top: var(--spacing-sm);
-  padding-bottom: var(--spacing-sm);
+  position: static;
+  padding: var(--spacing-sm);
+  flex-shrink: 0;
 }
 
 .toggleSelect {
   border-left: $gap solid var(--color-neutral-4);
-  padding: var(--spacing-sm) var(--spacing-md);
+  padding: var(--spacing-sm);
+  position: relative;
 }
 
 .sideButton {
-  border-right: $gap solid var(--color-neutral-4);
-  padding: var(--spacing-sm) var(--spacing-md);
+  border-left: $gap solid var(--color-neutral-4);
+  padding: var(--spacing-sm);
 }
 
 .selectedCategoriesWrapper {
-  width: 100%;
-  max-width: 63vw;
-
-  .selectedCategories {
-    @include flex(row, flex-start, center);
-    gap: var(--spacing-md);
-    flex-wrap: wrap;
-    margin: 5% 0;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  justify-content: flex-start;
 }
 
 .modalTitle {
   margin-right: auto !important;
   margin-left: var(--spacing-lg) !important;
+  background-color: transparent;
 }
 
 .categoryBadges {
-  $negative-margin: calc(-1 * var(--spacing-lg));
-
-  @include flex(row, center);
+  position: relative;
+  margin: var(--spacing-lg) 0;
+  @include flex(column);
   gap: var(--spacing-md);
-  flex-wrap: wrap;
-
-  border-bottom: 1px solid var(--color-neutral-6);
-  padding: var(--spacing-lg);
-  margin: 0 $negative-margin;
-  margin-top: $negative-margin;
+  transform: translate(12px, -20px);
 }
 
-.modalContent {
-  @include flex(column);
-  padding: var(--spacing-lg);
+.selectItems {
+  position: relative;
+  margin: var(--spacing-lg) 0;
+  display: flex;
+  flex-direction: column;
   gap: var(--spacing-md);
-  overflow-y: scroll;
+}
+
+.selectedItems {
+  position: relative;
+  margin: var(--spacing-lg) 0;
+  transform: translateX(10px);
+  display: flex;
+  flex-direction: column;
 }
 
 .selectionList {
@@ -109,15 +149,15 @@ $gap: 2px;
 }
 
 .selectItem {
-  @include flex(row, flex-start, center);
+  @include flex(row, space-between, center);
   @include focus;
-
   height: var(--category-select-item-height);
-  background-color: var(--color-neutral-5);
   border-bottom: 2px solid var(--color-neutral-4);
+  align-items: center;
 
   &Content {
     padding: 0 var(--spacing-md);
+    flex-grow: 1;
   }
 
   .createNewCategory {
@@ -135,5 +175,63 @@ $gap: 2px;
   &:first-of-type {
     border-top-left-radius: var(--border-radius-inner);
     border-top-right-radius: var(--border-radius-inner);
+  }
+}
+
+.plusButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: #007bff;
+  transform: scale(1.5);
+  padding: var(--spacing-sm);
+
+  &:hover {
+    transform: scale(1.6);
+  }
+
+  svg {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+.border {
+  border-bottom: 2px solid #ccc;
+  margin: 10px 0;
+}
+
+.borderInput {
+  margin: 10px 0;
+  background-color: var(--color-neutral-5);
+  border-radius: var(--border-radius-inner);
+}
+
+.flexContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  width: 100%;
+  gap: 5px;
+
+  @media (max-width: 768px) {
+    gap: 2px;
+  }
+}
+
+.flexContainerItem {
+  display: flex;
+  align-items: flex-start;
+  flex: 0 0 calc(25% - 5px); 
+  height: 50px;
+
+  @media (max-width: 768px) {
+    flex: 0 0 calc(50% - 2px);
+    height: 40px;
+  }
+
+  @media (max-width: 480px) {
+    flex: 0 0 100%;
   }
 }
