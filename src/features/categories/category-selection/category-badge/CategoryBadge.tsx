@@ -9,7 +9,7 @@ const cx = classNames.bind(classes);
 
 export interface CategoryBadgeProps extends Category {
   onClick?: () => void;
-  onDelete?: () => void; // Add onDelete prop
+  onDelete?: () => void; 
   deletable?: boolean;
 }
 
@@ -25,7 +25,7 @@ const CategoryBadge = ({
 
   const handleOnClick = (event: MouseEvent | TouchEvent) => {
     event.stopPropagation();
-    // Only open modal or handle category selection if not deleting
+
     if (!deletable) {
       onClick && onClick();
     } else {
@@ -36,7 +36,7 @@ const CategoryBadge = ({
   const handleDeleteClick = (event: MouseEvent | TouchEvent) => {
     event.stopPropagation();
     if (onDelete) {
-      onDelete(); // Call onDelete function
+      onDelete(); 
     }
   };
 
