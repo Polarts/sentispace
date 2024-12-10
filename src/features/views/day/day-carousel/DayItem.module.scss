@@ -27,7 +27,6 @@
     margin-bottom: var(--spacing-xs);
 
     &.today {
-      box-shadow: 0 -2px 2px 0 var(--color-primary);
       color: var(--color-primary);
       .dayLetter,
       .dayNumber {
