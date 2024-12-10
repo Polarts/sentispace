@@ -1,7 +1,7 @@
 import classes from './DayItem.module.scss'
 
 import classNames from 'classnames/bind'
-import { isAfter } from 'date-fns'
+import { isAfter, isToday } from 'date-fns'
 import { HTMLAttributes, useMemo } from 'react'
 import { useFilteredActivities } from '@activities/useFilteredActivities'
 import Badge from '@generic/Badge'
@@ -30,15 +30,19 @@ const DayItem = ({ date, active, onClick }: DayItemProps) => {
     const invalid = isAfter(date, new Date())
     const mappedRating = rating && Math.round((rating / 5) * 6 + 1)
 
-    const isToday =
-      date.toLocaleDateString('he') === new Date().toLocaleDateString('he')
-        ? true
-        : false
+    // DorHakim
+    const today = isToday(date)
 
-    return { dayLetter, dayNumber, count, invalid, mappedRating, isToday }
+    // Or implementing ourselves
+    // const today =
+    //   date.toLocaleDateString('he') === new Date().toLocaleDateString('he')
+    //     ? true
+    //     : false
+
+    return { dayLetter, dayNumber, count, invalid, mappedRating, today }
   }, [date, activities])
 
-  const { dayLetter, dayNumber, count, invalid, mappedRating, isToday } =
+  const { dayLetter, dayNumber, count, invalid, mappedRating, today } =
     memoizedValues
 
   return (
@@ -62,7 +66,7 @@ const DayItem = ({ date, active, onClick }: DayItemProps) => {
           invalid,
           [`ratingColor${mappedRating}`]: !active && mappedRating,
           // DorHakim
-          today: isToday,
+          today,
         })}
         onClick={invalid ? undefined : onClick}
       >
