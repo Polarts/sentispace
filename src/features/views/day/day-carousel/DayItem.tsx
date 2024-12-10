@@ -30,10 +30,16 @@ const DayItem = ({ date, active, onClick }: DayItemProps) => {
     const invalid = isAfter(date, new Date())
     const mappedRating = rating && Math.round((rating / 5) * 6 + 1)
 
-    return { dayLetter, dayNumber, count, invalid, mappedRating }
+    const isToday =
+      date.toLocaleDateString('he') === new Date().toLocaleDateString('he')
+        ? true
+        : false
+
+    return { dayLetter, dayNumber, count, invalid, mappedRating, isToday }
   }, [date, activities])
 
-  const { dayLetter, dayNumber, count, invalid, mappedRating } = memoizedValues
+  const { dayLetter, dayNumber, count, invalid, mappedRating, isToday } =
+    memoizedValues
 
   return (
     <div className={classes.dayItem}>
@@ -55,6 +61,8 @@ const DayItem = ({ date, active, onClick }: DayItemProps) => {
           activeNoCount: active && !count,
           invalid,
           [`ratingColor${mappedRating}`]: !active && mappedRating,
+          // DorHakim
+          today: isToday,
         })}
         onClick={invalid ? undefined : onClick}
       >
