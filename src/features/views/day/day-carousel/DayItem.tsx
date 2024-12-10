@@ -30,14 +30,7 @@ const DayItem = ({ date, active, onClick }: DayItemProps) => {
     const invalid = isAfter(date, new Date())
     const mappedRating = rating && Math.round((rating / 5) * 6 + 1)
 
-    // DorHakim
     const today = isToday(date)
-
-    // Or implementing ourselves
-    // const today =
-    //   date.toLocaleDateString('he') === new Date().toLocaleDateString('he')
-    //     ? true
-    //     : false
 
     return { dayLetter, dayNumber, count, invalid, mappedRating, today }
   }, [date, activities])
@@ -65,7 +58,6 @@ const DayItem = ({ date, active, onClick }: DayItemProps) => {
           activeNoCount: active && !count,
           invalid,
           [`ratingColor${mappedRating}`]: !active && mappedRating,
-          // DorHakim
           today,
         })}
         onClick={invalid ? undefined : onClick}
