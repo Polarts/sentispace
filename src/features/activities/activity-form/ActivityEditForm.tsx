@@ -1,19 +1,19 @@
-import React, { useEffect, ChangeEvent, MouseEvent, TouchEvent } from 'react';
-import FullscreenModal from '@modals/FullscreenModal';
-import { X } from '@phosphor-icons/react';
-import Button from '../../../components/input/button/Button';
-import DatePicker from '../../../components/input/date-picker/DatePicker';
-import IconPicker from '../../../components/input/icon-picker/IconPicker';
-import RatingPicker from '../../../components/input/rating-picker/RatingPicker';
-import TextField, { TextFieldElement } from '../../../components/input/text-field/TextField';
-import TimePicker from '../../../components/input/time-picker/TimePicker';
-import { db } from '../../../data/Database';
-import CategorySelect from '../../categories/category-selection/CategorySelect';
-import { Activity } from '../Activity.interface';
-import classes from './ActivityEditForm.module.scss';
-import { DELETE_GUARD_ALERT, VALIDATION_ALERTS } from './state/activityForm.constants';
-import useActivityForm from './state/useActivityForm';
-import { useAlerts } from '@/data/contexts/alertsPromptContext';
+import React, { MouseEvent, TouchEvent, useEffect } from "react";
+import FullscreenModal from "@modals/FullscreenModal";
+import { X } from "@phosphor-icons/react";
+import Alert, { useAlerts } from "../../../components/generic/Alert";
+import Button from "../../../components/input/button/Button";
+import DatePicker from "../../../components/input/date-picker/DatePicker";
+import IconPicker from "../../../components/input/icon-picker/IconPicker";
+import RatingPicker from "../../../components/input/rating-picker/RatingPicker";
+import TextField from "../../../components/input/text-field/TextField";
+import TimePicker from "../../../components/input/time-picker/TimePicker";
+import { db } from "../../../data/Database";
+import CategorySelect from "../../categories/category-selection/CategorySelect";
+import { Activity } from "../Activity.interface";
+import classes from "./ActivityEditForm.module.scss";
+import { DELETE_GUARD_ALERT, VALIDATION_ALERTS } from "./state/activityForm.constants";
+import useActivityForm from "./state/useActivityForm";
 
 interface ActivityEditFormProps {
   onClose: () => void;
@@ -21,15 +21,17 @@ interface ActivityEditFormProps {
   onCloseTemplateSelection?: () => void;
 }
 
-const CLOSE_ICON_PROPS = {
-  size: 24,
-};
+type SeverityType = "success" | "error" | "info" | "warning";
+
+const CLOSE_ICON_PROPS = { size: 24 };
 
 const ActivityEditForm = ({
   onClose,
   activity,
   onCloseTemplateSelection,
 }: ActivityEditFormProps) => {
+  const { showAlert, alerts, removeAlert } = useAlerts();
+
   const {
     state,
     validations,
@@ -42,132 +44,56 @@ const ActivityEditForm = ({
     setTime,
     setIcon,
     setCategories,
-    setAlert,
-    clearAlert,
     resetState,
     enableDeleteGuard,
     disableDeleteGuard,
   } = useActivityForm(activity);
 
-  const { title, description, rating, startTime, endTime, isNow, iconKey, categoryIds, alert } = state;
-
-  const { showAlert, alerts, removeAlert } = useAlerts();
-
-  useEffect(() => {
-    if (alert && alert.type !== 'deleteGuard' && validations[alert.type]) {
-      clearAlert();
-    }
-  }, [alert, clearAlert, validations]);
-
-  useEffect(() => {
-    if (alert && alert.type === 'deleteGuard') {
-      clearAlert();
-      enableDeleteGuard();
-    }
-  }, [alert, clearAlert, enableDeleteGuard]);
-
-  const handleTitleChange = (event: ChangeEvent<TextFieldElement>) => {
-    setTitle(event.target.value);
-  };
-
-  const handleDescriptionChange = (event: ChangeEvent<TextFieldElement>) => {
-    setDescription(event.target.value);
-  };
+  const { title, description, rating, startTime, endTime, iconKey, categoryIds } = state;
 
   const isFormValid = (): boolean => {
     for (const validation of VALIDATION_ALERTS) {
-      const { type, title, description } = validation;
-      if (type !== 'deleteGuard' && !validations[type]) {
-        setAlert(validation);
-        showAlert({
-          title,
-          severity: 'error',
-          content: description,
-        });
+      const { type, severity, title, description } = validation;
+      if (type !== "deleteGuard" && !validations[type]) {
+        showAlert({ severity: severity as SeverityType, title, description });
         return false;
       }
     }
     return true;
   };
 
-  const handlePrimaryButton = async (event: MouseEvent | TouchEvent): Promise<void> => {
+  const handlePrimaryButton = (event: MouseEvent | TouchEvent): void => {
     event.preventDefault();
 
     if (!isFormValid()) return;
 
-    try {
-      if (activity?.id) {
-        await db.activities.update(activity.id, {
-          title,
-          description,
-          rating,
-          startTime,
-          endTime,
-          iconKey,
-          categoryIds,
-        });
-        showAlert({
-          title: 'Activity Updated!',
-          severity: 'success',
-          content: 'Your activity has been updated successfully.',
-        });
-      } else {
-        await db.activities.add({
-          title,
-          description,
-          rating,
-          startTime,
-          endTime,
-          iconKey,
-          categoryIds,
-        } as Activity);
-        showAlert({
-          title: 'Activity Created!',
-          severity: 'success',
-          content: 'Your activity has been created successfully.',
-        });
-      }
-      onCloseTemplateSelection ? onCloseTemplateSelection() : onClose();
-    } catch (error) {
-      console.error('Error creating/updating activity:', error);
-      showAlert({
-        title: 'Error!',
-        severity: 'error',
-        content: 'An error occurred while saving your activity. Please try again.',
-      });
+    if (activity?.id) {
+      db.activities.update(activity.id, { title, description, rating, startTime, endTime, iconKey, categoryIds });
+      showAlert({ severity: "success", title: "Activity Updated", description: "The activity has been updated successfully." });
+    } else {
+      db.activities.add({ title, description, rating, startTime, endTime, iconKey, categoryIds } as Activity);
+      showAlert({ severity: "success", title: "Activity Created", description: "The activity has been created successfully." });
     }
+
+    onCloseTemplateSelection ? onCloseTemplateSelection() : onClose();
   };
 
   const handleSecondaryButton = async (event: MouseEvent | TouchEvent): Promise<void> => {
     event.preventDefault();
 
-    if (activity?.id) {
-      if (deleteGuard) {
-        setAlert(DELETE_GUARD_ALERT);
-        showAlert({
-          title: DELETE_GUARD_ALERT.title,
-          severity: DELETE_GUARD_ALERT.severity,
-          content: DELETE_GUARD_ALERT.description,
-        });
-        disableDeleteGuard();
-        return;
-      }
-
-      await db.activities.delete(activity.id);
-      showAlert({
-        title: 'Activity Deleted!',
-        severity: 'success',
-        content: 'The activity has been deleted successfully.',
-      });
-      onClose();
-    } else {
-      resetState();
-      showAlert({
-        title: 'Form Reset!',
-        severity: 'info',
-        content: 'The form has been reset.',
-      });
+    if (activity?.id && deleteGuard) {
+      showAlert(DELETE_GUARD_ALERT);
+      disableDeleteGuard();
+      return;
     }
+
+    if (activity?.id) {
+      await db.activities.delete(activity.id);
+      showAlert({ severity: "info", title: "Activity Deleted", description: "The activity has been deleted." });
+    }
+
+    resetState();
+    onClose();
   };
 
   const handleClose = (event: MouseEvent | TouchEvent): void => {
@@ -175,31 +101,57 @@ const ActivityEditForm = ({
     onClose();
   };
 
+  useEffect(() => {
+    if (alerts.length > 0) {
+      const firstAlert = document.querySelector(`.${classes.alertsContainer}`);
+      const createButton = document.querySelector(".create-activity-button");
+      
+      if (firstAlert && createButton) {
+        const buttonRect = createButton.getBoundingClientRect();
+        (firstAlert as HTMLElement).style.bottom = `${window.innerHeight - buttonRect.top + 20}px`;
+      }
+    }
+  }, [alerts]);
+
   return (
     <FullscreenModal>
+      {alerts.length > 0 && (
+        <>
+          <div
+            className="overlay"
+            onClick={() => alerts.forEach((alert: { id: any }) => removeAlert(alert.id))}
+          />
+          <div className={classes.alertsContainer} tabIndex={-1}>
+            {alerts.map((alert: { id: React.Key | null | undefined; severity: string; title: string | undefined; description: string | undefined }) => (
+              <Alert
+                key={alert.id}
+                severity={alert.severity as SeverityType}
+                title={alert.title}
+                description={alert.description}
+                onDismiss={() => removeAlert(alert.id)}
+              />
+            ))}
+          </div>
+        </>
+      )}
       <form className={classes.form}>
         <FullscreenModal.Header>
           <FullscreenModal.Title>
-            {activity?.id ? 'Edit Activity' : 'Create a new activity'}
+            {activity?.id ? "Edit Activity" : "Create a new activity"}
           </FullscreenModal.Title>
           <X {...CLOSE_ICON_PROPS} onClick={handleClose} />
         </FullscreenModal.Header>
         <div className={classes.inputs}>
           <div className={classes.titleAndIcon}>
-            <IconPicker
-              className={classes.iconPicker}
-              label="Select an Icon"
-              iconKey={iconKey}
-              onIconChange={setIcon}
-            />
+            <IconPicker className={classes.iconPicker} label="Select an Icon" iconKey={iconKey} onIconChange={setIcon} />
             <TextField
               label="Title"
-              iconKey={iconKey || 'PencilLine'}
+              iconKey={iconKey || "PencilLine"}
               name="title"
               max={50}
               placeholder="What's the name of your activity?"
               value={title}
-              onChange={handleTitleChange}
+              onChange={(e) => setTitle(e.target.value)}
             />
           </div>
           <TextField
@@ -210,55 +162,21 @@ const ActivityEditForm = ({
             max={250}
             placeholder="Give a brief description of your activity."
             value={description}
-            onChange={handleDescriptionChange}
+            onChange={(e) => setDescription(e.target.value)}
           />
-          <div className={classes.categorySelectWrapper}>
-            <CategorySelect
-              label="Categories (optional)"
-              placeholder="Select a category for your activity."
-              categoryIds={categoryIds}
-              onCategoriesChange={setCategories}
-            />
-          </div>
-          <RatingPicker
-            label="How did you feel about this activity?"
-            rating={rating}
-            onRatingChange={setRating}
+          <CategorySelect
+            label="Categories (optional)"
+            placeholder="Select a category for your activity."
+            categoryIds={categoryIds}
+            onCategoriesChange={setCategories}
           />
+          <RatingPicker label="How did you feel about this activity?" rating={rating} onRatingChange={setRating} />
           <DatePicker label="Date" date={startTime} onDateChange={setDate} />
-          <TimePicker
-            label="Time"
-            startTime={startTime}
-            endTime={endTime}
-            isNow={isNow}
-            onTimeChange={setTime}
-          />
-        </div>
-        <div className="alerts-container">
-          {alerts?.map((alert: { id: any; severity: any; icon: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined; title: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined; content: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined; }, index: number) => (
-            <div
-              key={alert.id || index}
-              className={`alert-card alert-${alert.severity}`}
-              style={{ bottom: `${20 + index * 10}px` }}
-              onClick={() => removeAlert(alert.id || index)}
-            >
-              <div className="alert-content-container">
-                <div className="alert-icon">{alert.icon}</div>
-                <div className="alert-header">
-                  <div className="alert-title">{alert.title}</div>
-                  <p className="alert-content">{alert.content}</p>
-                </div>
-              </div>
-            </div>
-          ))}
+          <TimePicker label="Time" startTime={startTime} endTime={endTime} onTimeChange={setTime} isNow={false} />
         </div>
         <FullscreenModal.ButtonsPanel>
-          <Button
-            variant="primary"
-            onClick={handlePrimaryButton}
-            disabled={!isChanged && !!activity?.id}
-          >
-            {activity?.id ? 'Save Changes' : 'Create Activity'}
+          <Button variant="primary" onClick={handlePrimaryButton} disabled={!isChanged && !!activity?.id}>
+            {activity?.id ? "Save Changes" : "Create Activity"}
           </Button>
           <Button
             variant="secondary"
@@ -267,7 +185,7 @@ const ActivityEditForm = ({
             isDangerous={!!activity}
             disabled={!activity?.id && !isChanged}
           >
-            {activity?.id ? 'Delete Activity' : 'Reset'}
+            {activity?.id ? "Delete Activity" : "Reset"}
           </Button>
         </FullscreenModal.ButtonsPanel>
       </form>
