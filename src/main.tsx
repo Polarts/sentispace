@@ -7,7 +7,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import CategoryContextProvider from './features/categories/CategoriesContext';
 import DayViewContextProvider from './features/views/day/DayViewContext';
 import { InstallPromptProvider } from './data/contexts/InstallPromptContext';
-import { AlertsPromptProvider } from './components/generic/Alert'; // Import from your Alert file
+import { AlertsPromptProvider } from './components/generic/Alert';
 import { generateData } from './data/MOCK_DATA';
 import { routesConfig } from './features/navigation/routes';
 
