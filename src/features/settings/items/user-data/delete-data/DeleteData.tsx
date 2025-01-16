@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import SettingsItem from '../../../settings-item/SettingsItem';
 import { db } from '../../../../../data/Database';
 import { DELETE_GUARD, DELETE_SUCCESS } from '../userData.constants';
-import { useAlerts } from '@/data/contexts/alertsPromptContext';
+import { useAlerts } from '@/components/generic/Alert';
 
 const DeleteData = () => {
   const [deleteGuard, setDeleteGuard] = useState(true);
@@ -12,10 +12,8 @@ const DeleteData = () => {
     if (deleteGuard) {
       showAlert({
         title: DELETE_GUARD.title,
-        content: DELETE_GUARD.description, 
+        description: DELETE_GUARD.description,
         severity: DELETE_GUARD.severity,
-        marginBottom: undefined,
-        marginTop: undefined,
       });
       setDeleteGuard(false);
 
@@ -31,10 +29,8 @@ const DeleteData = () => {
 
     showAlert({
       title: DELETE_SUCCESS.title,
-      content: DELETE_SUCCESS.description, 
+      description: DELETE_SUCCESS.description,
       severity: DELETE_SUCCESS.severity,
-      marginBottom: undefined,
-      marginTop: undefined,
     });
   };
 
