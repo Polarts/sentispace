@@ -35,17 +35,18 @@ export const useAlerts = () => {
 };
 
 const getAlertIcon = (severity: SeverityType) => {
+  const iconProps = { size: 50 };
   switch (severity) {
     case 'success':
-      return <CheckCircle />;
+      return <CheckCircle {...iconProps} />;
     case 'error':
-      return <XCircle />;
+      return <XCircle {...iconProps} />;
     case 'info':
-      return <Info />;
+      return <Info {...iconProps} />;
     case 'warning':
-      return <Warning />;
+      return <Warning {...iconProps} />;
     default:
-      return <span>❔</span>;
+      return <span style={{ fontSize: '5em' }}>❔</span>;
   }
 };
 
@@ -118,7 +119,9 @@ export const AlertsPromptProvider = ({ children }: { children: ReactNode }) => {
             marginTop={index > 0}
             className={cx('stacked-alert')}
             style={{
-              transform: `translate(-50%, -50%) scale(${1 - index * 0.01})`, 
+              transform: `translate(-50%, ${index * 10}px) scaleY(${1 - index * 0.05})`,
+              borderBottomWidth: `${5 - index}px`,
+              transition: 'transform 0.3s, border-bottom-width 0.3s',
             }}
             onDismiss={() => removeAlert(alert.id)}
           />
