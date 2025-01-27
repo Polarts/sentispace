@@ -105,7 +105,7 @@ const ActivityEditForm = ({
     if (alerts.length > 0) {
       const firstAlert = document.querySelector(`.${classes.alertsContainer}`);
       const createButton = document.querySelector(".create-activity-button");
-      
+
       if (firstAlert && createButton) {
         const buttonRect = createButton.getBoundingClientRect();
         (firstAlert as HTMLElement).style.bottom = `${window.innerHeight - buttonRect.top + 20}px`;
@@ -122,12 +122,17 @@ const ActivityEditForm = ({
             onClick={() => alerts.forEach((alert: { id: any }) => removeAlert(alert.id))}
           />
           <div className={classes.alertsContainer} tabIndex={-1}>
-            {alerts.map((alert: { id: React.Key | null | undefined; severity: string; title: string | undefined; description: string | undefined }) => (
+            {alerts.map((alert: { id: React.Key | null | undefined; severity: string; title: string | undefined; description: string | undefined; }, index: number) => (
               <Alert
                 key={alert.id}
                 severity={alert.severity as SeverityType}
                 title={alert.title}
                 description={alert.description}
+                style={{
+                  transform: `translate(-50%, ${index * 10}px) scaleY(${1 - index * 0.05})`,
+                  borderBottomWidth: `${5 - index}px`,
+                  transition: 'transform 0.3s, border-bottoam-width 0.3s',
+                }}
                 onDismiss={() => removeAlert(alert.id)}
               />
             ))}
