@@ -5,7 +5,7 @@ import classes from './Alert.module.scss';
 
 const cx = classNames.bind(classes);
 
-export type SeverityType = 'error' | 'warning' | 'info' | 'success';
+export type SeverityType = "success" | "error" | "info" | "warning";
 
 interface AlertProps {
   severity: SeverityType;
@@ -52,16 +52,9 @@ const getAlertIcon = (severity: SeverityType) => {
 
 const Alert = ({ severity, title, description, marginTop, className, style, onDismiss }: AlertProps) => (
   <div
-    className={cx(
-      'alert-card',
-      `alert-${severity}`,
-      className,
-      marginTop && 'marginTop'
-    )}
+    className={cx('alert-card', `alert-${severity}`, className, marginTop && 'marginTop')}
     style={style}
-    onClick={() => {
-      onDismiss?.();
-    }}
+    onClick={() => onDismiss?.()}
   >
     <div className={cx('alert-icon')}>{getAlertIcon(severity)}</div>
     <div className={cx('alert-content-container')}>
@@ -73,7 +66,30 @@ const Alert = ({ severity, title, description, marginTop, className, style, onDi
 
 export const AlertsPromptProvider = ({ children }: { children: ReactNode }) => {
   const [alerts, setAlerts] = useState<AlertType[]>([]);
+  const [fontSize, setFontSize] = useState('1rem');
   const alertTimeouts = useRef<{ [key: string]: NodeJS.Timeout }>({});
+
+  const adjustFontSize = () => {
+    if (alerts.length === 0) {
+      setFontSize('1rem');
+      return;
+    }
+
+    const longestMessageLength = Math.max(
+      ...alerts.map(
+        (alert) => `${alert.title ?? ''} ${alert.description ?? ''}`.length
+      )
+    );
+
+    let calculatedFontSize = '1rem';
+    if (longestMessageLength > 100) {
+      calculatedFontSize = '0.8rem'; 
+    } else if (longestMessageLength > 50) {
+      calculatedFontSize = '0.875rem'; 
+    }
+
+    setFontSize(calculatedFontSize);
+  };
 
   const showAlert = ({ title, severity, description }: Omit<AlertType, 'id'>) => {
     setAlerts((prev) => {
@@ -100,6 +116,10 @@ export const AlertsPromptProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
+    adjustFontSize();
+  }, [alerts]);
+
+  useEffect(() => {
     return () => {
       Object.values(alertTimeouts.current).forEach(clearTimeout);
       alertTimeouts.current = {};
@@ -109,7 +129,7 @@ export const AlertsPromptProvider = ({ children }: { children: ReactNode }) => {
   return (
     <AlertsContext.Provider value={{ alerts, showAlert, removeAlert }}>
       {children}
-      <div className={cx('alertsContainer')}>
+      <div className={cx('alertsContainer')} style={{ '--alert-font-size': fontSize } as React.CSSProperties}>
         {alerts.map((alert, index) => (
           <Alert
             key={alert.id}
@@ -119,11 +139,11 @@ export const AlertsPromptProvider = ({ children }: { children: ReactNode }) => {
             marginTop={index > 0}
             className={cx('stacked-alert')}
             style={{
-              transform: `translate(-50%, ${index * 10}px) scaleY(${1 - index * 0.05})`,
-              borderBottomWidth: `${5 - index}px`,
-              transition: 'transform 0.3s, border-bottom-width 0.3s',
+              transform: `translate(-50%, ${index * 15}px) scaleY(${Math.max(0.4, 1 - index * 0.05)})`,
+              borderBottomWidth: `${Math.max(1, 5 - index)}px`,
+              transition: 'transition: top 0.3s ease, opacity 0.3s ease',
             }}
-            onDismiss={() => removeAlert(alert.id)}
+            onDismiss={() => setTimeout(() => removeAlert(alert.id), 100)}
           />
         ))}
       </div>
