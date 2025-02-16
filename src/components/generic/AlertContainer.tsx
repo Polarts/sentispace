@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Alert, { SeverityType, useAlerts } from "./Alert";
-import classes from "./AlertsContainer.module.scss";
+import classes from "./Alert.module.scss";
 import alertStackClasses from "./AlertStack.module.scss";
 
 const AlertsContainer = () => {
@@ -27,7 +27,7 @@ const AlertsContainer = () => {
         className={`${classes.alertsContainer} ${alertBottomOffset !== null ? alertStackClasses.alertBottomOffset : ""}`}
         tabIndex={-1}
       >
-        {alerts.map((alert: { id: React.Key | null | undefined; severity: any; title: string | undefined; description: string | undefined; }, index: number) => (
+        {alerts.map((alert: { id: React.Key | null | undefined; severity: SeverityType; title: string | undefined; description: string | undefined; }, index: number) => (
           <Alert
             key={alert.id}
             severity={alert.severity as SeverityType} 
