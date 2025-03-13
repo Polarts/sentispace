@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useRef, ReactNode } from 'react';
-import { CheckCircle, Info, Warning, XCircle } from '@phosphor-icons/react';
+import { CheckCircle, Info, Question, Warning, XCircle } from '@phosphor-icons/react';
 import classNames from 'classnames/bind';
 import classes from './Alert.module.scss';
 
@@ -24,7 +24,16 @@ export type AlertType = {
   description: string;
 };
 
-const AlertsContext = createContext<any>(undefined);
+
+const defaultState = {
+  alerts: [] as AlertType[],
+  showAlert: (_: Omit<AlertType, 'id'>) => {},
+  removeAlert: (_: string) => {},
+};
+
+export type AlertsContextState = typeof defaultState;
+
+const AlertsContext = createContext<AlertsContextState>(defaultState);
 
 export const useAlerts = () => {
   const context = useContext(AlertsContext);
@@ -46,7 +55,7 @@ const getAlertIcon = (severity: SeverityType) => {
     case 'warning':
       return <Warning {...iconProps} />;
     default:
-      return <span style={{ fontSize: '5em' }}>❔</span>;
+      return <Question {...iconProps} />;
   }
 };
 
@@ -76,24 +85,24 @@ export const AlertsPromptProvider = ({ children }: { children: ReactNode }) => {
     }
 
     const longestMessageLength = Math.max(
-      ...alerts.map(
-        (alert) => `${alert.title ?? ''} ${alert.description ?? ''}`.length
-      )
+      ...alerts.map(alert => `${alert.title ?? ''} ${alert.description ?? ''}`.length)
     );
 
     let calculatedFontSize = '1rem';
     if (longestMessageLength > 100) {
-      calculatedFontSize = '0.8rem'; 
+      calculatedFontSize = '0.8rem';
     } else if (longestMessageLength > 50) {
-      calculatedFontSize = '0.875rem'; 
+      calculatedFontSize = '0.875rem';
     }
 
     setFontSize(calculatedFontSize);
   };
 
+  useEffect(adjustFontSize, [alerts]); 
+
   const showAlert = ({ title, severity, description }: Omit<AlertType, 'id'>) => {
-    setAlerts((prev) => {
-      if (prev.some((alert) => alert.severity === severity)) {
+    setAlerts(prev => {
+      if (prev.some(alert => alert.severity === severity)) {
         return prev;
       }
       const id = `${Date.now()}-${Math.random()}`;
@@ -108,16 +117,12 @@ export const AlertsPromptProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const removeAlert = (id: string) => {
-    setAlerts((prev) => prev.filter((alert) => alert.id !== id));
+    setAlerts(prev => prev.filter(alert => alert.id !== id));
     if (alertTimeouts.current[id]) {
       clearTimeout(alertTimeouts.current[id]);
       delete alertTimeouts.current[id];
     }
   };
-
-  useEffect(() => {
-    adjustFontSize();
-  }, [alerts]);
 
   useEffect(() => {
     return () => {
@@ -141,7 +146,7 @@ export const AlertsPromptProvider = ({ children }: { children: ReactNode }) => {
             style={{
               transform: `translate(-50%, ${index * 15}px) scaleY(${Math.max(0.4, 1 - index * 0.05)})`,
               borderBottomWidth: `${Math.max(1, 5 - index)}px`,
-              transition: 'transition: top 0.3s ease, opacity 0.3s ease',
+              transition: 'top 0.3s ease, opacity 0.3s ease',
             }}
             onDismiss={() => setTimeout(() => removeAlert(alert.id), 100)}
           />
