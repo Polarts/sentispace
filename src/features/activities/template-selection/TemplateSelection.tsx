@@ -10,10 +10,11 @@ import { Activity } from '../Activity.interface'
 import classes from './TemplateSelection.module.scss'
 
 interface TemplateSelectionProps {
+  open: boolean
   onClose: () => void
 }
 
-const TemplateSelection = ({ onClose }: TemplateSelectionProps) => {
+const TemplateSelection = ({ open, onClose }: TemplateSelectionProps) => {
   const activities =
     useLiveQuery<Activity[]>(() =>
       db.activities.where('isTemplate').equals(1).toArray(),
@@ -22,7 +23,7 @@ const TemplateSelection = ({ onClose }: TemplateSelectionProps) => {
   const [selectedActivity, setSelectedActivity] = useState<IndexableType>(0)
 
   return (
-    <FullscreenModal className={classes.modal}>
+    <FullscreenModal open={open} className={classes.modal}>
       <FullscreenModal.Header>
         <ArrowLeft size={24} onClick={onClose} />
         <FullscreenModal.Title className={classes.modalTitle}>

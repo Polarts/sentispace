@@ -11,6 +11,8 @@ import Button from '../../../components/input/button/Button'
 import { CategoriesContext } from '../CategoriesContext'
 import CategoryModal from '../category-edit-modal/CategoryModal'
 import CategoryRow from './CategoryRow'
+import { motion } from 'framer-motion'
+import { fadeAnimationProps } from '@/utils/constants/motion-animations'
 
 const cx = classNames.bind(classes)
 
@@ -80,7 +82,10 @@ const Categories = () => {
   }
 
   return (
-    <div className={classes.categories}>
+    <motion.div
+      className={classes.categories}
+      {...fadeAnimationProps}
+    >
       <h1 className={classes.header}>Categories</h1>
       <div className={classes.sortingRow}>
         <span
@@ -142,11 +147,12 @@ const Categories = () => {
         >
           Create Category
         </Button>
-        {isCreateCategoryModalOpen && (
-          <CategoryModal onClose={() => setIsCreateCategoryModalOpen(false)} />
-        )}
+        <CategoryModal
+          open={isCreateCategoryModalOpen}
+          onClose={() => setIsCreateCategoryModalOpen(false)}
+        />
       </div>
-    </div>
+    </motion.div>
   )
 }
 

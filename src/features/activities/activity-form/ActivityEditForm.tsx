@@ -17,6 +17,7 @@ import useActivityForm from "./state/useActivityForm";
 import AlertsContainer from "@/components/generic/AlertContainer";
 
 interface ActivityEditFormProps {
+  open: boolean;
   onClose: () => void;
   activity?: Partial<Activity>;
   onCloseTemplateSelection?: () => void;
@@ -26,6 +27,7 @@ interface ActivityEditFormProps {
 const CLOSE_ICON_PROPS = { size: 24 };
 
 const ActivityEditForm = ({
+  open,
   onClose,
   activity,
   onCloseTemplateSelection,
@@ -90,10 +92,10 @@ const ActivityEditForm = ({
     if (activity?.id) {
       await db.activities.delete(activity.id);
       showAlert({ severity: "info", title: "Activity Deleted", description: "The activity has been deleted." });
+      onClose();
     }
-
+    
     resetState();
-    onClose();
   };
 
   const handleClose = (event: MouseEvent | TouchEvent): void => {
@@ -102,7 +104,7 @@ const ActivityEditForm = ({
   };
 
   return (
-    <FullscreenModal>
+    <FullscreenModal open={open}>
       <AlertsContainer />
       <form className={classes.form}>
         <FullscreenModal.Header>

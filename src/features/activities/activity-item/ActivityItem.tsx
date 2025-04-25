@@ -1,3 +1,4 @@
+import { fadeAnimationProps } from '@/utils/constants/motion-animations'
 import { getIconComponent } from '@assets/icons'
 import { Category } from '@categories/Category.interface'
 import { Heart, IconProps } from '@phosphor-icons/react'
@@ -5,6 +6,7 @@ import { formatTimeRange } from '@utils/functions'
 import { useOutsideClick } from '@utils/hooks'
 import classNames from 'classnames/bind'
 import { IndexableType } from 'dexie'
+import { motion } from 'framer-motion'
 import {
   MouseEvent,
   TouchEvent,
@@ -153,14 +155,23 @@ const ActivityItem = ({
       ref={activityRef}
     >
       {isSelected && (
-        <div className={classes.blurred}>
-          {(templateView ? templateOptions : activityOptions).map((option) => (
-            <ActivityOption
+        <motion.div
+          key={'selection-pane'}
+          className={classes.blurred}
+          {...fadeAnimationProps}
+        >
+          {(templateView ? templateOptions : activityOptions).map((option, i) => (
+            <motion.div
               key={`option_${option.label}_${option.iconKey}`}
-              {...option}
-            />
+              transition={{ duration: 0.2 }}
+              initial={{ opacity: 0, y: '100%' }}
+              animate={{ opacity: 1, y: '0%', transition: { delay: i * 0.1 } }}
+              exit={{ opacity: 0, y: '-100%' }}
+            >
+              <ActivityOption {...option} />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       )}
       <div className={classes.content}>
         <div className={classes.icon}>
@@ -190,22 +201,22 @@ const ActivityItem = ({
           ))}
         </div>
       </div>
-      {isEditFormOpen && (
-        <ActivityEditForm
-          onClose={() => setIsEditFormOpen(false)}
-          onCloseTemplateSelection={
-            onCloseTemplateModal ? onCloseTemplateModal : undefined
-          }
-          activity={{
-            iconKey,
-            title,
-            description,
-            rating,
-            categoryIds,
-            ...(templateView || isDuplicate ? {} : { id, startTime, endTime }),
-          }}
-        />
-      )}
+      <ActivityEditForm
+        open={isEditFormOpen}
+        onClose={() => setIsEditFormOpen(false)}
+        onCloseTemplateSelection={
+          onCloseTemplateModal ? onCloseTemplateModal : undefined
+        }
+        activity={{
+          iconKey,
+          title,
+          description,
+          rating,
+          categoryIds,
+          ...(templateView || isDuplicate ? {} : { id, startTime, endTime }),
+        }}
+      />
+
     </article>
   )
 }

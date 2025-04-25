@@ -77,13 +77,12 @@ const CategorySelect = ({
           </div>
         </div>
       </div>
-      {isOpen && (
-        <CategorySelectionModal
-          onClose={handleSelectToggle}
-          categoryIds={categoryIds}
-          onCategoriesChange={setSelectedCategories}
-        />
-      )}
+      <CategorySelectionModal
+        open={isOpen}
+        onClose={handleSelectToggle}
+        categoryIds={categoryIds}
+        onCategoriesChange={setSelectedCategories}
+      />
     </>
   );
 };

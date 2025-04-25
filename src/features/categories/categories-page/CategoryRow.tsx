@@ -30,12 +30,11 @@ const CategoryRow = (
           [`color${color}`]: color,
         })}
       />
-      {isModalOpen && (
-        <CategoryModal
-          category={{ id, name, color }}
-          onClose={() => setIsModalOpen(false)}
-        />
-      )}
+      <CategoryModal
+        open={isModalOpen}
+        category={{ id, name, color }}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   )
 }

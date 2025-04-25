@@ -12,6 +12,7 @@ import { Category } from '../Category.interface'
 const cx = classNames.bind(classes)
 
 interface CategoryModalProps {
+  open: boolean
   onClose: () => void
   category?: Category
 }
@@ -22,7 +23,7 @@ type AlertType = {
   description: string
 }
 
-const CategoryModal = ({ onClose, category }: CategoryModalProps) => {
+const CategoryModal = ({ open, onClose, category }: CategoryModalProps) => {
   const { categories } = useContext(CategoriesContext)
   const [name, setName] = useState<string>(category?.name || '')
   const [color, setColor] = useState<number>(category?.color || 0)
@@ -103,6 +104,7 @@ const CategoryModal = ({ onClose, category }: CategoryModalProps) => {
 
   return (
     <ModalPopup
+      open={open}
       title={title}
       primaryButtonText={primaryButtonText}
       disabledPrimaryButton={disabledPrimaryButton}

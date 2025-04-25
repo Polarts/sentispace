@@ -40,20 +40,20 @@ const NavBar = () => {
           <Button variant="primary" onClick={handleCreateActivity}>
             Create Activity
           </Button>
-          {isActivityModalOpen && (
-            <ActivityEditForm onClose={() => setIsActivityModalOpen(false)} />
-          )}
+          <ActivityEditForm
+            open={isActivityModalOpen}
+            onClose={() => setIsActivityModalOpen(false)}
+          />
           <Button
             variant="secondary"
             onClick={handleCreateActivityFromTemplate}
           >
             Create from Template
           </Button>
-          {isTemplateSelectionModalOpen && (
-            <TemplateSelection
-              onClose={() => setIsTemplateSelectionModalOpen(false)}
-            />
-          )}
+          <TemplateSelection
+            open={isTemplateSelectionModalOpen}
+            onClose={() => setIsTemplateSelectionModalOpen(false)}
+          />
         </div>
       </div>
       <div className={classes.navButtons}>

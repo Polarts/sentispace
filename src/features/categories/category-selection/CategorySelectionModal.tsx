@@ -8,16 +8,17 @@ import { CategoriesContext, ICategoriesContext } from '../CategoriesContext';
 import CategoryModal from '../category-edit-modal/CategoryModal';
 import CategoryBadge from './category-badge/CategoryBadge';
 import CategoryItem from './CategoryItem';
-import { CategorySelectionFunction } from './CategorySelect';
 import classes from './CategorySelect.module.scss';
 
 type CategorySelectionModalProps = {
+  open: boolean;
   onClose: () => void;
   categoryIds: IndexableType[];
   onCategoriesChange: (categories: IndexableType[]) => void;
 };
 
 const CategorySelectionModal = ({
+  open,
   onClose,
   categoryIds,
   onCategoriesChange,
@@ -39,7 +40,7 @@ const CategorySelectionModal = ({
     setIsNewCategoryModalOpen(true);
   };
 
-  const handleCategorySelection: CategorySelectionFunction = (categoryId, operation) => {
+  const handleCategorySelection = (categoryId: IndexableType, operation: string) => {
     switch (operation) {
       case 'add':
         onCategoriesChange([...categoryIds, categoryId]);
@@ -51,18 +52,15 @@ const CategorySelectionModal = ({
   };
 
   return (
-    <FullscreenModal>
+    <FullscreenModal open={open}>
       <FullscreenModal.Header>
         <ArrowLeft size={24} onClick={onClose} />
         <div className={classes.headerContainer}>
           <FullscreenModal.Title className={classes.modalTitle}>Labels</FullscreenModal.Title>
-          {/* <Button onClick={handleOnClick} className={classes.saveButton}>
-            Save
-          </Button> */}
-
-          {isNewCategoryModalOpen && (
-            <CategoryModal onClose={() => setIsNewCategoryModalOpen(false)} />
-          )}
+          <CategoryModal
+            open={isNewCategoryModalOpen}
+            onClose={() => setIsNewCategoryModalOpen(false)}
+          />
         </div>
       </FullscreenModal.Header>
 
@@ -77,30 +75,30 @@ const CategorySelectionModal = ({
             className={`${classes.textFieldOverride} ${classes.textFieldWhite}`}
           />
         </div>
-        
-        <div className={classes.selectionList}>
-        <div className={classes.border}>
 
-          {/* Selected Category Badges Section */}
-          <div className={classes.categoryBadges}>
-            <div className={classes.fixedLabel}>Selected</div>
-            {categories
-              ?.filter(({ id }) => categoryIds.includes(id))
-              .map((cat) => (
-                <CategoryBadge
-                  {...cat}
-                  onClick={() => handleCategorySelection(cat.id, 'remove')}
-                  onDelete={() => handleCategorySelection(cat.id, 'remove')}
-                  deletable
-                  key={cat.id.toString()}
-                />
-              ))}
-                </div>
+        <div className={classes.selectionList}>
+          <div className={classes.border}>
+
+            {/* Selected Category Badges Section */}
+            <div className={classes.categoryBadges}>
+              <div className={classes.fixedLabel}>Selected</div>
+              {categories
+                ?.filter(({ id }) => categoryIds.includes(id))
+                .map((cat) => (
+                  <CategoryBadge
+                    {...cat}
+                    onClick={() => handleCategorySelection(cat.id, 'remove')}
+                    onDelete={() => handleCategorySelection(cat.id, 'remove')}
+                    deletable
+                    key={cat.id.toString()}
+                  />
+                ))}
+            </div>
           </div>
-          {/* <div className={classes.border}> */}
-            {/* Selectable Categories Section */}
-            <div className={classes.selectItems}>            <div className={classes.fixedLabelSelectItems}>Select Labels</div>
-             
+
+          {/* Selectable Categories Section */}
+          <div className={classes.selectItems}>
+            <div className={classes.fixedLabelSelectItems}>Select Labels</div>
             {filteredCategories
               ?.filter(({ id }) => !categoryIds.includes(id))
               .map(({ id, name, color }) => (
@@ -112,8 +110,8 @@ const CategorySelectionModal = ({
                   onChange={handleCategorySelection}
                 />
               ))}
-          {/* </div> */}
-        </div>
+          </div>
+
         </div>
       </div>
       <FullscreenModal.ButtonsPanel className={classes.buttons}>

@@ -2,10 +2,15 @@ import classes from './Insights.module.scss'
 import DistributionChart from '../distribution-chart/DistributionChart'
 import InsightsContextProvider from '../../../data/contexts/InsightsContext'
 import OverviewStats from '../overview-stats/OverviewStats'
+import { motion } from 'framer-motion'
+import { fadeAnimationProps } from '@/utils/constants/motion-animations'
 
 const Insights = () => {
   return (
-    <div className={classes.insights}>
+    <motion.div 
+      className={classes.insights}
+      {...fadeAnimationProps}
+    >
       <h1 className={classes.header}>Insights</h1>
       <InsightsContextProvider>
         <div className={classes.content}>
@@ -13,7 +18,7 @@ const Insights = () => {
           <DistributionChart />
         </div>
       </InsightsContextProvider>
-    </div>
+    </motion.div>
   )
 }
 

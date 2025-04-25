@@ -11,6 +11,8 @@ import CategoryFilterModal from '../../../categories/category-filter-modal/Categ
 import { DayViewContext } from '../DayViewContext'
 import { useFilteredActivities } from '../../../activities/useFilteredActivities'
 import DayCarousel from '../day-carousel/DayCarousel'
+import { motion } from 'framer-motion'
+import { fadeAnimationProps } from '@/utils/constants/motion-animations'
 
 const cx = classNames.bind(classes)
 
@@ -40,7 +42,10 @@ function DayView() {
   )
 
   return (
-    <div className={classes.viewContainer}>
+    <motion.div 
+      className={classes.viewContainer}
+      {...fadeAnimationProps}
+    >
       <div className={classes.header}>
         <h1 className={classes.displayedMonth}>{displayedMonthYear}</h1>
         <div className={cx({ clickableText: true, invalid: true })}>
@@ -82,7 +87,7 @@ function DayView() {
       {isFilterModalOpen && (
         <CategoryFilterModal onClose={() => setIsFilterModalOpen(false)} />
       )}
-    </div>
+    </motion.div>
   )
 }
 

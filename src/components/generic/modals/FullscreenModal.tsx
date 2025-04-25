@@ -3,8 +3,9 @@ import classNames from 'classnames'
 import { FC } from 'react'
 import { createPortal } from 'react-dom'
 import classes from './FullscreenModal.module.scss'
+import { AnimatePresence, motion } from 'framer-motion'
 
-type FSModalComp = FC<ClassNameProps & ChildrenProps> & {
+type FSModalComp = FC<ClassNameProps & ChildrenProps & { open: boolean }> & {
   ButtonsPanel: FC<ClassNameProps & ChildrenProps>
   Header: FC<ClassNameProps & ChildrenProps>
   Title: FC<ClassNameProps & ChildrenProps>
@@ -22,14 +23,24 @@ type FSModalComp = FC<ClassNameProps & ChildrenProps> & {
  *
  * @param children React children
  */
-const FullscreenModal: FSModalComp = ({ children, className }) => {
+const FullscreenModal: FSModalComp = ({ children, className, open }) => {
   return createPortal(
-    <div
-      className={classNames(classes.fullscreenModal, className)}
-      onClick={(event) => event.stopPropagation()}
-    >
-      <div className={classes.container}>{children}</div>
-    </div>,
+    <AnimatePresence mode='wait'>
+      {open && (
+        <motion.div
+          key={'modal-wrapper'}
+          className={classNames(classes.fullscreenModal, className)}
+          onClick={(event) => event.stopPropagation()}
+          transition={{ ease: 'linear' }}
+          initial={{ y: '100%' }}
+          animate={{ y: '0%' }}
+          exit={{ y: '100%' }}
+        >
+          <div className={classes.container}>{children}</div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+    ,
     document.body,
   )
 }
