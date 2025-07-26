@@ -16,6 +16,7 @@ interface SelectProps {
   iconKey?: IconKeyType;
   categoryIds: IndexableType[];
   onCategoriesChange: (categories: IndexableType[]) => void;
+   readOnly?: boolean;
 }
 
 const CategorySelect = ({
@@ -23,6 +24,7 @@ const CategorySelect = ({
   placeholder,
   categoryIds,
   onCategoriesChange: setSelectedCategories,
+  readOnly,
 }: SelectProps) => {
   const { categories } = useContext(CategoriesContext);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -31,52 +33,62 @@ const CategorySelect = ({
     setIsOpen((prev) => !prev);
   };
 
-  const handleCategorySelection = (categoryId: IndexableType, operation: 'add' | 'remove') => {
-    switch (operation) {
-      case 'add':
-        setSelectedCategories([...categoryIds, categoryId]);
-        break;
-      case 'remove':
-        setSelectedCategories(categoryIds.filter((id) => id !== categoryId));
-        break;
-    }
-  };
+const handleCategorySelection = (categoryId: IndexableType, operation: 'add' | 'remove') => {
+  if (readOnly && operation === 'remove') return;
+
+  switch (operation) {
+    case 'add':
+      setSelectedCategories([...categoryIds, categoryId]);
+      break;
+    case 'remove':
+      setSelectedCategories(categoryIds.filter((id) => id !== categoryId));
+      break;
+  }
+};
 
   return (
     <>
-      <div className={classes.categorySelect}>
-        <span className={classes.label}>{label}</span>
-        <div
-          tabIndex={0}
-          className={cx({ select: true, isOpen })}
-          onClick={handleSelectToggle}
-        >
-          <div className={classes.selectIcon}>
-            <Hash />
-          </div>
-          <div className={classes.selectedCategoriesWrapper}>
-            {categoryIds.length === 0 ? (
-              <span className={classes.placeholder}>{placeholder}</span>
-            ) : (
-              <div className={classes.flexContainer}>
-                {categories
-                  ?.filter(({ id }) => categoryIds.includes(id))
-                  .map((cat) => (
-                    <div className={classes.flexContainerItem} key={cat.id.toString()}>
-                      <CategoryBadge
-                        {...cat}
-                        onClick={() => handleCategorySelection(cat.id, 'remove')}
-                      />
-                    </div>
-                  ))}
+   <div className={classes.categorySelect}>
+  <span className={classes.label}>{label}</span>
+  <div
+    tabIndex={0}
+    className={cx({ select: true, isOpen })}
+    onClick={handleSelectToggle}
+  >
+    <div className={classes.selectIcon}>
+      <Hash />
+    </div>
+    <div className={classes.selectedCategoriesWrapper}>
+      {categoryIds.length === 0 ? (
+        <span className={classes.placeholder}>{placeholder}</span>
+      ) : (
+        <div className={classes.flexContainer}>
+          {categories
+            ?.filter(({ id }) => categoryIds.includes(id))
+            .map((cat) => (
+              <div className={classes.flexContainerItem} key={cat.id.toString()}>
+               <CategoryBadge
+  {...cat}
+  onClick={!readOnly ? () => handleCategorySelection(cat.id, 'remove') : undefined}
+/>
               </div>
-            )}
-          </div>
-          <div className={classes.toggleSelect}>
-            <CaretRight />
-          </div>
+            ))}
         </div>
-      </div>
+      )}
+    </div>
+    <div className={classes.toggleSelect}>
+      <CaretRight />
+    </div>
+  </div>
+
+  {isOpen && (
+    <CategorySelectionModal
+      onClose={handleSelectToggle}
+      categoryIds={categoryIds}
+      onCategoriesChange={setSelectedCategories}
+    />
+  )}
+</div>
       {isOpen && (
         <CategorySelectionModal
           onClose={handleSelectToggle}
