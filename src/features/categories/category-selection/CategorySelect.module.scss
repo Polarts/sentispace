@@ -1,4 +1,4 @@
-@use '../../../styles/config/mixins' as *; 
+@use '../../../styles/config/mixins' as *;
 $gap: 2px;
 
 .categorySelect {
@@ -8,6 +8,7 @@ $gap: 2px;
   display: flex;
   justify-content: flex-start;
 }
+
 
 .modalContent {
   @include flex(column);
@@ -36,15 +37,18 @@ $gap: 2px;
 .select {
   @include flex(row, space-between, center);
   width: 100%;
-  @include focus;
-  color: var(--color-neutral-2);
+  background-color: white; 
+  border: 1px solid var(--color-neutral-4); 
   border-radius: var(--border-radius-inner);
-  position: relative;
+  padding: var(--spacing-sm);
+  gap: var(--spacing-sm);
+  // cursor: pointer;
 
   .placeholder {
     @include text-truncate;
-    padding-right: var(--spacing-sm);
     flex-grow: 1;
+    color: var(--color-neutral-3);
+    padding-left: var(--spacing-sm);
   }
 
   .selectedLabel {
@@ -96,9 +100,13 @@ $gap: 2px;
 }
 
 .toggleSelect {
-  border-left: $gap solid var(--color-neutral-4);
-  padding: var(--spacing-sm);
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-left: 2px solid var(--color-neutral-4); 
+  padding-left: var(--spacing-sm);
+  margin-left: var(--spacing-sm);
+  color: var(--color-neutral-3);
 }
 
 .sideButton {
@@ -111,6 +119,14 @@ $gap: 2px;
   flex-wrap: wrap;
   gap: var(--spacing-xs);
   justify-content: flex-start;
+  flex-grow: 1;
+  min-height: 40px;
+}
+
+.headerContainer {
+  display: flex;
+  align-items: left;
+  gap: 8px;
 }
 
 .modalTitle {
@@ -211,27 +227,25 @@ $gap: 2px;
 .flexContainer {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  gap: var(--spacing-xs);
   width: 100%;
-  gap: 5px;
+  justify-content: flex-start;
 
   @media (max-width: 768px) {
-    gap: 2px;
+    gap: var(--spacing-xxs);
   }
 }
 
 .flexContainerItem {
   display: flex;
   align-items: flex-start;
-  flex: 0 0 calc(25% - 5px); 
-  height: 50px;
+  flex: 0 1 auto; 
+  max-width: 100%;
+   min-width: 40px;
+  height: auto;
+  white-space: nowrap;
 
-  @media (max-width: 768px) {
-    flex: 0 0 calc(50% - 2px);
-    height: 40px;
-  }
-
-  @media (max-width: 480px) {
-    flex: 0 0 100%;
+  @media (max-width: 100%) {
+    min-width: 120px; 
   }
 }
