@@ -134,12 +134,13 @@ const ActivityEditForm = ({
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-          <CategorySelect
-            label="Categories (optional)"
-            placeholder="Select a category for your activity."
-            categoryIds={categoryIds}
-            onCategoriesChange={setCategories}
-          />
+<CategorySelect
+  label="Categories (optional)"
+  placeholder="Select a category for your activity."
+  categoryIds={categoryIds}
+  onCategoriesChange={setCategories}
+  readOnly={true}
+/>
           <RatingPicker label="How did you feel about this activity?" rating={rating} onRatingChange={setRating} />
           <DatePicker label="Date" date={startTime} onDateChange={setDate} />
           <TimePicker label="Time" startTime={startTime} endTime={endTime} onTimeChange={setTime} isNow={false} />
