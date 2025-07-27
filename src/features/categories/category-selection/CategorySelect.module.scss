@@ -42,7 +42,7 @@ $gap: 2px;
   border-radius: var(--border-radius-inner);
   padding: var(--spacing-sm);
   gap: var(--spacing-sm);
-  // cursor: pointer;
+
 
   .placeholder {
     @include text-truncate;
@@ -100,9 +100,7 @@ $gap: 2px;
 }
 
 .toggleSelect {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex;
   border-left: 2px solid var(--color-neutral-4); 
   padding-left: var(--spacing-sm);
   margin-left: var(--spacing-sm);
