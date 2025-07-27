@@ -69,8 +69,7 @@ const CategorySelect = ({
                     <div className={classes.flexContainerItem} key={cat.id.toString()}>
                       <CategoryBadge
                         {...cat}
-                        onClick={!readOnly ? () => handleCategorySelection(cat.id, 'remove') : undefined}
-                      />
+                        onClick={() => !readOnly && handleCategorySelection(cat.id, 'remove')} />
                     </div>
                   ))}
               </div>
