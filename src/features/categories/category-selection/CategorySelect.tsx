@@ -9,6 +9,7 @@ import CategoryBadge from './category-badge/CategoryBadge';
 import CategorySelectionModal from './CategorySelectionModal';
 
 const cx = classNames.bind(classes);
+export type CategorySelectionFunction = (categoryId: IndexableType, operation: 'add' | 'remove') => void;
 
 interface SelectProps {
   label: string;
@@ -16,6 +17,7 @@ interface SelectProps {
   iconKey?: IconKeyType;
   categoryIds: IndexableType[];
   onCategoriesChange: (categories: IndexableType[]) => void;
+  readOnly?: boolean;
 }
 
 const CategorySelect = ({
@@ -23,6 +25,7 @@ const CategorySelect = ({
   placeholder,
   categoryIds,
   onCategoriesChange: setSelectedCategories,
+  readOnly,
 }: SelectProps) => {
   const { categories } = useContext(CategoriesContext);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -32,6 +35,7 @@ const CategorySelect = ({
   };
 
   const handleCategorySelection = (categoryId: IndexableType, operation: 'add' | 'remove') => {
+
     switch (operation) {
       case 'add':
         setSelectedCategories([...categoryIds, categoryId]);
@@ -65,8 +69,7 @@ const CategorySelect = ({
                     <div className={classes.flexContainerItem} key={cat.id.toString()}>
                       <CategoryBadge
                         {...cat}
-                        onClick={() => handleCategorySelection(cat.id, 'remove')}
-                      />
+                        onClick={() => !readOnly && handleCategorySelection(cat.id, 'remove')} />
                     </div>
                   ))}
               </div>
@@ -76,14 +79,15 @@ const CategorySelect = ({
             <CaretRight />
           </div>
         </div>
+
+        {isOpen && (
+          <CategorySelectionModal
+            onClose={handleSelectToggle}
+            categoryIds={categoryIds}
+            onCategoriesChange={setSelectedCategories}
+          />
+        )}
       </div>
-      {isOpen && (
-        <CategorySelectionModal
-          onClose={handleSelectToggle}
-          categoryIds={categoryIds}
-          onCategoriesChange={setSelectedCategories}
-        />
-      )}
     </>
   );
 };
